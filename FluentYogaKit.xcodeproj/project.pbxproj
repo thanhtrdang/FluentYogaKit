@@ -1,0 +1,403 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0BEB29C73FF04DAC724C99FF /* Pods_FluentYogaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3592E41328989A23822CB375 /* Pods_FluentYogaKit.framework */; };
+		6D883BA51ED5D82A00608385 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D883BA41ED5D82A00608385 /* AppDelegate.swift */; };
+		6D883BA71ED5D82A00608385 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D883BA61ED5D82A00608385 /* ViewController.swift */; };
+		6D883BAA1ED5D82A00608385 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D883BA81ED5D82A00608385 /* Main.storyboard */; };
+		6D883BAC1ED5D82A00608385 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D883BAB1ED5D82A00608385 /* Assets.xcassets */; };
+		6D883BAF1ED5D82A00608385 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D883BAD1ED5D82A00608385 /* LaunchScreen.storyboard */; };
+		6D883BB81ED5DCA500608385 /* FluentYogaKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D883BB71ED5DCA500608385 /* FluentYogaKit.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		18F67001A0A24F960D8A4D8A /* Pods-FluentYogaKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FluentYogaKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FluentYogaKit/Pods-FluentYogaKit.debug.xcconfig"; sourceTree = "<group>"; };
+		3592E41328989A23822CB375 /* Pods_FluentYogaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FluentYogaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D883BA11ED5D82A00608385 /* FluentYogaKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FluentYogaKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D883BA41ED5D82A00608385 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6D883BA61ED5D82A00608385 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6D883BA91ED5D82A00608385 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6D883BAB1ED5D82A00608385 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6D883BAE1ED5D82A00608385 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6D883BB01ED5D82A00608385 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6D883BB71ED5DCA500608385 /* FluentYogaKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FluentYogaKit.swift; sourceTree = "<group>"; };
+		6D883BB91ED5EC1A00608385 /* FluentYogaKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FluentYogaKit.h; sourceTree = "<group>"; };
+		81CAC1C4F0B8319B562866E6 /* Pods-FluentYogaKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FluentYogaKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-FluentYogaKit/Pods-FluentYogaKit.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6D883B9E1ED5D82A00608385 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0BEB29C73FF04DAC724C99FF /* Pods_FluentYogaKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6D883B981ED5D82A00608385 = {
+			isa = PBXGroup;
+			children = (
+				6D883BB61ED5D9D700608385 /* Source */,
+				6D883BA31ED5D82A00608385 /* FluentYogaKit */,
+				6D883BA21ED5D82A00608385 /* Products */,
+				8BDFC43470231965D3CABA03 /* Pods */,
+				B81B6104834ABDAC088DC790 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		6D883BA21ED5D82A00608385 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6D883BA11ED5D82A00608385 /* FluentYogaKit.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6D883BA31ED5D82A00608385 /* FluentYogaKit */ = {
+			isa = PBXGroup;
+			children = (
+				6D883BA41ED5D82A00608385 /* AppDelegate.swift */,
+				6D883BA61ED5D82A00608385 /* ViewController.swift */,
+				6D883BA81ED5D82A00608385 /* Main.storyboard */,
+				6D883BAB1ED5D82A00608385 /* Assets.xcassets */,
+				6D883BAD1ED5D82A00608385 /* LaunchScreen.storyboard */,
+				6D883BB01ED5D82A00608385 /* Info.plist */,
+			);
+			path = FluentYogaKit;
+			sourceTree = "<group>";
+		};
+		6D883BB61ED5D9D700608385 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				6D883BB91ED5EC1A00608385 /* FluentYogaKit.h */,
+				6D883BB71ED5DCA500608385 /* FluentYogaKit.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		8BDFC43470231965D3CABA03 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				18F67001A0A24F960D8A4D8A /* Pods-FluentYogaKit.debug.xcconfig */,
+				81CAC1C4F0B8319B562866E6 /* Pods-FluentYogaKit.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B81B6104834ABDAC088DC790 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3592E41328989A23822CB375 /* Pods_FluentYogaKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6D883BA01ED5D82A00608385 /* FluentYogaKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6D883BB31ED5D82A00608385 /* Build configuration list for PBXNativeTarget "FluentYogaKit" */;
+			buildPhases = (
+				4F424579F260DDDEDCF4EB25 /* [CP] Check Pods Manifest.lock */,
+				6D883B9D1ED5D82A00608385 /* Sources */,
+				6D883B9E1ED5D82A00608385 /* Frameworks */,
+				6D883B9F1ED5D82A00608385 /* Resources */,
+				6C41F7806E24ECA4D79584FE /* [CP] Embed Pods Frameworks */,
+				9B277B2FB2EBF098D185781B /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FluentYogaKit;
+			productName = FluentYogaKit;
+			productReference = 6D883BA11ED5D82A00608385 /* FluentYogaKit.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6D883B991ED5D82A00608385 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Thanh Dang";
+				TargetAttributes = {
+					6D883BA01ED5D82A00608385 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 9ZPM6TWX7W;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 6D883B9C1ED5D82A00608385 /* Build configuration list for PBXProject "FluentYogaKit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6D883B981ED5D82A00608385;
+			productRefGroup = 6D883BA21ED5D82A00608385 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6D883BA01ED5D82A00608385 /* FluentYogaKit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6D883B9F1ED5D82A00608385 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D883BAF1ED5D82A00608385 /* LaunchScreen.storyboard in Resources */,
+				6D883BAC1ED5D82A00608385 /* Assets.xcassets in Resources */,
+				6D883BAA1ED5D82A00608385 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4F424579F260DDDEDCF4EB25 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6C41F7806E24ECA4D79584FE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FluentYogaKit/Pods-FluentYogaKit-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9B277B2FB2EBF098D185781B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FluentYogaKit/Pods-FluentYogaKit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6D883B9D1ED5D82A00608385 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D883BA71ED5D82A00608385 /* ViewController.swift in Sources */,
+				6D883BA51ED5D82A00608385 /* AppDelegate.swift in Sources */,
+				6D883BB81ED5DCA500608385 /* FluentYogaKit.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6D883BA81ED5D82A00608385 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6D883BA91ED5D82A00608385 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6D883BAD1ED5D82A00608385 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6D883BAE1ED5D82A00608385 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6D883BB11ED5D82A00608385 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6D883BB21ED5D82A00608385 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6D883BB41ED5D82A00608385 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 18F67001A0A24F960D8A4D8A /* Pods-FluentYogaKit.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9ZPM6TWX7W;
+				INFOPLIST_FILE = FluentYogaKit/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.thanhtrdang.FluentYogaKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		6D883BB51ED5D82A00608385 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 81CAC1C4F0B8319B562866E6 /* Pods-FluentYogaKit.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9ZPM6TWX7W;
+				INFOPLIST_FILE = FluentYogaKit/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.thanhtrdang.FluentYogaKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6D883B9C1ED5D82A00608385 /* Build configuration list for PBXProject "FluentYogaKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D883BB11ED5D82A00608385 /* Debug */,
+				6D883BB21ED5D82A00608385 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6D883BB31ED5D82A00608385 /* Build configuration list for PBXNativeTarget "FluentYogaKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D883BB41ED5D82A00608385 /* Debug */,
+				6D883BB51ED5D82A00608385 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6D883B991ED5D82A00608385 /* Project object */;
+}
