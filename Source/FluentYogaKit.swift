@@ -9,11 +9,21 @@
 import YogaKit
 
 public extension YGLayout {
+    /*
+     - should include this view when calculating layout?
+     - // true (default)
+    */
     @discardableResult
     public func isIncludedInLayout(_ isIncludedInLayout: Bool) -> Self {
         self.isIncludedInLayout = isIncludedInLayout
         return self
     }
+    
+    /*
+     - set on item itself
+     - decides during layout/sizing whether or not styling properties should be applied
+     - false (default)
+    */
     @discardableResult
     public func isEnabled(_ isEnabled: Bool) -> Self {
         self.isEnabled = isEnabled
@@ -21,51 +31,98 @@ public extension YGLayout {
     }
     
     // MARK:
-    @discardableResult
-    public func direction(_ direction: YGDirection) -> Self {
-        self.direction = direction
-        return self
-    }
-    @discardableResult
-    public func flexDirection(_ flexDirection: YGFlexDirection) -> Self {
-        self.flexDirection = flexDirection
-        return self
-    }
-    @discardableResult
-    public func justifyContent(_ justifyContent: YGJustify) -> Self {
-        self.justifyContent = justifyContent
-        return self
-    }
-    @discardableResult
-    public func alignContent(_ alignContent: YGAlign) -> Self {
-        self.alignContent = alignContent
-        return self
-    }
-    @discardableResult
-    public func alignItems(_ alignItems: YGAlign) -> Self {
-        self.alignItems = alignItems
-        return self
-    }
-    @discardableResult
-    public func alignSelf(_ alignSelf: YGAlign) -> Self {
-        self.alignSelf = alignSelf
-        return self
-    }
+    // relative (default), absolute
     @discardableResult
     public func position(_ position: YGPositionType) -> Self {
         self.position = position
         return self
     }
+    // inherit (default), LTR, RTL
+    @discardableResult
+    public func direction(_ direction: YGDirection) -> Self {
+        self.direction = direction
+        return self
+    }
+    
+    /*
+     - set on containers
+     - value: column (default)/row/columnReverse/rowReverse
+     */
+    @discardableResult
+    public func flexDirection(_ flexDirection: YGFlexDirection) -> Self {
+        self.flexDirection = flexDirection
+        return self
+    }
+
+    /*
+     - set on containers
+     - main axis
+     - value: flexStart (default)/flexEnd/center/spaceBetween/spaceAround
+     */
+    @discardableResult
+    public func justifyContent(_ justifyContent: YGJustify) -> Self {
+        self.justifyContent = justifyContent
+        return self
+    }
+    
+    /*
+     - set on containers
+     - cross axis
+     - value: flexStart/flexEnd/center/stretch (default)
+     */
+    @discardableResult
+    public func alignItems(_ alignItems: YGAlign) -> Self {
+        self.alignItems = alignItems
+        return self
+    }
+    
+    /*
+     - set on item itself
+     - override alignItems
+     - value: flexStart/flexEnd/center/stretch (default)
+     */
+    @discardableResult
+    public func alignSelf(_ alignSelf: YGAlign) -> Self {
+        self.alignSelf = alignSelf
+        return self
+    }
+    
+    /*
+    - set on containers
+    - control how multiple lines of content are aligned within a container which uses [flexWrap = wrap]
+    - value: flexStart (default)/flexEnd/center/stretch/spaceBetween/spaceAround
+    */
+    @discardableResult
+    public func alignContent(_ alignContent: YGAlign) -> Self {
+        self.alignContent = alignContent
+        return self
+    }
+    
+    // MARK:
+    /*
+     - set on containers
+     - controls when children overflow the size of the container along the main axis
+     - value: nowrap (default)/wrap/wrapReverse
+     */
     @discardableResult
     public func flexWrap(_ flexWrap: YGWrap) -> Self {
         self.flexWrap = flexWrap
         return self
     }
+    
+    /*
+     - used for flexWrap = nowrap???
+     - value: visible/hidden/scroll
+    */
     @discardableResult
     public func overflow(_ overflow: YGOverflow) -> Self {
         self.overflow = overflow
         return self
     }
+    
+    /*
+     - value: flex/none
+    */
     @discardableResult
     public func display(_ display: YGDisplay) -> Self {
         self.display = display
@@ -73,16 +130,35 @@ public extension YGLayout {
     }
     
     // MARK:
+    /*
+     - set on item itself
+     - how to distribute any remaining space in the MAIN AXIS
+     - value: 0 (default), float => 0
+     */
     @discardableResult
     public func flexGrow(_ flexGrow: CGFloat) -> Self {
         self.flexGrow = flexGrow
         return self
     }
+    
+    /*
+     - set on item itself
+     - how to shrink when the total size of the children overflow the size of the container on the MAIN AXIS
+     - value: 0 (default), float => 0
+     */
     @discardableResult
     public func flexShrink(_ flexShrink: CGFloat) -> Self {
         self.flexShrink = flexShrink
         return self
     }
+    
+    /*
+     - set on item itself
+     - default size of an item on the main axis (before any flexGrow and flexShrink calculations are performed)
+     - ~ the width of the item if its parent is a container with flexDirection = row
+     - ~ the height of the item if its parent is a container with flexDirection = column
+     - value: 0 (default), float => 0
+     */
     @discardableResult
     public func flexBasis(_ flexBasis: YGValue) -> Self {
         self.flexBasis = flexBasis
@@ -90,6 +166,11 @@ public extension YGLayout {
     }
     
     // MARK:
+    
+    /* 
+     - in case of position = absolute
+     - set on item itself
+     */
     @discardableResult
     public func left(_ left: YGValue) -> Self {
         self.left = left
@@ -320,9 +401,13 @@ public extension YGLayout {
         return self
     }
 
+    // MARK:
+    // width / height, e.g. 0.5 (w = 1/2 h), 2.0 (w = 2 h)
     @discardableResult
     public func aspectRatio(_ aspectRatio: CGFloat) -> Self {
         self.aspectRatio = aspectRatio
         return self
     }
+
+    //*NOTE: Mix of max/min vs. flexGrow/flexShrink
 }
