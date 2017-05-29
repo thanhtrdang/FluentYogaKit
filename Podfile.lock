@@ -1,15 +1,24 @@
 PODS:
+  - SteviaLayout (3.1.3)
   - Yoga (1.5.0)
-  - YogaKit (1.5.0):
-    - Yoga (~> 1.5)
 
 DEPENDENCIES:
-  - YogaKit
+  - SteviaLayout (from `https://github.com/freshOS/Stevia.git`)
+  - Yoga
+
+EXTERNAL SOURCES:
+  SteviaLayout:
+    :git: https://github.com/freshOS/Stevia.git
+
+CHECKOUT OPTIONS:
+  SteviaLayout:
+    :commit: 3076a3a33dc5186ee2e530cf4108a4ed57435b23
+    :git: https://github.com/freshOS/Stevia.git
 
 SPEC CHECKSUMS:
+  SteviaLayout: d0b9f89dae2d13df054fb0a751b952f4659faaf5
   Yoga: 6c3e934140e85babb68d17f85e1363d7d3b023c6
-  YogaKit: 82b233e3fd683a7db777cc1f9b8de50b18417a80
 
-PODFILE CHECKSUM: 2974162e9388187c844814d274c45bb36f289e72
+PODFILE CHECKSUM: 276aad4e43f9bef056bed39d4c028d488a13d1a1
 
 COCOAPODS: 1.2.1

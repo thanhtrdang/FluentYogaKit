@@ -6,10 +6,11 @@
 //  Copyright © 2017 Thanh Dang. All rights reserved.
 //
 
-import YogaKit
+import yoga
 
 public extension YGLayout {
     /*
+     - set on item itself
      - should include this view when calculating layout?
      - // true (default)
     */
@@ -31,13 +32,20 @@ public extension YGLayout {
     }
     
     // MARK:
-    // relative (default), absolute
+    /*
+     - set on item itself
+     - relative (default), absolute
+    */
     @discardableResult
     public func position(_ position: YGPositionType) -> Self {
         self.position = position
         return self
     }
-    // inherit (default), LTR, RTL
+    
+    /*
+     - set on containers
+     - inherit (default), LTR, RTL
+    */    
     @discardableResult
     public func direction(_ direction: YGDirection) -> Self {
         self.direction = direction
@@ -112,7 +120,7 @@ public extension YGLayout {
     
     /*
      - used for flexWrap = nowrap???
-     - value: visible/hidden/scroll
+     - value: visible (default???)/hidden/scroll
     */
     @discardableResult
     public func overflow(_ overflow: YGOverflow) -> Self {
@@ -136,7 +144,7 @@ public extension YGLayout {
      - value: 0 (default), float => 0
      */
     @discardableResult
-    public func flexGrow(_ flexGrow: CGFloat) -> Self {
+    public func flexGrow(_ flexGrow: Float) -> Self {
         self.flexGrow = flexGrow
         return self
     }
@@ -147,7 +155,7 @@ public extension YGLayout {
      - value: 0 (default), float => 0
      */
     @discardableResult
-    public func flexShrink(_ flexShrink: CGFloat) -> Self {
+    public func flexShrink(_ flexShrink: Float) -> Self {
         self.flexShrink = flexShrink
         return self
     }
@@ -160,7 +168,7 @@ public extension YGLayout {
      - value: 0 (default), float => 0
      */
     @discardableResult
-    public func flexBasis(_ flexBasis: YGValue) -> Self {
+    public func flexBasis(_ flexBasis: Float) -> Self {
         self.flexBasis = flexBasis
         return self
     }
@@ -172,230 +180,230 @@ public extension YGLayout {
      - set on item itself
      */
     @discardableResult
-    public func left(_ left: YGValue) -> Self {
+    public func left(_ left: Float) -> Self {
         self.left = left
         return self
     }
     @discardableResult
-    public func top(_ top: YGValue) -> Self {
+    public func top(_ top: Float) -> Self {
         self.top = top
         return self
     }
     @discardableResult
-    public func right(_ right: YGValue) -> Self {
+    public func right(_ right: Float) -> Self {
         self.right = right
         return self
     }
     @discardableResult
-    public func bottom(_ bottom: YGValue) -> Self {
+    public func bottom(_ bottom: Float) -> Self {
         self.bottom = bottom
         return self
     }
     @discardableResult
-    public func start(_ start: YGValue) -> Self {
+    public func start(_ start: Float) -> Self {
         self.start = start
         return self
     }
     @discardableResult
-    public func end(_ end: YGValue) -> Self {
+    public func end(_ end: Float) -> Self {
         self.end = end
         return self
     }
     
     // MARK:
     @discardableResult
-    public func marginLeft(_ marginLeft: YGValue) -> Self {
+    public func marginLeft(_ marginLeft: Float) -> Self {
         self.marginLeft = marginLeft
         return self
     }
     @discardableResult
-    public func marginTop(_ marginTop: YGValue) -> Self {
+    public func marginTop(_ marginTop: Float) -> Self {
         self.marginTop = marginTop
         return self
     }
     @discardableResult
-    public func marginRight(_ marginRight: YGValue) -> Self {
+    public func marginRight(_ marginRight: Float) -> Self {
         self.marginRight = marginRight
         return self
     }
     @discardableResult
-    public func marginBottom(_ marginBottom: YGValue) -> Self {
+    public func marginBottom(_ marginBottom: Float) -> Self {
         self.marginBottom = marginBottom
         return self
     }
     @discardableResult
-    public func marginStart(_ marginStart: YGValue) -> Self {
+    public func marginStart(_ marginStart: Float) -> Self {
         self.marginStart = marginStart
         return self
     }
     @discardableResult
-    public func marginEnd(_ marginEnd: YGValue) -> Self {
+    public func marginEnd(_ marginEnd: Float) -> Self {
         self.marginEnd = marginEnd
         return self
     }
     @discardableResult
-    public func marginHorizontal(_ marginHorizontal: YGValue) -> Self {
+    public func marginHorizontal(_ marginHorizontal: Float) -> Self {
         self.marginHorizontal = marginHorizontal
         return self
     }
     @discardableResult
-    public func marginVertical(_ marginVertical: YGValue) -> Self {
+    public func marginVertical(_ marginVertical: Float) -> Self {
         self.marginVertical = marginVertical
         return self
     }
     @discardableResult
-    public func margin(_ margin: YGValue) -> Self {
+    public func margin(_ margin: Float) -> Self {
         self.margin = margin
         return self
     }
     
     // MARK:
     @discardableResult
-    public func paddingLeft(_ paddingLeft: YGValue) -> Self {
+    public func paddingLeft(_ paddingLeft: Float) -> Self {
         self.paddingLeft = paddingLeft
         return self
     }
     @discardableResult
-    public func paddingRight(_ paddingRight: YGValue) -> Self {
+    public func paddingRight(_ paddingRight: Float) -> Self {
         self.paddingRight = paddingRight
         return self
     }
     @discardableResult
-    public func paddingTop(_ paddingTop: YGValue) -> Self {
+    public func paddingTop(_ paddingTop: Float) -> Self {
         self.paddingTop = paddingTop
         return self
     }
     @discardableResult
-    public func paddingBottom(_ paddingBottom: YGValue) -> Self {
+    public func paddingBottom(_ paddingBottom: Float) -> Self {
         self.paddingBottom = paddingBottom
         return self
     }
     @discardableResult
-    public func paddingStart(_ paddingStart: YGValue) -> Self {
+    public func paddingStart(_ paddingStart: Float) -> Self {
         self.paddingStart = paddingStart
         return self
     }
     @discardableResult
-    public func paddingEnd(_ paddingEnd: YGValue) -> Self {
+    public func paddingEnd(_ paddingEnd: Float) -> Self {
         self.paddingEnd = paddingEnd
         return self
     }
     @discardableResult
-    public func paddingVertical(_ paddingVertical: YGValue) -> Self {
+    public func paddingVertical(_ paddingVertical: Float) -> Self {
         self.paddingVertical = paddingVertical
         return self
     }
     @discardableResult
-    public func paddingHorizontal(_ paddingHorizontal: YGValue) -> Self {
+    public func paddingHorizontal(_ paddingHorizontal: Float) -> Self {
         self.paddingHorizontal = paddingHorizontal
         return self
     }
     @discardableResult
-    public func padding(_ padding: YGValue) -> Self {
+    public func padding(_ padding: Float) -> Self {
         self.padding = padding
         return self
     }
     
     // MARK:
     @discardableResult
-    public func borderLeftWidth(_ borderLeftWidth: CGFloat) -> Self {
+    public func borderLeftWidth(_ borderLeftWidth: Float) -> Self {
         self.borderLeftWidth = borderLeftWidth
         return self
     }
     @discardableResult
-    public func borderTopWidth(_ borderTopWidth: CGFloat) -> Self {
+    public func borderTopWidth(_ borderTopWidth: Float) -> Self {
         self.borderTopWidth = borderTopWidth
         return self
     }
     @discardableResult
-    public func borderRightWidth(_ borderRightWidth: CGFloat) -> Self {
+    public func borderRightWidth(_ borderRightWidth: Float) -> Self {
         self.borderRightWidth = borderRightWidth
         return self
     }
     @discardableResult
-    public func borderBottomWidth(_ borderBottomWidth: CGFloat) -> Self {
+    public func borderBottomWidth(_ borderBottomWidth: Float) -> Self {
         self.borderBottomWidth = borderBottomWidth
         return self
     }
     @discardableResult
-    public func borderStartWidth(_ borderStartWidth: CGFloat) -> Self {
+    public func borderStartWidth(_ borderStartWidth: Float) -> Self {
         self.borderStartWidth = borderStartWidth
         return self
     }
     @discardableResult
-    public func borderEndWidth(_ borderEndWidth: CGFloat) -> Self {
+    public func borderEndWidth(_ borderEndWidth: Float) -> Self {
         self.borderEndWidth = borderEndWidth
         return self
     }
     @discardableResult
-    public func borderWidth(_ borderWidth: CGFloat) -> Self {
+    public func borderWidth(_ borderWidth: Float) -> Self {
         self.borderWidth = borderWidth
         return self
     }
     
     // MARK:
     @discardableResult
-    public func width(_ width: YGValue) -> Self {
+    public func width(_ width: Float) -> Self {
         self.width = width
         return self
     }
     @discardableResult
-    public func height(_ height: YGValue) -> Self {
+    public func height(_ height: Float) -> Self {
         self.height = height
         return self
     }
     @discardableResult
-    public func size(width: YGValue, height: YGValue) -> Self {
+    public func size(width: Float, height: Float) -> Self {
         self.height = height
         self.width = width
         return self
     }
     @discardableResult
     public func size(_ size: YGSize) -> Self {
-        self.height = YGValue(size.height)
-        self.width = YGValue(size.width)
+        self.height = size.height
+        self.width = size.width
         return self
     }
     @discardableResult
-    public func minWidth(_ minWidth: YGValue) -> Self {
+    public func minWidth(_ minWidth: Float) -> Self {
         self.minWidth = minWidth
         return self
     }
     @discardableResult
-    public func minHeight(_ minHeight: YGValue) -> Self {
+    public func minHeight(_ minHeight: Float) -> Self {
         self.minHeight = minHeight
         return self
     }
     @discardableResult
     public func minSize(_ size: YGSize) -> Self {
-        self.minHeight = YGValue(size.height)
-        self.minWidth = YGValue(size.width)
+        self.minHeight = size.height
+        self.minWidth = size.width
         return self
     }
     @discardableResult
-    public func minSize(width: YGValue, height: YGValue) -> Self {
+    public func minSize(width: Float, height: Float) -> Self {
         self.minHeight = height
         self.minWidth = width
         return self
     }
     @discardableResult
-    public func maxWidth(_ maxWidth: YGValue) -> Self {
+    public func maxWidth(_ maxWidth: Float) -> Self {
         self.maxWidth = maxWidth
         return self
     }
     @discardableResult
-    public func maxHeight(_ maxHeight: YGValue) -> Self {
+    public func maxHeight(_ maxHeight: Float) -> Self {
         self.maxHeight = maxHeight
         return self
     }    
     @discardableResult
     public func maxSize(_ size: YGSize) -> Self {
-        self.maxHeight = YGValue(size.height)
-        self.maxWidth = YGValue(size.width)
+        self.maxHeight = size.height
+        self.maxWidth = size.width
         return self
     }
     @discardableResult
-    public func maxSize(width: YGValue, height: YGValue) -> Self {
+    public func maxSize(width: Float, height: Float) -> Self {
         self.maxHeight = height
         self.maxWidth = width
         return self
@@ -404,7 +412,7 @@ public extension YGLayout {
     // MARK:
     // width / height, e.g. 0.5 (w = 1/2 h), 2.0 (w = 2 h)
     @discardableResult
-    public func aspectRatio(_ aspectRatio: CGFloat) -> Self {
+    public func aspectRatio(_ aspectRatio: Float) -> Self {
         self.aspectRatio = aspectRatio
         return self
     }
