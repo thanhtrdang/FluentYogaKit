@@ -1,5 +1,5 @@
 //
-//  FluentYogaKit.swift
+//  Fluent.swift
 //  FluentYogaKit
 //
 //  Created by Thanh Dang on 5/24/17.
@@ -8,15 +8,15 @@
 
 import yoga
 
-public extension YGLayout {
+extension YGLayoutElement {
     /*
      - set on item itself
      - should include this view when calculating layout?
      - // true (default)
     */
     @discardableResult
-    public func isIncludedInLayout(_ isIncludedInLayout: Bool) -> Self {
-        self.isIncludedInLayout = isIncludedInLayout
+    public func isIncluded(_ isIncluded: Bool) -> Self {
+        self.isIncluded = isIncluded
         return self
     }
     
