@@ -13,52 +13,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let redView = UIView()
-//        redView.backgroundColor = .red
-//        
-//        view.addSubview(redView)
-//        
-//        view.yoga
-//            .isEnabled(true)
-//            .flexDirection(.column)
-//            .justifyContent(.spaceAround)
-//            .alignItems(.center)
-//        
-//        redView.yoga
-//            .isEnabled(true)
-//            .size(width: 56, height: 56)
-//
-//        let greenView = UIView()
-//        greenView.backgroundColor = .green
-//        
-//        let blueView = UIView()
-//        blueView.backgroundColor = .blue
-//        
-//        let bottomView = UIView()
-//        bottomView.addSubview(greenView)
-//        bottomView.addSubview(blueView)
-//        
-//        greenView.yoga
-//            .isEnabled(true)
-//            .size(width: 56, height: 56)
-//            .marginRight(10)
-//        
-//        blueView.yoga
-//            .isEnabled(true)
-//            .size(width: 56, height: 56)
-//        
-//        bottomView.yoga
-//            .isEnabled(true)
-//            .flexDirection(.row)
-//            .justifyContent(.center)
-//            .alignItems(.center)
-////            .alignSelf(.flexEnd)
-//        
-//        view.addSubview(bottomView)
-//        
-//        view.yoga.applyLayout(preservingOrigin: true)
-        
-        
         let redView = UIView()
         let greenView = UIView()
         let blueView = UIView()
@@ -67,10 +21,10 @@ class ViewController: UIViewController {
         greenView.backgroundColor = .green
         blueView.backgroundColor = .blue
 
-        
-        view.addSubview(redView)
-        view.addSubview(greenView)
-        view.addSubview(blueView)
+        view.sv(
+            redView,
+            greenView, blueView
+        )
         
         let redLayout = YGLayoutView(view: redView)
         let greenLayout = YGLayoutView(view: greenView)
@@ -104,7 +58,6 @@ class ViewController: UIViewController {
         
         rootLayout.layout()
         
-        print("blah")
     }
 
     

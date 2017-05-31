@@ -530,15 +530,4 @@ extension YGLayoutView {
         flexDirectionSubelements(.row, horizontal)
     }
     
-    @discardableResult
-    public func draft(_ subviews: UIView...) -> Self {
-        return draft(subviews)
-    }
-    
-    @discardableResult
-    public func draft(_ subviews: [UIView]) -> Self {
-        subviews.forEach { view.addSubview($0) }
-        return self
-    }
-
 }
