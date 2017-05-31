@@ -10,6 +10,6 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target = '8.0'
 
   spec.source_files = 'Source/*.swift'
-  spec.dependency 'YogaKit', '~> 1.5.0'
+  spec.dependency 'Yoga', '~> 1.5.0'
 
 end
