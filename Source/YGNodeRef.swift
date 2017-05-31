@@ -34,8 +34,9 @@ extension YGNodeRef {
         return config
     }()
     
-    internal init() {
+    internal init(element: YGLayoutElement) {
         self = YGNodeNewWithConfig(YGNodeRef.globalConfig)
+        self.element = element
     }
     
     internal var element: YGLayoutElement {

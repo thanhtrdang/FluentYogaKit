@@ -1,24 +1,32 @@
 PODS:
+  - FluentSwift (1.0.0)
   - SteviaLayout (3.1.3)
   - Yoga (1.5.0)
 
 DEPENDENCIES:
+  - FluentSwift (from `https://github.com/thanhtrdang/FluentSwift.git`)
   - SteviaLayout (from `https://github.com/freshOS/Stevia.git`)
   - Yoga
 
 EXTERNAL SOURCES:
+  FluentSwift:
+    :git: https://github.com/thanhtrdang/FluentSwift.git
   SteviaLayout:
     :git: https://github.com/freshOS/Stevia.git
 
 CHECKOUT OPTIONS:
+  FluentSwift:
+    :commit: 9e6104d01ca600b0844f1d83f36fec1ea864e0d9
+    :git: https://github.com/thanhtrdang/FluentSwift.git
   SteviaLayout:
     :commit: 3076a3a33dc5186ee2e530cf4108a4ed57435b23
     :git: https://github.com/freshOS/Stevia.git
 
 SPEC CHECKSUMS:
+  FluentSwift: cf00b12f3bdb1ce06cc6858651795adb3fbde7f9
   SteviaLayout: d0b9f89dae2d13df054fb0a751b952f4659faaf5
   Yoga: 6c3e934140e85babb68d17f85e1363d7d3b023c6
 
-PODFILE CHECKSUM: 276aad4e43f9bef056bed39d4c028d488a13d1a1
+PODFILE CHECKSUM: a74b7c8f826d076d54290dd42c5f56e23529cf8d
 
 COCOAPODS: 1.2.1

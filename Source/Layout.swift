@@ -11,13 +11,17 @@ import yoga
 
 // MARK: - YGLayoutElement -
 public class YGLayoutElement {
-    internal let node: YGNodeRef = YGNodeRef()
+    internal var node: YGNodeRef!
     internal var subelements: [YGLayoutElement] = []
     internal var isIncluded: Bool = true
     internal var isEnabled: Bool = false
     internal var frame: CGRect = .zero
     public var isLeaf: Bool { return false }
     public var isView: Bool { return false }
+    
+    init() {
+        node = YGNodeRef(element: self)
+    }
     
     deinit {
         node.removeElement()
