@@ -24,7 +24,7 @@ public class YGLayoutElement {
         YGNodeFree(node)
     }
 
-    func layout(preserveOrigin: Bool = false, dimensionFlexibility: YGDimensionFlexibility = []) {
+    public func layout(preserveOrigin: Bool = false, dimensionFlexibility: YGDimensionFlexibility = []) {
         var size = frame.size
         
         if dimensionFlexibility.contains(.flexibleWidth) {
