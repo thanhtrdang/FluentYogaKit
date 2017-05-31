@@ -114,7 +114,7 @@ public class YGLayoutView: YGLayoutElement {
         return true
     }
 
-    internal init(view: UIView) {
+    public init(view: UIView) {
         self.view = view
     }
     
