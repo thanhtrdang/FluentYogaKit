@@ -16,23 +16,27 @@ fileprivate let YGNodeMeasureFunc: YGMeasureFunc = { (node: YGNodeRef?, width: F
     let constrainedHeight = (heightMode == .undefined) ? YGValueUndefined.value : height
     let constrainedSize = YGSize(width: constrainedWidth, height: constrainedHeight)
     
-    let element = node!.element
+    guard let node = node else {
+        return .zero
+    }
+    
+    let element = node.element
     let sizeThatFits = element.sizeThatFits(constrainedSize.cgSize)
     
     let ygSize = YGSize(
-        width: node!.sanitizeMeasurement(constrainedSize: constrainedWidth, measuredSize: Float(sizeThatFits.width), measureMode: widthMode),
-        height: node!.sanitizeMeasurement(constrainedSize: constrainedHeight, measuredSize: Float(sizeThatFits.height), measureMode: heightMode)
+        width: node.sanitizeMeasurement(constrainedWidth, sizeThatFits.width.float, widthMode),
+        height: node.sanitizeMeasurement(constrainedHeight, sizeThatFits.height.float, heightMode)
     )
     
-//TODO remove this debug later
-//    let v = (element as! YGLayoutView).view
-//    
-////    if v is UILabel {
-////        let l = v as! UILabel
-////        print("\(l.text) - \(ygSize)")
-////    }
-//    
-//    print("YGMeasureFunc - \(ygSize) - \(v.className)")
+    //TODO remove this debug later
+    //    let v = (element as! YGLayoutView).view
+    //
+    ////    if v is UILabel {
+    ////        let l = v as! UILabel
+    ////        print("\(l.text) - \(ygSize)")
+    ////    }
+    //
+    //    print("YGMeasureFunc - \(ygSize) - \(v.className)")
     
     return ygSize
 }
@@ -134,7 +138,7 @@ extension YGNodeRef {
         YGNodeSetMeasureFunc(self, nil)
     }
     
-    fileprivate func sanitizeMeasurement(constrainedSize: Float, measuredSize: Float, measureMode: YGMeasureMode) -> Float {
+    fileprivate func sanitizeMeasurement(_ constrainedSize: Float, _ measuredSize: Float, _ measureMode: YGMeasureMode) -> Float {
         var result: Float
         
         switch measureMode {

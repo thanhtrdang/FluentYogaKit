@@ -59,6 +59,7 @@ extension CGSize {
 
 extension YGSize {
     public static let undefined = YGSize(width: YGValueUndefined.value, height: YGValueUndefined.value)
+    public static let zero = YGSize(width: 0.0, height: 0.0)
     
     public var cgSize: CGSize {
         return CGSize(width: width.cgFloat, height: height.cgFloat)
