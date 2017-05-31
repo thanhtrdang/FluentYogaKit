@@ -469,10 +469,24 @@ extension YGLayoutElement {
     public func vertical(_ subelements: YGLayoutElement...) -> Self {
         return flexDirectionSubelements(.column, subelements)
     }
-
+    
     @discardableResult
     public func horizontal(_ subelements: YGLayoutElement...) -> Self {
         return flexDirectionSubelements(.row, subelements)
+    }
+    
+    @discardableResult
+    public func reverse() -> Self {
+        switch flexDirection {
+        case .column:
+            flexDirection(.columnReverse)
+        case .row:
+            flexDirection(.rowReverse)
+        default:
+            print("flexDirection was reverved, should we reverse again???")
+        }
+        
+        return self
     }
     
     @discardableResult
@@ -485,10 +499,21 @@ extension YGLayoutElement {
     public func mainAxis(_ align: YGJustify) -> Self {
         return justifyContent(align)
     }
-    
+
+//TODO: Need understand more then implement later
+//    @discardableResult
+//    public func mainWrap(_ align: YGAlign) -> Self {
+//        return alignContent(align)
+//    }
+
     @discardableResult
     public func crossAxis(_ align: YGAlign) -> Self {
         return alignItems(align)
+    }
+    
+    @discardableResult
+    public func crossSelf(_ align: YGAlign) -> Self {
+        return alignSelf(align)
     }
 }
 

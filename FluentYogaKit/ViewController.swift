@@ -99,9 +99,8 @@ class ViewController: UIViewController {
             .isEnabled(true)
             .mainAxis(.center)
             .crossAxis(.center)
+//            .crossSelf(.flexEnd)
             .marginBottom(30)
-//            .alignSelf(.flexEnd)
-
         
         rootLayout.layout()
         
