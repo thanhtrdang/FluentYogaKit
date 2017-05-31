@@ -10,31 +10,18 @@ import UIKit
 import yoga
 
 // MARK: - YGLayoutElement -
-class YGLayoutElement {
-    let node: YGNodeRef = YGNodeRef()
-    var subelements: [YGLayoutElement] = []
-    var isIncluded: Bool = true
-    var isEnabled: Bool = false
-    var frame: CGRect = .zero
-    var isLeaf: Bool {
-        return false
-    }
-    var isView: Bool {
-        return false
-    }
-    
-    convenience init(_ subelements: YGLayoutElement...) {
-        self.init()
-        self.subelements = subelements
-    }
+public class YGLayoutElement {
+    internal let node: YGNodeRef = YGNodeRef()
+    internal var subelements: [YGLayoutElement] = []
+    internal var isIncluded: Bool = true
+    internal var isEnabled: Bool = false
+    internal var frame: CGRect = .zero
+    public var isLeaf: Bool { return false }
+    public var isView: Bool { return false }
     
     deinit {
         node.removeElement()
         YGNodeFree(node)
-    }
-
-    internal func sizeThatFits(_ size: CGSize) -> CGSize {
-        return .zero
     }
 
     func layout(preserveOrigin: Bool = false, dimensionFlexibility: YGDimensionFlexibility = [], _ subelements: YGLayoutElement...) {
@@ -52,14 +39,13 @@ class YGLayoutElement {
         applyLayout(preserveOrigin: preserveOrigin, offset: .zero)
     }
     
-    @discardableResult
-    fileprivate func calculateLayout(size: YGSize) -> YGSize {
+    internal func calculateLayout(size: YGSize) {
         assert(Thread.isMainThread, "Yoga calculation must be done on main.")
         assert(isEnabled, "Yoga is not enabled for this layout element.")
         
         attachNodes()
         YGNodeCalculateLayout(node, size.width, size.height, YGNodeStyleGetDirection(node))
-        return YGSize(width: YGNodeLayoutGetWidth(node), height: YGNodeLayoutGetHeight(node))
+//        return YGSize(width: YGNodeLayoutGetWidth(node), height: YGNodeLayoutGetHeight(node))
     }
     
     internal func attachNodes() {
@@ -105,12 +91,15 @@ class YGLayoutElement {
             }
         }
     }
-    
+ 
+    internal func sizeThatFits(_ size: CGSize) -> CGSize {
+        return .zero
+    }
 }
 
 class YGLayoutView: YGLayoutElement {
-    let view: UIView
-    override var frame: CGRect {
+    internal let view: UIView
+    override internal var frame: CGRect {
         get {
             return view.frame
         }
@@ -118,36 +107,18 @@ class YGLayoutView: YGLayoutElement {
             view.frame = newValue
         }
     }
-
-    override var isLeaf: Bool {
+    override internal var isLeaf: Bool {
         return !isEnabled || (nil == subelements.first { $0.isEnabled && $0.isIncluded })
     }
-    
-    override var isView: Bool {
+    override internal var isView: Bool {
         return true
     }
 
-    init(view: UIView) {
+    internal init(view: UIView) {
         self.view = view
     }
     
-    convenience init(view: UIView, subelements: YGLayoutElement...) {
-        self.init(view: view)
-        self.subelements = subelements
-    }
-    
-    override func sizeThatFits(_ size: CGSize) -> CGSize {
+    override internal func sizeThatFits(_ size: CGSize) -> CGSize {
         return view.sizeThatFits(size)
-    }
-    
-    @discardableResult
-    func draft(_ subviews: UIView...) -> Self {
-        return draft(subviews)
-    }
-    
-    @discardableResult
-    func draft(_ subviews: [UIView]) -> Self {
-        subviews.forEach { view.addSubview($0) }
-        return self
     }
 }

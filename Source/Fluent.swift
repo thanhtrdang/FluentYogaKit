@@ -9,6 +9,7 @@
 import yoga
 
 extension YGLayoutElement {
+    // MARK:
     /*
      - set on item itself
      - should include this view when calculating layout?
@@ -418,4 +419,67 @@ extension YGLayoutElement {
     }
 
     //*NOTE: Mix of max/min vs. flexGrow/flexShrink
+}
+
+//TODO
+//https://bugs.swift.org/browse/SR-128
+//https://stackoverflow.com/questions/24024376/passing-an-array-to-a-function-with-variable-number-of-args-in-swift
+//func splatVariadicArgs<T>(_ args: T...) -> [T] {
+//    return args
+//}
+
+// MARK:
+extension YGLayoutElement {
+    // MARK:
+    convenience public init(vertical: YGLayoutElement...) {
+        self.init()
+        flexDirectionSubelements(.column, vertical)
+    }
+
+    convenience public init(horizontal: YGLayoutElement...) {
+        self.init()
+        flexDirectionSubelements(.row, horizontal)
+    }
+    
+    @discardableResult
+    public func vertical(_ subelements: YGLayoutElement...) -> Self {
+        return flexDirectionSubelements(.column, subelements)
+    }
+
+    @discardableResult
+    public func horizontal(_ subelements: YGLayoutElement...) -> Self {
+        return flexDirectionSubelements(.row, subelements)
+    }
+    
+    @discardableResult
+    internal func flexDirectionSubelements(_ flexDirection: YGFlexDirection,_ subelements: [YGLayoutElement]) -> Self {
+        self.subelements = subelements
+        return self.flexDirection(flexDirection)
+    }
+}
+
+// MARK:
+extension YGLayoutView {
+    // MARK:
+    convenience public init(view: UIView, vertical: YGLayoutElement...) {
+        self.init(view: view)
+        flexDirectionSubelements(.column, vertical)
+    }
+
+    convenience public init(view: UIView, horizontal: YGLayoutElement...) {
+        self.init(view: view)
+        flexDirectionSubelements(.row, horizontal)
+    }
+    
+    @discardableResult
+    public func draft(_ subviews: UIView...) -> Self {
+        return draft(subviews)
+    }
+    
+    @discardableResult
+    public func draft(_ subviews: [UIView]) -> Self {
+        subviews.forEach { view.addSubview($0) }
+        return self
+    }
+
 }

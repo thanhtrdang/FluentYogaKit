@@ -76,11 +76,11 @@ class ViewController: UIViewController {
         let greenLayout = YGLayoutView(view: greenView)
         let blueLayout = YGLayoutView(view: blueView)
         
-        let bottomLayout = YGLayoutElement(greenLayout, blueLayout)
-        let rootLayout = YGLayoutView(view: view, subelements: redLayout, bottomLayout)
+        let bottomLayout = YGLayoutElement(horizontal: greenLayout, blueLayout)
+        let rootLayout = YGLayoutView(view: view, vertical: redLayout, bottomLayout)
         
-        rootLayout.isEnabled(true)
-            .flexDirection(.column)
+        rootLayout
+            .isEnabled(true)
             .justifyContent(.spaceBetween)
             .alignItems(.center)
         
@@ -97,7 +97,6 @@ class ViewController: UIViewController {
 
         bottomLayout
             .isEnabled(true)
-            .flexDirection(.row)
             .justifyContent(.center)
             .alignItems(.center)
             .marginBottom(30)

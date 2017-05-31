@@ -10,7 +10,7 @@ import yoga
 
 // MARK: - Style -
 extension YGLayoutElement {
-    open var direction: YGDirection {
+    public var direction: YGDirection {
         get {
             return YGNodeStyleGetDirection(node)
         }
@@ -19,7 +19,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var flexDirection: YGFlexDirection {
+    public var flexDirection: YGFlexDirection {
         get {
             return YGNodeStyleGetFlexDirection(node)
         }
@@ -28,7 +28,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var justifyContent: YGJustify {
+    public var justifyContent: YGJustify {
         get {
             return YGNodeStyleGetJustifyContent(node)
         }
@@ -37,7 +37,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var alignContent: YGAlign {
+    public var alignContent: YGAlign {
         get {
             return YGNodeStyleGetAlignContent(node)
         }
@@ -46,7 +46,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var alignItems: YGAlign {
+    public var alignItems: YGAlign {
         get {
             return YGNodeStyleGetAlignItems(node)
         }
@@ -55,7 +55,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var alignSelf: YGAlign {
+    public var alignSelf: YGAlign {
         get {
             return YGNodeStyleGetAlignSelf(node)
         }
@@ -64,7 +64,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var position: YGPositionType {
+    public var position: YGPositionType {
         get {
             return YGNodeStyleGetPositionType(node)
         }
@@ -73,7 +73,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var flexWrap: YGWrap {
+    public var flexWrap: YGWrap {
         get {
             return YGNodeStyleGetFlexWrap(node)
         }
@@ -82,7 +82,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var overflow: YGOverflow {
+    public var overflow: YGOverflow {
         get {
             return YGNodeStyleGetOverflow(node)
         }
@@ -91,7 +91,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var display: YGDisplay {
+    public var display: YGDisplay {
         get {
             return YGNodeStyleGetDisplay(node)
         }
@@ -100,7 +100,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var flexGrow: Float {
+    public var flexGrow: Float {
         get {
             return YGNodeStyleGetFlexGrow(node)
         }
@@ -109,7 +109,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var flexShrink: Float {
+    public var flexShrink: Float {
         get {
             return YGNodeStyleGetFlexShrink(node)
         }
@@ -119,7 +119,7 @@ extension YGLayoutElement {
         
     }
     
-    open var flexBasis: Float {
+    public var flexBasis: Float {
         get {
             return YGNodeStyleGetFlexBasis(node).value
         }
@@ -129,7 +129,7 @@ extension YGLayoutElement {
     }
     
     
-    open var left: Float {
+    public var left: Float {
         get {
             return YGNodeStyleGetPosition(node, .left).value
         }
@@ -138,7 +138,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var top: Float {
+    public var top: Float {
         get {
             return YGNodeStyleGetPosition(node, .top).value
         }
@@ -147,7 +147,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var right: Float {
+    public var right: Float {
         get {
             return YGNodeStyleGetPosition(node, .right).value
         }
@@ -156,7 +156,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var bottom: Float {
+    public var bottom: Float {
         get {
             return YGNodeStyleGetPosition(node, .bottom).value
         }
@@ -165,7 +165,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var start: Float {
+    public var start: Float {
         get {
             return YGNodeStyleGetPosition(node, .start).value
         }
@@ -174,7 +174,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var end: Float {
+    public var end: Float {
         get {
             return YGNodeStyleGetPosition(node, .end).value
         }
@@ -184,7 +184,7 @@ extension YGLayoutElement {
     }
     
     
-    open var marginLeft: Float {
+    public var marginLeft: Float {
         get {
             return YGNodeStyleGetMargin(node, .left).value
         }
@@ -193,7 +193,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var marginTop: Float {
+    public var marginTop: Float {
         get {
             return YGNodeStyleGetMargin(node, .top).value
         }
@@ -202,7 +202,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var marginRight: Float {
+    public var marginRight: Float {
         get {
             return YGNodeStyleGetMargin(node, .right).value
         }
@@ -211,7 +211,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var marginBottom: Float {
+    public var marginBottom: Float {
         get {
             return YGNodeStyleGetMargin(node, .bottom).value
         }
@@ -220,7 +220,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var marginStart: Float {
+    public var marginStart: Float {
         get {
             return YGNodeStyleGetMargin(node, .start).value
         }
@@ -229,7 +229,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var marginEnd: Float {
+    public var marginEnd: Float {
         get {
             return YGNodeStyleGetMargin(node, .end).value
         }
@@ -238,7 +238,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var marginHorizontal: Float {
+    public var marginHorizontal: Float {
         get {
             return YGNodeStyleGetMargin(node, .horizontal).value
         }
@@ -247,7 +247,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var marginVertical: Float {
+    public var marginVertical: Float {
         get {
             return YGNodeStyleGetMargin(node, .vertical).value
         }
@@ -256,7 +256,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var margin: Float {
+    public var margin: Float {
         get {
             return YGNodeStyleGetMargin(node, .all).value
         }
@@ -266,7 +266,7 @@ extension YGLayoutElement {
     }
     
     
-    open var paddingLeft: Float {
+    public var paddingLeft: Float {
         get {
             return YGNodeStyleGetPadding(node, .left).value
         }
@@ -275,7 +275,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var paddingTop: Float {
+    public var paddingTop: Float {
         get {
             return YGNodeStyleGetPadding(node, .top).value
         }
@@ -284,7 +284,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var paddingRight: Float {
+    public var paddingRight: Float {
         get {
             return YGNodeStyleGetPadding(node, .right).value
         }
@@ -293,7 +293,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var paddingBottom: Float {
+    public var paddingBottom: Float {
         get {
             return YGNodeStyleGetPadding(node, .bottom).value
         }
@@ -302,7 +302,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var paddingStart: Float {
+    public var paddingStart: Float {
         get {
             return YGNodeStyleGetPadding(node, .start).value
         }
@@ -311,7 +311,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var paddingEnd: Float {
+    public var paddingEnd: Float {
         get {
             return YGNodeStyleGetPadding(node, .end).value
         }
@@ -320,7 +320,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var paddingHorizontal: Float {
+    public var paddingHorizontal: Float {
         get {
             return YGNodeStyleGetPadding(node, .horizontal).value
         }
@@ -329,7 +329,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var paddingVertical: Float {
+    public var paddingVertical: Float {
         get {
             return YGNodeStyleGetPadding(node, .vertical).value
         }
@@ -338,7 +338,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var padding: Float {
+    public var padding: Float {
         get {
             return YGNodeStyleGetPadding(node, .all).value
         }
@@ -348,7 +348,7 @@ extension YGLayoutElement {
     }
     
     
-    open var borderLeftWidth: Float {
+    public var borderLeftWidth: Float {
         get {
             return YGNodeStyleGetBorder(node, .left)
         }
@@ -357,7 +357,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var borderTopWidth: Float {
+    public var borderTopWidth: Float {
         get {
             return YGNodeStyleGetBorder(node, .top)
         }
@@ -366,7 +366,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var borderRightWidth: Float {
+    public var borderRightWidth: Float {
         get {
             return YGNodeStyleGetBorder(node, .right)
         }
@@ -375,7 +375,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var borderBottomWidth: Float {
+    public var borderBottomWidth: Float {
         get {
             return YGNodeStyleGetBorder(node, .bottom)
         }
@@ -384,7 +384,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var borderStartWidth: Float {
+    public var borderStartWidth: Float {
         get {
             return YGNodeStyleGetBorder(node, .start)
         }
@@ -393,7 +393,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var borderEndWidth: Float {
+    public var borderEndWidth: Float {
         get {
             return YGNodeStyleGetBorder(node, .end)
         }
@@ -402,7 +402,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var borderWidth: Float {
+    public var borderWidth: Float {
         get {
             return YGNodeStyleGetBorder(node, .all)
         }
@@ -411,7 +411,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var width: Float {
+    public var width: Float {
         get {
             return YGNodeStyleGetWidth(node).value
         }
@@ -420,7 +420,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var height: Float {
+    public var height: Float {
         get {
             return YGNodeStyleGetHeight(node).value
         }
@@ -429,7 +429,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var minWidth: Float {
+    public var minWidth: Float {
         get {
             return YGNodeStyleGetMinWidth(node).value
         }
@@ -438,7 +438,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var minHeight: Float {
+    public var minHeight: Float {
         get {
             return YGNodeStyleGetMinHeight(node).value
         }
@@ -447,7 +447,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var maxWidth: Float {
+    public var maxWidth: Float {
         get {
             return YGNodeStyleGetMaxWidth(node).value
         }
@@ -456,7 +456,7 @@ extension YGLayoutElement {
         }
     }
     
-    open var maxHeight: Float {
+    public var maxHeight: Float {
         get {
             return YGNodeStyleGetMaxHeight(node).value
         }
@@ -467,7 +467,7 @@ extension YGLayoutElement {
     
     
     // Yoga specific properties, not compatible with flexbox specification
-    open var aspectRatio: Float {
+    public var aspectRatio: Float {
         get {
             return YGNodeStyleGetAspectRatio(node)
         }
@@ -480,7 +480,7 @@ extension YGLayoutElement {
     /**
      Get the resolved direction of this node. This won't be YGDirectionInherit
      */
-    open var resolvedDirection: YGDirection {
+    public var resolvedDirection: YGDirection {
         return YGNodeLayoutGetDirection(node)
     }
     
