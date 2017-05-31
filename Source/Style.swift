@@ -348,7 +348,7 @@ extension YGLayoutElement {
     }
     
     
-    public var borderLeftWidth: Float {
+    public var borderLeft: Float {
         get {
             return YGNodeStyleGetBorder(node, .left)
         }
@@ -357,7 +357,7 @@ extension YGLayoutElement {
         }
     }
     
-    public var borderTopWidth: Float {
+    public var borderTop: Float {
         get {
             return YGNodeStyleGetBorder(node, .top)
         }
@@ -366,7 +366,7 @@ extension YGLayoutElement {
         }
     }
     
-    public var borderRightWidth: Float {
+    public var borderRight: Float {
         get {
             return YGNodeStyleGetBorder(node, .right)
         }
@@ -375,7 +375,7 @@ extension YGLayoutElement {
         }
     }
     
-    public var borderBottomWidth: Float {
+    public var borderBottom: Float {
         get {
             return YGNodeStyleGetBorder(node, .bottom)
         }
@@ -384,7 +384,7 @@ extension YGLayoutElement {
         }
     }
     
-    public var borderStartWidth: Float {
+    public var borderStart: Float {
         get {
             return YGNodeStyleGetBorder(node, .start)
         }
@@ -393,7 +393,7 @@ extension YGLayoutElement {
         }
     }
     
-    public var borderEndWidth: Float {
+    public var borderEnd: Float {
         get {
             return YGNodeStyleGetBorder(node, .end)
         }
@@ -401,8 +401,26 @@ extension YGLayoutElement {
             return YGNodeStyleSetBorder(node, .end, newValue)
         }
     }
-    
-    public var borderWidth: Float {
+
+    public var borderVertical: Float {
+        get {
+            return YGNodeStyleGetBorder(node, .vertical)
+        }
+        set {
+            return YGNodeStyleSetBorder(node, .vertical, newValue)
+        }
+    }
+
+    public var borderHorizontal: Float {
+        get {
+            return YGNodeStyleGetBorder(node, .horizontal)
+        }
+        set {
+            return YGNodeStyleSetBorder(node, .horizontal, newValue)
+        }
+    }
+
+    public var border: Float {
         get {
             return YGNodeStyleGetBorder(node, .all)
         }

@@ -81,8 +81,8 @@ class ViewController: UIViewController {
         
         rootLayout
             .isEnabled(true)
-            .justifyContent(.spaceBetween)
-            .alignItems(.center)
+            .mainAxis(.spaceBetween)
+            .crossAxis(.center)
         
         redLayout
             .isEnabled(true)
@@ -97,8 +97,8 @@ class ViewController: UIViewController {
 
         bottomLayout
             .isEnabled(true)
-            .justifyContent(.center)
-            .alignItems(.center)
+            .mainAxis(.center)
+            .crossAxis(.center)
             .marginBottom(30)
 //            .alignSelf(.flexEnd)
 

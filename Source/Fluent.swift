@@ -181,18 +181,8 @@ extension YGLayoutElement {
      - set on item itself
      */
     @discardableResult
-    public func left(_ left: Float) -> Self {
-        self.left = left
-        return self
-    }
-    @discardableResult
     public func top(_ top: Float) -> Self {
         self.top = top
-        return self
-    }
-    @discardableResult
-    public func right(_ right: Float) -> Self {
-        self.right = right
         return self
     }
     @discardableResult
@@ -210,21 +200,21 @@ extension YGLayoutElement {
         self.end = end
         return self
     }
+    @discardableResult
+    public func left(_ left: Float) -> Self {
+        self.left = left
+        return self
+    }
+    @discardableResult
+    public func right(_ right: Float) -> Self {
+        self.right = right
+        return self
+    }
     
     // MARK:
     @discardableResult
-    public func marginLeft(_ marginLeft: Float) -> Self {
-        self.marginLeft = marginLeft
-        return self
-    }
-    @discardableResult
     public func marginTop(_ marginTop: Float) -> Self {
         self.marginTop = marginTop
-        return self
-    }
-    @discardableResult
-    public func marginRight(_ marginRight: Float) -> Self {
-        self.marginRight = marginRight
         return self
     }
     @discardableResult
@@ -243,13 +233,23 @@ extension YGLayoutElement {
         return self
     }
     @discardableResult
-    public func marginHorizontal(_ marginHorizontal: Float) -> Self {
-        self.marginHorizontal = marginHorizontal
+    public func marginLeft(_ marginLeft: Float) -> Self {
+        self.marginLeft = marginLeft
+        return self
+    }
+    @discardableResult
+    public func marginRight(_ marginRight: Float) -> Self {
+        self.marginRight = marginRight
         return self
     }
     @discardableResult
     public func marginVertical(_ marginVertical: Float) -> Self {
         self.marginVertical = marginVertical
+        return self
+    }
+    @discardableResult
+    public func marginHorizontal(_ marginHorizontal: Float) -> Self {
+        self.marginHorizontal = marginHorizontal
         return self
     }
     @discardableResult
@@ -259,16 +259,6 @@ extension YGLayoutElement {
     }
     
     // MARK:
-    @discardableResult
-    public func paddingLeft(_ paddingLeft: Float) -> Self {
-        self.paddingLeft = paddingLeft
-        return self
-    }
-    @discardableResult
-    public func paddingRight(_ paddingRight: Float) -> Self {
-        self.paddingRight = paddingRight
-        return self
-    }
     @discardableResult
     public func paddingTop(_ paddingTop: Float) -> Self {
         self.paddingTop = paddingTop
@@ -290,6 +280,16 @@ extension YGLayoutElement {
         return self
     }
     @discardableResult
+    public func paddingLeft(_ paddingLeft: Float) -> Self {
+        self.paddingLeft = paddingLeft
+        return self
+    }
+    @discardableResult
+    public func paddingRight(_ paddingRight: Float) -> Self {
+        self.paddingRight = paddingRight
+        return self
+    }
+    @discardableResult
     public func paddingVertical(_ paddingVertical: Float) -> Self {
         self.paddingVertical = paddingVertical
         return self
@@ -307,38 +307,49 @@ extension YGLayoutElement {
     
     // MARK:
     @discardableResult
-    public func borderLeftWidth(_ borderLeftWidth: Float) -> Self {
-        self.borderLeftWidth = borderLeftWidth
+    public func borderTop(_ borderTop: Float) -> Self {
+        self.borderTop = borderTop
         return self
     }
     @discardableResult
-    public func borderTopWidth(_ borderTopWidth: Float) -> Self {
-        self.borderTopWidth = borderTopWidth
+    public func borderBottom(_ borderBottom: Float) -> Self {
+        self.borderBottom = borderBottom
         return self
     }
     @discardableResult
-    public func borderRightWidth(_ borderRightWidth: Float) -> Self {
-        self.borderRightWidth = borderRightWidth
+    public func borderStart(_ borderStart: Float) -> Self {
+        self.borderStart = borderStart
         return self
     }
     @discardableResult
-    public func borderBottomWidth(_ borderBottomWidth: Float) -> Self {
-        self.borderBottomWidth = borderBottomWidth
+    public func borderEnd(_ borderEnd: Float) -> Self {
+        self.borderEnd = borderEnd
         return self
     }
     @discardableResult
-    public func borderStartWidth(_ borderStartWidth: Float) -> Self {
-        self.borderStartWidth = borderStartWidth
+    public func borderLeft(_ borderLeft: Float) -> Self {
+        self.borderLeft = borderLeft
         return self
     }
     @discardableResult
-    public func borderEndWidth(_ borderEndWidth: Float) -> Self {
-        self.borderEndWidth = borderEndWidth
+    public func borderRight(_ borderRight: Float) -> Self {
+        self.borderRight = borderRight
         return self
     }
     @discardableResult
-    public func borderWidth(_ borderWidth: Float) -> Self {
-        self.borderWidth = borderWidth
+    public func borderVertical(_ borderVertical: Float) -> Self {
+        self.borderVertical = borderVertical
+        return self
+    }
+    @discardableResult
+    public func borderHorizontal(_ borderHorizontal: Float) -> Self {
+        self.borderHorizontal = borderHorizontal
+        return self
+    }
+
+    @discardableResult
+    public func border(_ border: Float) -> Self {
+        self.border = border
         return self
     }
     
@@ -410,6 +421,19 @@ extension YGLayoutElement {
         return self
     }
 
+    @discardableResult
+    public func sizeRange(min: YGSize, max: YGSize) -> Self {
+        minSize(min)
+        maxSize(max)
+        return self
+    }
+    @discardableResult
+    public func sizeRange(minWidth: Float, minHeight: Float, maxWidth: Float, maxHeight: Float) -> Self {
+        minSize(width: minWidth, height: minHeight)
+        maxSize(width: maxWidth, height: maxHeight)
+        return self
+    }
+    
     // MARK:
     // width / height, e.g. 0.5 (w = 1/2 h), 2.0 (w = 2 h)
     @discardableResult
@@ -455,6 +479,16 @@ extension YGLayoutElement {
     internal func flexDirectionSubelements(_ flexDirection: YGFlexDirection,_ subelements: [YGLayoutElement]) -> Self {
         self.subelements = subelements
         return self.flexDirection(flexDirection)
+    }
+    
+    @discardableResult
+    public func mainAxis(_ align: YGJustify) -> Self {
+        return justifyContent(align)
+    }
+    
+    @discardableResult
+    public func crossAxis(_ align: YGAlign) -> Self {
+        return alignItems(align)
     }
 }
 
