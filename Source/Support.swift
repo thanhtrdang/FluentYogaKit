@@ -27,28 +27,28 @@ public struct YGDimensionFlexibility : OptionSet {
  */
 
 extension CGFloat {
-    internal var roundPixel: CGFloat {        
+    public var roundPixel: CGFloat {
         return Darwin.round(self * scaleFactor) / scaleFactor
     }
     
-    internal var float: Float {
+    public var float: Float {
         return Float(self)
     }
 }
 
 extension CGSize {
-    internal var ygSize: YGSize {
+    public var ygSize: YGSize {
         return YGSize(width: Float(width), height: Float(height))
     }
-    internal var roundPixel: CGSize {
+    public var roundPixel: CGSize {
         return CGSize(width: width.roundPixel, height: height.roundPixel)
     }
 }
 
 extension YGSize {
-    internal static let undefined = YGSize(width: YGValueUndefined.value, height: YGValueUndefined.value)
+    public static let undefined = YGSize(width: YGValueUndefined.value, height: YGValueUndefined.value)
     
-    internal var cgSize: CGSize {
+    public var cgSize: CGSize {
         return CGSize(width: CGFloat(width), height: CGFloat(height))
     }
 }

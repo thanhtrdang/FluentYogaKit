@@ -97,7 +97,7 @@ public class YGLayoutElement {
     }
 }
 
-class YGLayoutView: YGLayoutElement {
+public class YGLayoutView: YGLayoutElement {
     internal let view: UIView
     override internal var frame: CGRect {
         get {
@@ -107,10 +107,10 @@ class YGLayoutView: YGLayoutElement {
             view.frame = newValue
         }
     }
-    override internal var isLeaf: Bool {
+    override public var isLeaf: Bool {
         return !isEnabled || (nil == subelements.first { $0.isEnabled && $0.isIncluded })
     }
-    override internal var isView: Bool {
+    override public var isView: Bool {
         return true
     }
 
