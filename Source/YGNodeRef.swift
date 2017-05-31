@@ -9,7 +9,8 @@
 import yoga
 
 // MARK: - YGNodeRef -
-fileprivate var YGNodeLayoutContext: [YGNodeRef: YGLayoutElement] = [:]
+
+fileprivate var YGNodeLayoutContext: [Int: YGLayoutElement] = [:]
 
 fileprivate let YGNodeMeasureFunc: YGMeasureFunc = { (node: YGNodeRef?, width: Float, widthMode: YGMeasureMode, height: Float, heightMode: YGMeasureMode) -> YGSize in
     let constrainedWidth = (widthMode == .undefined) ? YGValueUndefined.value : width
@@ -71,16 +72,16 @@ extension YGNodeRef {
     internal var element: YGLayoutElement {
         get {
             //TODO YGNodeGetContext(self).load(as: XLayoutElement.self)
-            return YGNodeLayoutContext[self]!
+            return YGNodeLayoutContext[hashValue]!
         }
         set {
             //TODO YGNodeSetContext(self, &element)
-            YGNodeLayoutContext[self] = newValue
+            YGNodeLayoutContext[hashValue] = newValue
         }
     }
     
     internal func removeElement() {
-        YGNodeLayoutContext.removeValue(forKey: self)
+        YGNodeLayoutContext.removeValue(forKey: hashValue)
     }
     
     internal func insertChild(child: YGNodeRef, at index: Int) {
