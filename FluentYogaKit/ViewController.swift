@@ -147,7 +147,7 @@ class ViewController: UIViewController {
     }
 
     @objc fileprivate func signInButtonDidTap() {
-        print("signUpButton did tap !!!")
+        print("signInButton did tap !!!")
     }
 
     fileprivate func applyLayout() {
@@ -230,9 +230,9 @@ class ViewController: UIViewController {
             .isEnabled(true)
             .mainAxis(.center)
             .marginBottom(12)
-        signUpButtonLayout
+        signUpLabelLayout
             .isEnabled(true)
-            .marginLeft(4)
+            .marginRight(4)
         
         rootLayout.layout()
     }

@@ -28,28 +28,6 @@ public class YGLayoutElement {
         YGNodeFree(node)
     }
 
-    public func layout(preserveOrigin: Bool = false, dimensionFlexibility: YGDimensionFlexibility = []) {
-        var size = frame.size
-        
-        if dimensionFlexibility.contains(.flexibleWidth) {
-            size.width = CGFloat(YGValueUndefined.value)
-        }
-        if dimensionFlexibility.contains(.flexibleHeigth) {
-            size.height = CGFloat(YGValueUndefined.value)
-        }
-        
-        calculateLayout(size: size.ygSize)
-        
-        applyLayout(preserveOrigin: preserveOrigin, offset: .zero)
-    }
-    
-    internal func calculateLayout(size: YGSize) {
-        assert(Thread.isMainThread, "Yoga calculation must be done on main.")
-        assert(isEnabled, "Yoga is not enabled for this layout element.")
-        
-        attachNodes()
-        YGNodeCalculateLayout(node, size.width, size.height, YGNodeStyleGetDirection(node))
-    }
     
     internal func attachNodes() {
         if isLeaf {
@@ -76,8 +54,8 @@ public class YGLayoutElement {
     internal func applyLayout(preserveOrigin: Bool, offset: CGPoint) {
         assert(Thread.isMainThread, "Framesetting should only be done on the main thread.")
         
-        let topLeft = CGPoint(x: CGFloat(YGNodeLayoutGetLeft(node)) + offset.x, y: CGFloat(YGNodeLayoutGetTop(node)) + offset.y)
-        let nodeSize = CGSize(width: CGFloat(YGNodeLayoutGetWidth(node)), height: CGFloat(YGNodeLayoutGetHeight(node)))
+        let topLeft = CGPoint(x: node.layoutLeft + offset.x, y: node.layoutTop + offset.y)
+        let nodeSize = CGSize(width: node.layoutWidth, height: node.layoutHeight)
         let origin = preserveOrigin ? frame.origin : .zero
         
         frame = CGRect(
@@ -125,4 +103,28 @@ public class YGLayoutView: YGLayoutElement {
     override internal func sizeThatFits(_ size: CGSize) -> CGSize {
         return view.sizeThatFits(size)
     }
+    
+    public func layout(preserveOrigin: Bool = false, dimensionFlexibility: YGDimensionFlexibility = []) {
+        var size = frame.size
+        
+        if dimensionFlexibility.contains(.flexibleWidth) {
+            size.width = YGValueUndefined.value.cgFloat
+        }
+        if dimensionFlexibility.contains(.flexibleHeigth) {
+            size.height = YGValueUndefined.value.cgFloat
+        }
+        
+        calculateLayout(size: size.ygSize)
+        
+        applyLayout(preserveOrigin: preserveOrigin, offset: .zero)
+    }
+    
+    internal func calculateLayout(size: YGSize) {
+        assert(Thread.isMainThread, "Yoga calculation must be done on main.")
+        assert(isEnabled, "Yoga is not enabled for this layout element.")
+        
+        attachNodes()
+        node.calculateLayout(size: size, direction: direction)
+    }
+
 }

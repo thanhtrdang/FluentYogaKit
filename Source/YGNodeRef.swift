@@ -19,10 +19,22 @@ fileprivate let YGNodeMeasureFunc: YGMeasureFunc = { (node: YGNodeRef?, width: F
     let element = node!.element
     let sizeThatFits = element.sizeThatFits(constrainedSize.cgSize)
     
-    return YGSize(
+    let ygSize = YGSize(
         width: node!.sanitizeMeasurement(constrainedSize: constrainedWidth, measuredSize: Float(sizeThatFits.width), measureMode: widthMode),
         height: node!.sanitizeMeasurement(constrainedSize: constrainedHeight, measuredSize: Float(sizeThatFits.height), measureMode: heightMode)
     )
+    
+//TODO remove this debug later
+//    let v = (element as! YGLayoutView).view
+//    
+////    if v is UILabel {
+////        let l = v as! UILabel
+////        print("\(l.text) - \(ygSize)")
+////    }
+//    
+//    print("YGMeasureFunc - \(ygSize) - \(v.className)")
+    
+    return ygSize
 }
 
 extension YGNodeRef {
@@ -37,6 +49,19 @@ extension YGNodeRef {
     internal init(element: YGLayoutElement) {
         self = YGNodeNewWithConfig(YGNodeRef.globalConfig)
         self.element = element
+    }
+
+    internal var layoutTop: CGFloat {
+        return YGNodeLayoutGetTop(self).cgFloat
+    }
+    internal var layoutLeft: CGFloat {
+        return YGNodeLayoutGetLeft(self).cgFloat
+    }
+    internal var layoutWidth: CGFloat {
+        return YGNodeLayoutGetWidth(self).cgFloat
+    }
+    internal var layoutHeight: CGFloat {
+        return YGNodeLayoutGetHeight(self).cgFloat
     }
     
     internal var element: YGLayoutElement {
@@ -122,5 +147,9 @@ extension YGNodeRef {
         }
         
         return result
+    }
+    
+    internal func calculateLayout(size: YGSize, direction: YGDirection) {
+        YGNodeCalculateLayout(self, size.width, size.height, direction)
     }
 }

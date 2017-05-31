@@ -25,10 +25,22 @@ public struct YGDimensionFlexibility : OptionSet {
 /*
  inset, stack, center, relative, overlay, background, absolute, ratio
  */
+extension Float {
+    public var cg: CGFloat {
+        return cgFloat
+    }
+    public var cgFloat: CGFloat {
+        return CGFloat(self)
+    }
+}
 
 extension CGFloat {
     public var roundPixel: CGFloat {
         return Darwin.round(self * scaleFactor) / scaleFactor
+    }
+    
+    public var f: Float {
+        return float
     }
     
     public var float: Float {
@@ -38,7 +50,7 @@ extension CGFloat {
 
 extension CGSize {
     public var ygSize: YGSize {
-        return YGSize(width: Float(width), height: Float(height))
+        return YGSize(width: width.float, height: height.float)
     }
     public var roundPixel: CGSize {
         return CGSize(width: width.roundPixel, height: height.roundPixel)
@@ -49,7 +61,7 @@ extension YGSize {
     public static let undefined = YGSize(width: YGValueUndefined.value, height: YGValueUndefined.value)
     
     public var cgSize: CGSize {
-        return CGSize(width: CGFloat(width), height: CGFloat(height))
+        return CGSize(width: width.cgFloat, height: height.cgFloat)
     }
 }
 
