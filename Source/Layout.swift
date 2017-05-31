@@ -49,7 +49,6 @@ public class YGLayoutElement {
         
         attachNodes()
         YGNodeCalculateLayout(node, size.width, size.height, YGNodeStyleGetDirection(node))
-//        return YGSize(width: YGNodeLayoutGetWidth(node), height: YGNodeLayoutGetHeight(node))
     }
     
     internal func attachNodes() {
@@ -58,6 +57,7 @@ public class YGLayoutElement {
             node.setMeasureFunc()
         } else {
             node.removeMeasureFunc()
+            
             let includedSubelements = subelements.filter {
                 $0.isIncluded
             }

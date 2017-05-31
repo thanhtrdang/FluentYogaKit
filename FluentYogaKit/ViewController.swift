@@ -80,7 +80,10 @@ class ViewController: UIViewController {
         configForm()
         configFooter()
         
-        applyLayout()
+        Duration.measure("Layout") {
+            applyLayout()
+        }
+        
     }
     
     fileprivate func configHeader() {
@@ -121,6 +124,7 @@ class ViewController: UIViewController {
             $0.text("Sign in")
             $0.titleLabel?.font = .h4
             $0.setTitleColor(.black, for: .normal)
+            $0.addTarget(self, action: #selector(signInButtonDidTap), for: .touchUpInside)
         }
     }
     
@@ -134,13 +138,23 @@ class ViewController: UIViewController {
             $0.text("Sign up")
             $0.titleLabel?.font = .h4
             $0.setTitleColor(.black, for: .normal)
+            $0.addTarget(self, action: #selector(signUpButtonDidTap), for: .touchUpInside)
         }
     }
     
+    @objc fileprivate func signUpButtonDidTap() {
+        print("signUpButton did tap !!!")
+    }
+
+    @objc fileprivate func signInButtonDidTap() {
+        print("signUpButton did tap !!!")
+    }
+
     fileprivate func applyLayout() {
-        let formView = UIView().then {
-            $0.backgroundColor = .lightGray
-        }
+        let formView = UIView()
+//        .then {
+////            $0.backgroundColor = .white
+//        }
         
         view.sv(
             titleLabel,
@@ -164,12 +178,12 @@ class ViewController: UIViewController {
         let signInLayout = YGLayoutView(view: signInButton)
         let formButtonsLayout = YGLayoutElement(horizontal: forgotPasswordLayout, signInLayout)
         
-        let formLayout = YGLayoutElement(vertical:
+        let formLayout = YGLayoutView(view: formView, vertical:
             usernameLabelLayout,
-                                         usernameTextFieldLayout,
-                                         passwordLabelLayout,
-                                         passwordTextFieldLayout,
-                                         formButtonsLayout
+            usernameTextFieldLayout,
+            passwordLabelLayout,
+            passwordTextFieldLayout,
+            formButtonsLayout
         )
         
         let signUpLabelLayout = YGLayoutView(view: signUpLabel)
@@ -178,8 +192,8 @@ class ViewController: UIViewController {
         
         let rootLayout = YGLayoutView(view: view, vertical:
             headerLayout,
-                                      formLayout,
-                                      footerLayout
+            formLayout,
+            footerLayout
         )
         
         rootLayout
@@ -196,26 +210,21 @@ class ViewController: UIViewController {
             .flexGrow(1)
         usernameLabelLayout
             .isEnabled(true)
-            .height(30)
             .marginTop(30)
         usernameTextFieldLayout
             .isEnabled(true)
-            .height(30)
+            .marginTop(8)
         passwordLabelLayout
             .isEnabled(true)
-            .height(30)
             .marginTop(12)
         passwordTextFieldLayout
             .isEnabled(true)
-            .height(30)
+            .marginTop(8)
         
         formButtonsLayout
             .isEnabled(true)
             .mainAxis(.spaceBetween)
             .marginTop(16)
-        forgotPasswordLayout
-            .isEnabled(true)
-            .height(30)
         
         footerLayout
             .isEnabled(true)
