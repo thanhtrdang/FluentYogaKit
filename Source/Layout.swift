@@ -9,12 +9,16 @@
 import UIKit
 import yoga
 
+/*
+ inset, stack, center, relative, overlay, background, absolute, ratio
+ */
+
 // MARK: - YGLayoutElement -
 public class YGLayoutElement {
     internal var node: YGNodeRef!
     internal var subelements: [YGLayoutElement] = []
     internal var isIncluded: Bool = true
-    internal var isEnabled: Bool = false
+    internal var isEnabled: Bool = true
     internal var frame: CGRect = .zero
     public var isLeaf: Bool { return false }
     public var isView: Bool { return false }
@@ -27,8 +31,26 @@ public class YGLayoutElement {
         node.removeElement()
         YGNodeFree(node)
     }
-
     
+    public subscript(i: Int) -> YGLayoutElement? {
+        var result: YGLayoutElement? = nil
+        if 0 <= i && i < subelements.count {
+            result = subelements[i]
+        }
+        return result
+    }
+
+    public subscript(i: Int, j: Int) -> YGLayoutElement? {
+        var result: YGLayoutElement? = nil
+        if 0 <= i && i < subelements.count {
+            let iSubelement = subelements[i]
+            if 0 <= j && j < iSubelement.subelements.count {
+                result = iSubelement[j]
+            }
+        }
+        return result
+    }
+
     internal func attachNodes() {
         if isLeaf {
             node.removeChildren()
@@ -117,6 +139,62 @@ public class YGLayoutView: YGLayoutElement {
         calculateLayout(size: size.ygSize)
         
         applyLayout(preserveOrigin: preserveOrigin, offset: .zero)
+    }
+    
+    public func sublayout(_ sublelements: Any...) -> Self {
+        flexDirection(.column)
+        
+        var marginTop: Float? = nil
+        for (index, subelement) in sublelements.enumerated() {
+            switch subelement {
+            case let view as UIView:
+                print("UIView")
+                let layoutView = YGLayoutView(view: view)
+                self.view.subview(view)
+                self.subelements.append(layoutView)
+            case is Int: fallthrough
+            case is Double: fallthrough
+            case is CGFloat:
+                print("Margin \(subelement)")
+                switch index {
+                case 0:
+                    marginTop = Float(any: subelement)
+                default:
+                    if let previousSubelement = self.subelements.last {
+                        previousSubelement.marginBottom(Float(any: subelement))
+                    }
+                }
+//            case _ as String:() //Do nothin' !
+            case let horizontalView as [UIView]:
+                print("[UIView]")
+                let horizontalLayoutView = horizontalView.map { YGLayoutView(view: $0) }
+                let horizontalElement = YGLayoutElement(horizontal: horizontalLayoutView)
+                self.view.subview(horizontalView)
+                self.subelements.append(horizontalElement)
+            case let layoutView as YGLayoutView:
+                print("YGLayoutView")
+                self.view.subview(layoutView.view)
+                self.subelements.append(layoutView)
+            case let horizontalLayoutView as [YGLayoutView]:
+                print("[YGLayoutView]")
+                let horizontalElement = YGLayoutElement(horizontal: horizontalLayoutView)
+                self.subelements.append(horizontalElement)
+            case let layoutElement as YGLayoutElement:
+                print("YGLayoutElement")
+                self.subelements.append(layoutElement)
+            case let horizontalLayoutElement as [YGLayoutElement]:
+                print("[YGLayoutElement]")
+                let horizontalElement = YGLayoutElement(horizontal: horizontalLayoutElement)
+                self.subelements.append(horizontalElement)
+            default: ()
+            }
+        }
+        
+        if let marginTop = marginTop, let firstSubelement = self.subelements.first {
+            firstSubelement.marginTop(marginTop)
+        }
+        
+        return self
     }
     
     internal func calculateLayout(size: YGSize) {

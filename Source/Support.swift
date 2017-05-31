@@ -22,10 +22,20 @@ public struct YGDimensionFlexibility : OptionSet {
     }
 }
 
-/*
- inset, stack, center, relative, overlay, background, absolute, ratio
- */
 extension Float {
+    internal init(any value: Any) {
+        var m: Float = 0
+        if let i = value as? Int {
+            m = Float(i)
+        } else if let d = value as? Double {
+            m = Float(d)
+        } else if let cg = value as? CGFloat {
+            m = cg.float
+        }
+        
+        self = m
+    }
+    
     public var cg: CGFloat {
         return cgFloat
     }

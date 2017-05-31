@@ -459,12 +459,20 @@ extension YGLayoutElement {
         self.init()
         flexDirectionSubelements(.column, vertical)
     }
+    convenience public init(vertical: [YGLayoutElement]) {
+        self.init()
+        flexDirectionSubelements(.column, vertical)
+    }
 
     convenience public init(horizontal: YGLayoutElement...) {
         self.init()
         flexDirectionSubelements(.row, horizontal)
     }
-    
+    convenience public init(horizontal: [YGLayoutElement]) {
+        self.init()
+        flexDirectionSubelements(.row, horizontal)
+    }
+
     @discardableResult
     public func vertical(_ subelements: YGLayoutElement...) -> Self {
         return flexDirectionSubelements(.column, subelements)

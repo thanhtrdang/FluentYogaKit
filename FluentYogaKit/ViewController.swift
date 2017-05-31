@@ -156,81 +156,43 @@ class ViewController: UIViewController {
 ////            $0.backgroundColor = .white
 //        }
         
-        view.subview(
-            titleLabel,
-            formView.subview(
-                usernameLabel, usernameTextField,
-                passwordLabel, passwordTextField,
-                forgotPasswordButton, signInButton
-            ),
-            signUpLabel, signUpButton
-        )
-        
-        
-        let headerLayout = YGLayoutView(view: titleLabel)
-        
-        let usernameLabelLayout = YGLayoutView(view: usernameLabel)
-        let usernameTextFieldLayout = YGLayoutView(view: usernameTextField)
-        let passwordLabelLayout = YGLayoutView(view: passwordLabel)
-        let passwordTextFieldLayout = YGLayoutView(view: passwordTextField)
-        
-        let forgotPasswordLayout = YGLayoutView(view: forgotPasswordButton)
-        let signInLayout = YGLayoutView(view: signInButton)
-        let formButtonsLayout = YGLayoutElement(horizontal: forgotPasswordLayout, signInLayout)
-        
-        let formLayout = YGLayoutView(view: formView, vertical:
-            usernameLabelLayout,
-            usernameTextFieldLayout,
-            passwordLabelLayout,
-            passwordTextFieldLayout,
-            formButtonsLayout
-        )
-        
-        let signUpLabelLayout = YGLayoutView(view: signUpLabel)
-        let signUpButtonLayout = YGLayoutView(view: signUpButton)
-        let footerLayout = YGLayoutElement(horizontal: signUpLabelLayout, signUpButtonLayout)
-        
-        let rootLayout = YGLayoutView(view: view, vertical:
-            headerLayout,
-            formLayout,
-            footerLayout
-        )
+        let rootLayout = YGLayoutView(view: view)
+            .sublayout(
+                titleLabel,
+                30,
+                YGLayoutView(view: formView).sublayout(
+                    usernameLabel,
+                    8,
+                    usernameTextField,
+                    16,
+                    passwordLabel,
+                    8,
+                    passwordTextField,
+                    16,
+                    [forgotPasswordButton, signInButton]
+                ),
+                [signUpLabel, signUpButton]
+            )
         
         rootLayout
             .isEnabled(true)
+            .paddingTop(44)
             .paddingHorizontal(16)
+            .paddingBottom(12)
         
-        headerLayout
-            .isEnabled(true)
+        rootLayout[0]! // header
             .crossSelf(.flexStart)
-            .marginTop(44)
         
-        formLayout
-            .isEnabled(true)
+        rootLayout[1]! // form
             .flexGrow(1)
-        usernameLabelLayout
-            .isEnabled(true)
-            .marginTop(30)
-        usernameTextFieldLayout
-            .isEnabled(true)
-            .marginTop(8)
-        passwordLabelLayout
-            .isEnabled(true)
-            .marginTop(12)
-        passwordTextFieldLayout
-            .isEnabled(true)
-            .marginTop(8)
         
-        formButtonsLayout
-            .isEnabled(true)
+        rootLayout[1,4]! // form buttons
             .mainAxis(.spaceBetween)
-            .marginTop(16)
         
-        footerLayout
+        rootLayout[2]! // footer
             .isEnabled(true)
             .mainAxis(.center)
-            .marginBottom(12)
-        signUpLabelLayout
+        rootLayout[2,0]!
             .isEnabled(true)
             .marginRight(4)
         
