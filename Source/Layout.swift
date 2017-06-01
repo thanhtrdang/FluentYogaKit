@@ -17,7 +17,7 @@ import yoga
 public class YGLayoutElement {
     internal var node: YGNodeRef!
     internal var subelements: [YGLayoutElement] = []
-    internal var yoga: YGLayoutContainerStyle?
+    internal var containerStyle: YGLayoutContainerStyle?
     internal var isIncluded: Bool = true
     internal var isEnabled: Bool = true
     internal var frame: CGRect = .zero
@@ -52,8 +52,8 @@ public class YGLayoutElement {
         return result
     }
 
-    public func yoga(mainAxis: YGJustify = .flexStart, crossAxis: YGAlign = .stretch) -> Self {
-        yoga = YGLayoutContainerStyle(mainAxisAlign: mainAxis, crossAxisAlign: crossAxis)
+    public func style(mainAxis: YGJustify = .flexStart, crossAxis: YGAlign = .stretch) -> Self {
+        containerStyle = YGLayoutContainerStyle(mainAxisAlign: mainAxis, crossAxisAlign: crossAxis)
         
         return self
     }

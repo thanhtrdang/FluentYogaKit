@@ -170,10 +170,10 @@ class ViewController: UIViewController {
                     8,
                     passwordTextField,
                     16,
-                    |forgotPasswordButton-signInButton|.yoga(mainAxis: .spaceBetween)
+                    |forgotPasswordButton-signInButton|.style(mainAxis: .spaceBetween)
                 )
                 .flexGrow(1),
-                |signUpLabel-4-signUpButton|.yoga(mainAxis: .center)
+                |signUpLabel-4-signUpButton|.style(mainAxis: .center)
             )
         
         rootLayout

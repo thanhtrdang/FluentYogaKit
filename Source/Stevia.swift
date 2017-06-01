@@ -54,10 +54,10 @@ public extension UICollectionViewCell {
 // MARK: - sublayout -
 public extension YGLayoutElement {
     fileprivate func handleAdditionalStyle() -> Self {
-        if let additionalStyle = subelements.last?.yoga {
+        if let additionalStyle = subelements.last?.containerStyle {
             mainAxis(align: additionalStyle.mainAxisAlign)
             crossAxis(align: additionalStyle.crossAxisAlign)
-            yoga = nil
+            subelements.last?.containerStyle = nil
         }
         
         return self
