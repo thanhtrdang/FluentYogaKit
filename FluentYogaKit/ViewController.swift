@@ -151,16 +151,19 @@ class ViewController: UIViewController {
     }
 
     fileprivate func applyLayout() {
+        
+        
         let formView = UIView()
 //        .then {
 ////            $0.backgroundColor = .white
 //        }
+        let formLayout = YGLayoutView(view: formView)
         
         let rootLayout = YGLayoutView(view: view)
             .sublayout(
-                titleLabel,
+                |titleLabel|.crossSelf(.flexStart),
                 30,
-                YGLayoutView(view: formView).sublayout(
+                formLayout.sublayout(
                     usernameLabel,
                     8,
                     usernameTextField,
@@ -169,9 +172,10 @@ class ViewController: UIViewController {
                     8,
                     passwordTextField,
                     16,
-                    [forgotPasswordButton, signInButton]
-                ),
-                [signUpLabel, signUpButton]
+                    |forgotPasswordButton-signInButton|
+                )
+                .flexGrow(1),
+                |signUpLabel-4-signUpButton|
             )
         
         rootLayout
@@ -180,21 +184,12 @@ class ViewController: UIViewController {
             .paddingHorizontal(16)
             .paddingBottom(12)
         
-        rootLayout[0]! // header
-            .crossSelf(.flexStart)
         
-        rootLayout[1]! // form
-            .flexGrow(1)
-        
-        rootLayout[1,4]! // form buttons
+        formLayout[4]! // form buttons
             .mainAxis(.spaceBetween)
         
         rootLayout[2]! // footer
-            .isEnabled(true)
             .mainAxis(.center)
-        rootLayout[2,0]!
-            .isEnabled(true)
-            .marginRight(4)
         
         rootLayout.layout()
     }

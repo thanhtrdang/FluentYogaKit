@@ -8,6 +8,22 @@
 
 import yoga
 
+//protocol YGLayoutElementStyle {
+//    var node: YGNodeRef { get }
+//    var direction: YGDirection {get set}
+//}
+//
+//extension YGLayoutElementStyle {
+//    public var direction: YGDirection {
+//        get {
+//            return YGNodeStyleGetDirection(node)
+//        }
+//        set {
+//            YGNodeStyleSetDirection(node, newValue)
+//        }
+//    }
+//}
+
 // MARK: - Style -
 extension YGLayoutElement {
     public var direction: YGDirection {
