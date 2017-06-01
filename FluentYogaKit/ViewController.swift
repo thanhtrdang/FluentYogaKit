@@ -170,7 +170,7 @@ class ViewController: UIViewController {
                     8,
                     passwordTextField,
                     16,
-                    |forgotPasswordButton-signInButton|.style(mainAxis: .spaceBetween)
+                    |forgotPasswordButton-signInButton-20-|.style(mainAxis: .spaceBetween)
                 )
                 .flexGrow(1),
                 |signUpLabel-4-signUpButton|.style(mainAxis: .center)

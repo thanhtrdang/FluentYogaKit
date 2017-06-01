@@ -52,12 +52,6 @@ public class YGLayoutElement {
         return result
     }
 
-    public func style(mainAxis: YGJustify = .flexStart, crossAxis: YGAlign = .stretch) -> Self {
-        containerStyle = YGLayoutContainerStyle(mainAxisAlign: mainAxis, crossAxisAlign: crossAxis)
-        
-        return self
-    }
-    
     internal func attachNodes() {
         if isLeaf {
             node.removeChildren()

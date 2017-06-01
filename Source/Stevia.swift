@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import yoga
 
 // Ref: https://github.com/freshOS/Stevia
-// MARK: subview -
+// MARK: - subview -
 /*
  E.g. Build a sign-in form
  formView.subview(
@@ -51,12 +52,55 @@ public extension UICollectionViewCell {
     }
 }
 
+//MARK: container style -
+/*
+ Support more styles:
+ Step 1: Add more properties to YGLayoutContainerStyle, only "set on containers" properties in comments of Fluent.swift
+ Step 2: Update RightSide.style
+ Step 3: Update YGLayoutElement.style, YGLayoutElement.handleStyle
+ Step 4: Use, e.g. as in ViewController.swift
+ 
+ */
+internal struct YGLayoutContainerStyle {
+    fileprivate let mainAxis: YGJustify
+    fileprivate let crossAxis: YGAlign
+}
+
+public class RightSide {
+    fileprivate let margin: Float
+    fileprivate var containerStyle: YGLayoutContainerStyle?
+    
+    fileprivate init(margin: Float) {
+        self.margin = margin
+    }
+    
+    public func style(mainAxis: YGJustify = .flexStart, crossAxis: YGAlign = .stretch) -> Self {
+        containerStyle = YGLayoutContainerStyle(mainAxis: mainAxis, crossAxis: crossAxis)
+        
+        return self
+    }
+}
+
 // MARK: - sublayout -
 public extension YGLayoutElement {
-    fileprivate func handleAdditionalStyle() -> Self {
-        if let additionalStyle = subelements.last?.containerStyle {
-            mainAxis(align: additionalStyle.mainAxisAlign)
-            crossAxis(align: additionalStyle.crossAxisAlign)
+    public func style(mainAxis: YGJustify = .flexStart, crossAxis: YGAlign = .stretch) -> Self {
+        containerStyle = YGLayoutContainerStyle(mainAxis: mainAxis, crossAxis: crossAxis)
+        
+        return self
+    }
+
+    @discardableResult
+    fileprivate func handleRightSide(_ rightSide: RightSide) -> Self {
+        marginRight = rightSide.margin
+        containerStyle = rightSide.containerStyle
+        
+        return self
+    }
+    
+    fileprivate func handleStyle() -> Self {
+        if let style = subelements.last?.containerStyle {
+            mainAxis(align: style.mainAxis)
+            crossAxis(align: style.crossAxis)
             subelements.last?.containerStyle = nil
         }
         
@@ -173,7 +217,7 @@ public extension YGLayoutView {
         view.subview(sublayoutViews.map { $0.view })
         
         let subelement = YGLayoutElement(horizontal: sublayoutViews)
-            .handleAdditionalStyle()
+            .handleStyle()
         
         subelements.append(subelement)
     }
@@ -184,7 +228,7 @@ public extension YGLayoutView {
 
     private func handleSublayout(horizontal sublayoutElements: [YGLayoutElement]) {
         let subelement = YGLayoutElement(horizontal: sublayoutElements)
-            .handleAdditionalStyle()
+            .handleStyle()
         
         subelements.append(subelement)
     }
@@ -234,8 +278,8 @@ public prefix func |- (layoutElement: YGLayoutElement) -> YGLayoutElement {
 
 // MARK: postfix -|
 @discardableResult
-public postfix func -| (right: Float) -> Float {
-    return right
+public postfix func -| (right: Float) -> RightSide {
+    return RightSide(margin: right)
 }
 @discardableResult
 public postfix func -| (view: UIView) -> YGLayoutView {
@@ -256,6 +300,18 @@ public func - (left: Float, right: YGLayoutElement) -> YGLayoutElement {
 public func - (left: Float, right: [YGLayoutElement]) -> [YGLayoutElement] {
     right.first?.marginLeft(left)
     return right
+}
+
+public func - (left: UIView, right: RightSide) -> YGLayoutView {
+    return YGLayoutView(view: left).handleRightSide(right)
+}
+public func - (left: YGLayoutElement, right: RightSide) -> YGLayoutElement {
+    return left.handleRightSide(right)
+}
+public func - (left: [YGLayoutElement], right: RightSide) -> [YGLayoutElement] {
+    left.last?.handleRightSide(right)
+    
+    return left
 }
 
 public func - (left: UIView, right: Float) -> YGLayoutView {
