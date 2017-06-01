@@ -10,7 +10,7 @@ import UIKit
 import yoga
 
 // Ref: https://github.com/freshOS/Stevia
-// MARK: subview -
+// MARK: - subview -
 /*
  E.g. Build a sign-in form
  formView.subview(
@@ -52,40 +52,30 @@ public extension UICollectionViewCell {
     }
 }
 
-// MARK: - subnode -
-extension YGNodeRef {
-    @discardableResult
-    internal func subnode(_ subnodes: YGNodeRef...) -> YGNodeRef {
-        return subnode(subnodes)
-    }
-    
-    @discardableResult
-    internal func subnode(_ subnodes: [YGNodeRef]) -> YGNodeRef {
-        insertChildren(children: subnodes)
-        
-        return self
-    }
+//MARK: container style -
+/*
+ Support more styles:
+ Step 1: Add more properties to YGLayoutContainerStyle, only "set on containers" properties in comments of Fluent.swift
+ Step 2: Update RightSide.style
+ Step 3: Update YGLayoutElement.style, YGLayoutElement.handleStyle
+ Step 4: Use, e.g. as in ViewController.swift
+ 
+ */
+internal struct YGLayoutContainerStyle {
+    fileprivate let mainAxis: YGJustify
+    fileprivate let crossAxis: YGAlign
 }
 
-// MARK: - subelement -
-extension YGLayoutElement {
-    @discardableResult
-    internal func subelement(_ subelements: YGLayoutElement...) -> Self {
-        return subelement(subelements)
+public class RightSide {
+    fileprivate let margin: Float
+    fileprivate var containerStyle: YGLayoutContainerStyle?
+    
+    fileprivate init(margin: Float) {
+        self.margin = margin
     }
     
-    @discardableResult
-    internal func subelement(_ subelements: [YGLayoutElement]) -> Self {
-        node.subnode(
-            subelements
-                .filter {
-                    $0.isEnabled && $0.isIncluded
-                }
-                .map {
-                    $0.node
-                }
-        )
-        self.subelements.append(contentsOf: subelements)
+    public func style(mainAxis: YGJustify = .flexStart, crossAxis: YGAlign = .stretch) -> Self {
+        containerStyle = YGLayoutContainerStyle(mainAxis: mainAxis, crossAxis: crossAxis)
         
         return self
     }
@@ -204,26 +194,23 @@ public extension YGLayoutView {
     }
 
     private func handleSublayout(subview: UIView) {
-        let layoutView = YGLayoutView(view: subview)
-        
         view.subview(subview)
         
-        subelement(layoutView)
+        subelements.append(YGLayoutView(view: subview))
     }
     
     private func handleSublayout(horizontal subviews: [UIView]) {
-        let sublayoutViews = subviews.map { YGLayoutView(view: $0) }
-        let subelement = YGLayoutElement(horizontal: sublayoutViews)
-
         view.subview(subviews)
         
-        self.subelement(subelement)
+        let sublayoutViews = subviews.map { YGLayoutView(view: $0) }
+        let subelement = YGLayoutElement(horizontal: sublayoutViews)
+        subelements.append(subelement)
     }
     
     private func handleSublayout(sublayoutView: YGLayoutView) {
         view.subview(sublayoutView.view)
         
-        subelement(sublayoutView)
+        subelements.append(sublayoutView)
     }
     
     private func handleSublayout(horizontal sublayoutViews: [YGLayoutView]) {
@@ -232,50 +219,20 @@ public extension YGLayoutView {
         let subelement = YGLayoutElement(horizontal: sublayoutViews)
             .handleStyle()
         
-        self.subelement(subelement)
+        subelements.append(subelement)
     }
 
     private func handleSublayout(sublayoutElement: YGLayoutElement) {
-        
-        subelement(sublayoutElement)
+        subelements.append(sublayoutElement)
     }
 
     private func handleSublayout(horizontal sublayoutElements: [YGLayoutElement]) {
         let subelement = YGLayoutElement(horizontal: sublayoutElements)
             .handleStyle()
         
-        self.subelement(subelement)
+        subelements.append(subelement)
     }
     
-}
-
-//MARK: - container style -
-/*
- Support more styles:
- Step 1: Add more properties to YGLayoutContainerStyle, only "set on containers" properties in comments of Fluent.swift
- Step 2: Update RightSide.style
- Step 3: Update YGLayoutElement.style, YGLayoutElement.handleStyle
- Step 4: Use, e.g. as in ViewController.swift
- 
- */
-internal struct YGLayoutContainerStyle {
-    fileprivate let mainAxis: YGJustify
-    fileprivate let crossAxis: YGAlign
-}
-
-public class RightSide {
-    fileprivate let margin: Float
-    fileprivate var containerStyle: YGLayoutContainerStyle?
-    
-    fileprivate init(margin: Float) {
-        self.margin = margin
-    }
-    
-    public func style(mainAxis: YGJustify = .flexStart, crossAxis: YGAlign = .stretch) -> Self {
-        containerStyle = YGLayoutContainerStyle(mainAxis: mainAxis, crossAxis: crossAxis)
-        
-        return self
-    }
 }
 
 // MARK: - operators -

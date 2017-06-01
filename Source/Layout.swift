@@ -51,38 +51,27 @@ public class YGLayoutElement {
         }
         return result
     }
-    
+
     internal func attachNodes() {
         if isLeaf {
+            node.removeChildren()
             node.setMeasureFunc()
         } else {
             node.removeMeasureFunc()
+            
             let includedSubelements = subelements.filter {
                 $0.isIncluded
             }
+            
+            if !node.hasExactSameChildren(subelements: includedSubelements) {
+                node.removeChildren()
+                node.insertChildren(subelements: includedSubelements)
+            }
+            
             includedSubelements.forEach {
                 $0.attachNodes()
             }
         }
-//        if isLeaf {
-//            node.removeChildren()
-//            node.setMeasureFunc()
-//        } else {
-//            node.removeMeasureFunc()
-//            
-//            let includedSubelements = subelements.filter {
-//                $0.isIncluded
-//            }
-//            
-//            if !node.hasExactSameChildren(subelements: includedSubelements) {
-//                node.removeChildren()
-//                node.insertChildren(subelements: includedSubelements)
-//            }
-//            
-//            includedSubelements.forEach {
-//                $0.attachNodes()
-//            }
-//        }
     }
     
     internal func applyLayout(preserveOrigin: Bool, offset: CGPoint) {
@@ -96,8 +85,6 @@ public class YGLayoutElement {
             origin: CGPoint(x: (topLeft.x + origin.x).roundPixel, y: (topLeft.y + origin.y).roundPixel),
             size: nodeSize.roundPixel
         )
-        
-        print("leaf-\(isLeaf) - frame-\(frame)")
         
         if !isLeaf {
             subelements.forEach {
