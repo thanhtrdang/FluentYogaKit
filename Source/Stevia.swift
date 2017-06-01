@@ -63,7 +63,36 @@ public extension YGLayoutElement {
         return self
     }
 }
-
+/*
+ let rootLayout = YGLayoutView(view: view)
+    .sublayout(
+        |-20-titleLabel|.crossSelf(align: .flexStart),
+        30,
+        YGLayoutView(view: formView).sublayout(
+            usernameLabel,
+            8,
+            usernameTextField,
+            16,
+            passwordLabel,
+            8,
+            passwordTextField,
+            16,
+            |forgotPasswordButton-signInButton|.style(mainAxis: .spaceBetween)
+        ).flexGrow(1),
+        |signUpLabel-4-signUpButton|.style(mainAxis: .center)
+    )
+ 
+ rootLayout
+    .isEnabled(true)
+    .paddingTop(44)
+    .paddingHorizontal(16)
+    .paddingBottom(12)
+ 
+ rootLayout.layout { [unowned self] layoutView in
+    // config something that must run after layout, e.g. build bottom border.
+    self.usernameTextField.border(sides: .bottom)
+ }
+*/
 public extension YGLayoutView {
     public func sublayout(_ sublelements: Any...) -> Self {
         flexDirection(.column)
@@ -189,6 +218,11 @@ public postfix func | (layoutElement: YGLayoutElement) -> YGLayoutElement {
 
 // MARK: |- prefix
 private let defaultMargin = Float(8)
+
+@discardableResult
+public prefix func |- (left: Float) -> Float {
+    return left
+}
 @discardableResult
 public prefix func |- (view: UIView) -> YGLayoutView {
     return YGLayoutView(view: view).marginLeft(defaultMargin)
@@ -200,6 +234,10 @@ public prefix func |- (layoutElement: YGLayoutElement) -> YGLayoutElement {
 
 // MARK: postfix -|
 @discardableResult
+public postfix func -| (right: Float) -> Float {
+    return right
+}
+@discardableResult
 public postfix func -| (view: UIView) -> YGLayoutView {
     return YGLayoutView(view: view).marginRight(defaultMargin)
 }
@@ -209,6 +247,17 @@ public postfix func -| (layoutElement: YGLayoutElement) -> YGLayoutElement {
 }
 
 // MARK: func '-'
+public func - (left: Float, right: UIView) -> YGLayoutView {
+    return YGLayoutView(view: right).marginLeft(left)
+}
+public func - (left: Float, right: YGLayoutElement) -> YGLayoutElement {
+    return right.marginLeft(left)
+}
+public func - (left: Float, right: [YGLayoutElement]) -> [YGLayoutElement] {
+    right.first?.marginLeft(left)
+    return right
+}
+
 public func - (left: UIView, right: Float) -> YGLayoutView {
     return YGLayoutView(view: left).marginRight(right)
 }
@@ -226,6 +275,7 @@ public func - (left: UIView, right: UIView) -> [YGLayoutElement] {
 public func - (left: YGLayoutElement, right: YGLayoutElement) -> [YGLayoutElement] {
     return [left, right]
 }
+
 public func - (left: UIView, right: YGLayoutElement) -> [YGLayoutElement] {
     return [YGLayoutView(view: left), right]
 }
