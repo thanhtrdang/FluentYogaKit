@@ -18,7 +18,6 @@ public class YGLayoutElement {
     internal var node: YGNodeRef!
     internal var subelements: [YGLayoutElement] = []
     internal var containerStyle: YGLayoutContainerStyle?
-    internal var isIncluded: Bool = true
     internal var isEnabled: Bool = true
     internal var frame: CGRect = .zero
     public var isLeaf: Bool { return false }
@@ -55,20 +54,24 @@ public class YGLayoutElement {
     internal func attachNodes() {
         if isLeaf {
             node.removeChildren()
-            node.setMeasureFunc()
+            if isEnabled {
+                node.setMeasureFunc()
+            } else {
+                node.removeMeasureFunc()
+            }
         } else {
             node.removeMeasureFunc()
             
-            let includedSubelements = subelements.filter {
-                $0.isIncluded
+            let enabledSubelements = subelements.filter {
+                $0.isEnabled
             }
             
-            if !node.hasExactSameChildren(subelements: includedSubelements) {
+            if !node.hasExactSameChildren(subelements: enabledSubelements) {
                 node.removeChildren()
-                node.insertChildren(subelements: includedSubelements)
+                node.insertChildren(subelements: enabledSubelements)
             }
             
-            includedSubelements.forEach {
+            enabledSubelements.forEach {
                 $0.attachNodes()
             }
         }
@@ -77,21 +80,23 @@ public class YGLayoutElement {
     internal func applyLayout(preserveOrigin: Bool, offset: CGPoint) {
         assert(Thread.isMainThread, "Framesetting should only be done on the main thread.")
         
-        let topLeft = CGPoint(x: node.layoutLeft + offset.x, y: node.layoutTop + offset.y)
-        let nodeSize = CGSize(width: node.layoutWidth, height: node.layoutHeight)
-        let origin = preserveOrigin ? frame.origin : .zero
-        
-        frame = CGRect(
-            origin: CGPoint(x: (topLeft.x + origin.x).roundPixel, y: (topLeft.y + origin.y).roundPixel),
-            size: nodeSize.roundPixel
-        )
-        
-        if !isLeaf {
-            subelements.forEach {
-                if isView {
-                    $0.applyLayout(preserveOrigin: preserveOrigin, offset: .zero)
-                } else {
-                    $0.applyLayout(preserveOrigin: preserveOrigin, offset: frame.origin)
+        if isEnabled {
+            let topLeft = CGPoint(x: node.layoutLeft + offset.x, y: node.layoutTop + offset.y)
+            let nodeSize = CGSize(width: node.layoutWidth, height: node.layoutHeight)
+            let origin = preserveOrigin ? frame.origin : .zero
+            
+            frame = CGRect(
+                origin: CGPoint(x: (topLeft.x + origin.x).roundPixel, y: (topLeft.y + origin.y).roundPixel),
+                size: nodeSize.roundPixel
+            )
+            
+            if !isLeaf {
+                subelements.forEach {
+                    if isView {
+                        $0.applyLayout(preserveOrigin: preserveOrigin, offset: .zero)
+                    } else {
+                        $0.applyLayout(preserveOrigin: preserveOrigin, offset: frame.origin)
+                    }
                 }
             }
         }
@@ -113,7 +118,7 @@ public class YGLayoutView: YGLayoutElement {
         }
     }
     override public var isLeaf: Bool {
-        return !isEnabled || (nil == subelements.first { $0.isEnabled && $0.isIncluded })
+        return !(isEnabled && (nil != subelements.first { $0.isEnabled }))
     }
     override public var isView: Bool {
         return true

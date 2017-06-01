@@ -12,17 +12,6 @@ extension YGLayoutElement {
     // MARK:
     /*
      - set on item itself
-     - should include this view when calculating layout?
-     - // true (default)
-    */
-    @discardableResult
-    public func isIncluded(_ isIncluded: Bool) -> Self {
-        self.isIncluded = isIncluded
-        return self
-    }
-    
-    /*
-     - set on item itself
      - decides during layout/sizing whether or not styling properties should be applied
      - false (default)
     */
