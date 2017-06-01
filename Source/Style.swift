@@ -24,6 +24,14 @@ import yoga
 //    }
 //}
 
+/*
+ Support more styles:
+ Step 1: Add more properties to YGLayoutContainerStyle, only "set on containers" properties in comments of Fluent.swift
+ Step 2: Update "public func style" in Layout.swift
+ Step 3: Update "fileprivate func handleAdditionalStyle" in Stevia.swift
+ Step 4: Use, e.g. as in ViewController.swift
+ 
+ */
 internal struct YGLayoutContainerStyle {
     let mainAxisAlign: YGJustify
     let crossAxisAlign: YGAlign

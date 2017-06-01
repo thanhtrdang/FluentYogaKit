@@ -182,13 +182,10 @@ class ViewController: UIViewController {
             .paddingHorizontal(16)
             .paddingBottom(12)
         
-        rootLayout.layout()
+        rootLayout.layout { [unowned self] _ in
+            self.usernameTextField.border(sides: .bottom)
+            self.passwordTextField.border(sides: .bottom)
+        }
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        usernameTextField.border(sides: .bottom)
-        passwordTextField.border(sides: .bottom)
-    }
 }

@@ -133,7 +133,8 @@ public class YGLayoutView: YGLayoutElement {
         return view.sizeThatFits(size)
     }
     
-    public func layout(preserveOrigin: Bool = false, dimensionFlexibility: YGDimensionFlexibility = []) {
+    @discardableResult
+    public func layout(preserveOrigin: Bool = false, dimensionFlexibility: YGDimensionFlexibility = [], _ callback: ((YGLayoutView) -> Void)? = nil) -> Self {
         var size = frame.size
         
         if dimensionFlexibility.contains(.flexibleWidth) {
@@ -146,6 +147,10 @@ public class YGLayoutView: YGLayoutElement {
         calculateLayout(size: size.ygSize)
         
         applyLayout(preserveOrigin: preserveOrigin, offset: .zero)
+        
+        callback?(self)
+        
+        return self
     }
     
     internal func calculateLayout(size: YGSize) {

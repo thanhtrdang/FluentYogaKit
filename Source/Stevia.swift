@@ -188,23 +188,24 @@ public postfix func | (layoutElement: YGLayoutElement) -> YGLayoutElement {
 }
 
 // MARK: |- prefix
+private let defaultMargin = Float(8)
 @discardableResult
 public prefix func |- (view: UIView) -> YGLayoutView {
-    return YGLayoutView(view: view).marginLeft(8)
+    return YGLayoutView(view: view).marginLeft(defaultMargin)
 }
 @discardableResult
 public prefix func |- (layoutElement: YGLayoutElement) -> YGLayoutElement {
-    return layoutElement.marginLeft(8)
+    return layoutElement.marginLeft(defaultMargin)
 }
 
 // MARK: postfix -|
 @discardableResult
 public postfix func -| (view: UIView) -> YGLayoutView {
-    return YGLayoutView(view: view).marginRight(8)
+    return YGLayoutView(view: view).marginRight(defaultMargin)
 }
 @discardableResult
 public postfix func -| (layoutElement: YGLayoutElement) -> YGLayoutElement {
-    return layoutElement.marginRight(8)
+    return layoutElement.marginRight(defaultMargin)
 }
 
 // MARK: func '-'
