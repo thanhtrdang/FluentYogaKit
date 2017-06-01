@@ -87,7 +87,15 @@ extension YGNodeRef {
     internal func insertChild(child: YGNodeRef, at index: Int) {
         YGNodeInsertChild(self, child, UInt32(index))
     }
-    
+
+    internal func insertChildren(children: [YGNodeRef]) {
+        let startIndex = childCount()
+        
+        for (index, child) in children.enumerated() {
+            insertChild(child: child, at: index + startIndex)
+        }
+    }
+
     internal func insertChildren(subelements: [YGLayoutElement]) {
         for (index, subelement) in subelements.enumerated() {
             insertChild(child: subelement.node, at: index)

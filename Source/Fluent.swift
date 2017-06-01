@@ -499,8 +499,8 @@ extension YGLayoutElement {
     
     @discardableResult
     internal func flexDirectionSubelements(_ flexDirection: YGFlexDirection,_ subelements: [YGLayoutElement]) -> Self {
-        self.subelements = subelements
-        return self.flexDirection(flexDirection)
+        return subelement(subelements)
+            .flexDirection(flexDirection)
     }
     
 // For those who is flexbox newbie
