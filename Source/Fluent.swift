@@ -482,7 +482,7 @@ extension YGLayoutElement {
     public func horizontal(_ subelements: YGLayoutElement...) -> Self {
         return flexDirectionSubelements(.row, subelements)
     }
-    
+
     @discardableResult
     public func reverse() -> Self {
         switch flexDirection {
@@ -503,24 +503,25 @@ extension YGLayoutElement {
         return self.flexDirection(flexDirection)
     }
     
+// For those who is flexbox newbie
     @discardableResult
-    public func mainAxis(_ align: YGJustify) -> Self {
+    public func mainAxis(align: YGJustify) -> Self {
         return justifyContent(align)
     }
 
 //TODO: Need understand more then implement later
 //    @discardableResult
-//    public func mainWrap(_ align: YGAlign) -> Self {
+//    public func mainWrap(align: YGAlign) -> Self {
 //        return alignContent(align)
 //    }
 
     @discardableResult
-    public func crossAxis(_ align: YGAlign) -> Self {
+    public func crossAxis(align: YGAlign) -> Self {
         return alignItems(align)
     }
     
     @discardableResult
-    public func crossSelf(_ align: YGAlign) -> Self {
+    public func crossSelf(align: YGAlign) -> Self {
         return alignSelf(align)
     }
 }

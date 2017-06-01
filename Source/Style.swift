@@ -24,6 +24,11 @@ import yoga
 //    }
 //}
 
+internal struct YGLayoutContainerStyle {
+    let mainAxisAlign: YGJustify
+    let crossAxisAlign: YGAlign
+}
+
 // MARK: - Style -
 extension YGLayoutElement {
     public var direction: YGDirection {

@@ -52,6 +52,18 @@ public extension UICollectionViewCell {
 }
 
 // MARK: - sublayout -
+public extension YGLayoutElement {
+    fileprivate func handleAdditionalStyle() -> Self {
+        if let additionalStyle = subelements.last?.yoga {
+            mainAxis(align: additionalStyle.mainAxisAlign)
+            crossAxis(align: additionalStyle.crossAxisAlign)
+            yoga = nil
+        }
+        
+        return self
+    }
+}
+
 public extension YGLayoutView {
     public func sublayout(_ sublelements: Any...) -> Self {
         flexDirection(.column)
@@ -124,7 +136,10 @@ public extension YGLayoutView {
     private func handleSublayout(horizontal sublayoutViews: [YGLayoutView]) {
         view.subview(sublayoutViews.map { $0.view })
         
-        subelements.append(YGLayoutElement(horizontal: sublayoutViews))
+        let subelement = YGLayoutElement(horizontal: sublayoutViews)
+            .handleAdditionalStyle()
+        
+        subelements.append(subelement)
     }
 
     private func handleSublayout(sublayoutElement: YGLayoutElement) {
@@ -132,8 +147,12 @@ public extension YGLayoutView {
     }
 
     private func handleSublayout(horizontal sublayoutElements: [YGLayoutElement]) {
-        subelements.append(YGLayoutElement(horizontal: sublayoutElements))
+        let subelement = YGLayoutElement(horizontal: sublayoutElements)
+            .handleAdditionalStyle()
+        
+        subelements.append(subelement)
     }
+    
 }
 
 // MARK: - operators -
@@ -205,14 +224,3 @@ public func - (left: UIView, right: YGLayoutElement) -> [YGLayoutElement] {
 public func - (left: YGLayoutElement, right: UIView) -> [YGLayoutElement] {
     return [left, YGLayoutView(view: right)]
 }
-
-// MARK: [YGLayoutElement]
-
-//public extension Array where Element: YGLayoutView {
-//    public func x() -> Element? {
-//        return nil
-//    }
-////    public func x() -> Element {
-////        return Element(h: self)
-////    }
-//}
