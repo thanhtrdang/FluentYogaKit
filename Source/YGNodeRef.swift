@@ -29,15 +29,15 @@ fileprivate let YGNodeMeasureFunc: YGMeasureFunc = { (node: YGNodeRef?, width: F
         height: node.sanitizeMeasurement(constrainedHeight, sizeThatFits.height.float, heightMode)
     )
     
-    //TODO remove this debug later
-    //    let v = (element as! YGLayoutView).view
-    //
-    ////    if v is UILabel {
-    ////        let l = v as! UILabel
-    ////        print("\(l.text) - \(ygSize)")
-    ////    }
-    //
-    //    print("YGMeasureFunc - \(ygSize) - \(v.className)")
+//    TODO remove this debug later
+        let v = (element as! YGLayoutView).view
+    
+    //    if v is UILabel {
+    //        let l = v as! UILabel
+    //        print("\(l.text) - \(ygSize)")
+    //    }
+    
+        print("YGMeasureFunc - \(ygSize) - \(v.className)")
     
     return ygSize
 }

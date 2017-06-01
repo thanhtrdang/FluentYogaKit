@@ -71,19 +71,6 @@ public extension YGLayoutView {
         var marginTop: Float? = nil
         for (index, subelement) in sublelements.enumerated() {
             switch subelement {
-            case is Int: fallthrough
-            case is Double: fallthrough
-            case is CGFloat:
-                print("Margin \(subelement)")
-                switch index {
-                case 0:
-                    marginTop = Float(any: subelement)
-                default:
-                    if let previousSubelement = self.subelements.last {
-                        previousSubelement.marginBottom(Float(any: subelement))
-                    }
-                }
-            //            case _ as String:() //Do nothin' !
             case let subview as UIView:
                 handleSublayout(subview: subview)
                 
@@ -100,19 +87,39 @@ public extension YGLayoutView {
                 handleSublayout(sublayoutElement: sublayoutElement)
                 
             case let sublayoutElements as [YGLayoutElement]:
-                
                 handleSublayout(horizontal: sublayoutElements)
-            default: ()
+                
+            // case _ as String:() //Do nothin' !
+            case is Int: fallthrough
+            case is Double: fallthrough
+            case is CGFloat:
+                if index == 0 {
+                    marginTop = Float(any: subelement)
+                } else {
+                    handleSublayout(marginBottom: Float(any: subelement))
+                }
+            default:
+                print("Don't support \(index) - \(subelement) yet.")
             }
         }
         
-        if let marginTop = marginTop, let firstSubelement = self.subelements.first {
-            firstSubelement.marginTop(marginTop)
-        }
+        handleSublayout(marginTop: marginTop)
         
         return self
     }
     
+    private func handleSublayout(marginTop: Float?) {
+        if let marginTop = marginTop, let firstSubelement = subelements.first {
+            firstSubelement.marginTop(marginTop)
+        }
+    }
+
+    private func handleSublayout(marginBottom: Float) {
+        if let previousSubelement = subelements.last {
+            previousSubelement.marginBottom(marginBottom)
+        }
+    }
+
     private func handleSublayout(subview: UIView) {
         view.subview(subview)
         
