@@ -138,6 +138,7 @@ public extension YGLayoutElement {
  }
 */
 public extension YGLayoutView {
+    @discardableResult
     public func sublayout(_ sublelements: Any...) -> Self {
         flexDirection(.column)
         

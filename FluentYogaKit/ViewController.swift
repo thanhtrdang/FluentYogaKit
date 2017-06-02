@@ -73,6 +73,8 @@ class ViewController: UIViewController {
     fileprivate var signUpLabel: UILabel!
     fileprivate var signUpButton: UIButton!
     
+    fileprivate var rootLayout: YGLayoutView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -144,10 +146,25 @@ class ViewController: UIViewController {
     
     @objc fileprivate func signUpButtonDidTap() {
         print("signUpButton did tap !!!")
+        
+        rootLayout[2]?.isEnabled(false)
+        signUpLabel.isHidden = true
+        signUpButton.isHidden = true
+        Duration.measure("titleLabel hided") {
+            rootLayout.layout()
+        }
+
     }
 
     @objc fileprivate func signInButtonDidTap() {
         print("signInButton did tap !!!")
+        
+        rootLayout[2]?.isEnabled(true)
+        signUpLabel.isHidden = false
+        signUpButton.isHidden = false
+        Duration.measure("titleLabel shown") {
+            rootLayout.layout()
+        }
     }
 
     fileprivate func applyLayout() {
@@ -157,7 +174,7 @@ class ViewController: UIViewController {
 //        }
         let formLayout = YGLayoutView(view: formView)
         
-        let rootLayout = YGLayoutView(view: view)
+        rootLayout = YGLayoutView(view: view)
             .sublayout(
                 |-20-titleLabel|.crossSelf(align: .flexStart),
                 30,
@@ -177,7 +194,6 @@ class ViewController: UIViewController {
             )
         
         rootLayout
-            .isEnabled(true)
             .paddingTop(44)
             .paddingHorizontal(16)
             .paddingBottom(12)
