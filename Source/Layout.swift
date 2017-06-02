@@ -18,7 +18,14 @@ public class YGLayoutElement {
     internal var node: YGNodeRef!
     internal var subelements: [YGLayoutElement] = []
     internal var containerStyle: YGLayoutContainerStyle?
-    internal var isEnabled: Bool = true
+    internal var isEnabled: Bool = true {
+        didSet {
+            if isView {
+                (self as? YGLayoutView)?.view.isHidden = !isEnabled
+            }
+            subelements.forEach { $0.isEnabled = isEnabled }
+        }
+    }
     internal var frame: CGRect = .zero
     public var isLeaf: Bool { return false }
     public var isView: Bool { return false }
@@ -109,6 +116,7 @@ public class YGLayoutElement {
 
 public class YGLayoutView: YGLayoutElement {
     internal let view: UIView
+    
     override internal var frame: CGRect {
         get {
             return view.frame
@@ -123,7 +131,7 @@ public class YGLayoutView: YGLayoutElement {
     override public var isView: Bool {
         return true
     }
-
+    
     public init(view: UIView) {
         self.view = view
     }

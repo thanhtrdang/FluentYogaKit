@@ -148,8 +148,8 @@ class ViewController: UIViewController {
         print("signUpButton did tap !!!")
         
         rootLayout[2]?.isEnabled(false)
-        signUpLabel.isHidden = true
-        signUpButton.isHidden = true
+//        signUpLabel.isHidden = true
+//        signUpButton.isHidden = true
         Duration.measure("titleLabel hided") {
             rootLayout.layout()
         }
@@ -160,8 +160,8 @@ class ViewController: UIViewController {
         print("signInButton did tap !!!")
         
         rootLayout[2]?.isEnabled(true)
-        signUpLabel.isHidden = false
-        signUpButton.isHidden = false
+//        signUpLabel.isHidden = false
+//        signUpButton.isHidden = false
         Duration.measure("titleLabel shown") {
             rootLayout.layout()
         }

@@ -193,7 +193,7 @@ public class Duration{
     }
 }
 
-private extension Double{
+private extension Double {
     var milliSeconds : String {
         return String(format: "%03.2fms", self*1000)
     }
