@@ -34,21 +34,13 @@ class ViewController2: UIViewController {
         let rootLayout = YGLayoutView(view: view)
         
         rootLayout.sublayout(
-            blackView,
+            |blackView|.size(width: 200, height: 80).marginTop(50),
             30,
-            whiteView
+            |whiteView|.width(200).flexGrow(1)
         )
         
         rootLayout
             .crossAxis(align: .center)
-        
-        rootLayout[0]!
-            .size(width: 200, height: 80)
-            .marginTop(50)
-        
-        rootLayout[1]!
-            .width(200)
-            .flexGrow(1)
         
         rootLayout.layout()
         

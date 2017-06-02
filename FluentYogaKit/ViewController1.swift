@@ -32,20 +32,14 @@ class ViewController1: UIViewController {
         let rootLayout = YGLayoutView(view: view)
         
         rootLayout.sublayout(
-            blackView,
+            |blackView|.size(width: 200, height: 80),
             30,
-            redView
+            |redView|.size(width: 200, height: 200)
         )
         
         rootLayout
             .mainAxis(align: .center)
             .crossAxis(align: .center)
-        
-        rootLayout[0]!
-            .size(width: 200, height: 80)
-        
-        rootLayout[1]!
-            .size(width: 200, height: 200)
         
         rootLayout.layout()
         
