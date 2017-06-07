@@ -10,57 +10,6 @@ import UIKit
 import FluentSwift
 
 class ViewController: UIViewController {
-
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        
-//        let redView = UIView()
-//        let greenView = UIView()
-//        let blueView = UIView()
-//
-//        redView.backgroundColor = .red
-//        greenView.backgroundColor = .green
-//        blueView.backgroundColor = .blue
-//
-//        view.sv(
-//            redView,
-//            greenView, blueView
-//        )
-//        
-//        let redLayout = YGLayoutView(view: redView)
-//        let greenLayout = YGLayoutView(view: greenView)
-//        let blueLayout = YGLayoutView(view: blueView)
-//        
-//        let bottomLayout = YGLayoutElement(horizontal: greenLayout, blueLayout)
-//        let rootLayout = YGLayoutView(view: view, vertical: redLayout, bottomLayout)
-//        
-//        rootLayout
-//            .isEnabled(true)
-//            .mainAxis(.spaceBetween)
-//            .crossAxis(.center)
-//        
-//        redLayout
-//            .isEnabled(true)
-//            .size(width: 56, height: 56)
-//        greenLayout
-//            .isEnabled(true)
-//            .size(width: 56, height: 56)
-//            .marginRight(10)
-//        blueLayout
-//            .isEnabled(true)
-//            .size(width: 56, height: 56)
-//
-//        bottomLayout
-//            .isEnabled(true)
-//            .mainAxis(.center)
-//            .crossAxis(.center)
-////            .crossSelf(.flexEnd)
-//            .marginBottom(30)
-//        
-//        rootLayout.layout()
-//        
-//    }
-
     fileprivate var titleLabel: UILabel!
     
     fileprivate var usernameLabel: UILabel!
@@ -72,8 +21,6 @@ class ViewController: UIViewController {
     
     fileprivate var signUpLabel: UILabel!
     fileprivate var signUpButton: UIButton!
-    
-    fileprivate var rootLayout: YGLayoutView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,61 +94,66 @@ class ViewController: UIViewController {
     @objc fileprivate func signUpButtonDidTap() {
         print("signUpButton did tap !!!")
         
-        rootLayout[2]?.isEnabled(false)
+//        rootLayout[2]?.isEnabled(false)
 //        signUpLabel.isHidden = true
 //        signUpButton.isHidden = true
-        Duration.measure("titleLabel hided") {
-            rootLayout.layout()
-        }
+//        Duration.measure("titleLabel hided") {
+//            rootLayout.layout()
+//        }
 
     }
 
     @objc fileprivate func signInButtonDidTap() {
         print("signInButton did tap !!!")
         
-        rootLayout[2]?.isEnabled(true)
-//        signUpLabel.isHidden = false
-//        signUpButton.isHidden = false
+        signUpLabel.yoga.isEnabled(false)
+        
         Duration.measure("titleLabel shown") {
-            rootLayout.layout()
+//            rootLayout.layout()
         }
     }
 
     fileprivate func applyLayout() {
-        let formView = UIView()
-//        .then {
-////            $0.backgroundColor = .white
-//        }
-        let formLayout = YGLayoutView(view: formView)
+        view.subview(
+            titleLabel,
+            usernameLabel,
+            usernameTextField,
+            passwordLabel,
+            passwordTextField,
+            forgotPasswordButton,
+            signInButton,
+            signUpLabel,
+            signUpButton
+        )
         
-        rootLayout = YGLayoutView(view: view)
-            .sublayout(
-                |-20-titleLabel|.crossSelf(align: .flexStart),
-                30,
-                formLayout.sublayout(
-                    usernameLabel,
-                    8,
-                    usernameTextField,
-                    16,
-                    passwordLabel,
-                    8,
-                    passwordTextField,
-                    16,
-                    |forgotPasswordButton-signInButton-20-|.style(mainAxis: .spaceBetween)
+        view.yoga.vertical(
+            titleLabel.yoga
+                .crossSelf(align: .flexStart),
+            30,
+            YGLayout.vertical(
+                usernameLabel,
+                8,
+                usernameTextField,
+                16,
+                passwordLabel,
+                8,
+                passwordTextField,
+                16,
+                YGLayout.horizontal(
+                    forgotPasswordButton, signInButton
                 )
-                .flexGrow(1),
-                |signUpLabel-4-signUpButton|.style(mainAxis: .center)
+                .mainAxis(align: .spaceBetween)
             )
-        
-        rootLayout
-            .paddingTop(44)
-            .paddingHorizontal(16)
-            .paddingBottom(12)
-        
-        rootLayout.layout { [unowned self] _ in
-            self.usernameTextField.border(sides: .bottom)
-            self.passwordTextField.border(sides: .bottom)
-        }
+            .flexGrow(1),
+            YGLayout.horizontal(
+                signUpLabel, 4, signUpButton
+            )
+            .mainAxis(align: .center)
+        )
+        .paddingTop(44)
+        .paddingHorizontal(16)
+        .paddingBottom(12)
+        .apply()
     }
     
 }

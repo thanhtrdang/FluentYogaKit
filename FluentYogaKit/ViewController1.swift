@@ -28,20 +28,22 @@ class ViewController1: UIViewController {
 //        view.heroID = "white"
         isHeroEnabled = true
         
-        
-        let rootLayout = YGLayoutView(view: view)
-        
-        rootLayout.sublayout(
-            |blackView|.size(width: 200, height: 80),
-            30,
-            |redView|.size(width: 200, height: 200)
+        view.subview(
+            blackView,
+            redView
         )
         
-        rootLayout
+        view.yoga
+            .vertical(
+                blackView.yoga
+                    .size(width: 200, height: 80),
+                30,
+                redView.yoga
+                    .size(width: 200, height: 200)
+            )
             .mainAxis(align: .center)
             .crossAxis(align: .center)
-        
-        rootLayout.layout()
+            .apply()
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }

@@ -9,163 +9,222 @@
 import UIKit
 import yoga
 
-/*
- inset, stack, center, relative, overlay, background, absolute, ratio
- */
+import UIKit
+import yoga
 
-// MARK: - YGLayoutElement -
-public class YGLayoutElement {
-    internal var node: YGNodeRef!
-    internal var subelements: [YGLayoutElement] = []
-    internal var containerStyle: YGLayoutContainerStyle?
-    internal var isEnabled: Bool = true {
+public class YGLayout {
+    internal let node: YGNodeRef
+    internal let view: UIView?
+    
+    fileprivate var superlayout: YGLayout? = nil
+    fileprivate var sublayouts: [YGLayout] = []
+    
+    public var isEnabled: Bool = true {
         didSet {
-            if isView {
-                (self as? YGLayoutView)?.view.isHidden = !isEnabled
-            }
-            subelements.forEach { $0.isEnabled = isEnabled }
+            markNode(detached: !isEnabled)
+            markView(hidden: !isEnabled)
+            superlayout?.markDirty()
         }
     }
-    internal var frame: CGRect = .zero
-    public var isLeaf: Bool { return false }
-    public var isView: Bool { return false }
     
-    init() {
-        node = YGNodeRef(element: self)
+    public var isLeaf: Bool {
+        return sublayouts.isEmpty
+    }
+    
+    public private(set) var frame: CGRect = .zero {
+        didSet {
+            view?.frame = frame
+        }
+    }
+    
+    internal init(view: UIView? = nil) {
+        node = YGNodeRef()
+        self.view = view
+        if view != nil {
+            node.attachYoga(self)
+        }
     }
     
     deinit {
-        node.removeElement()
+        if view != nil {
+            node.detachYoga()
+            view?.detachYoga()
+        }
         YGNodeFree(node)
     }
     
-    public subscript(i: Int) -> YGLayoutElement? {
-        var result: YGLayoutElement? = nil
-        if 0 <= i && i < subelements.count {
-            result = subelements[i]
-        }
-        return result
-    }
-
-    public subscript(i: Int, j: Int) -> YGLayoutElement? {
-        var result: YGLayoutElement? = nil
-        if 0 <= i && i < subelements.count {
-            let iSubelement = subelements[i]
-            if 0 <= j && j < iSubelement.subelements.count {
-                result = iSubelement[j]
-            }
-        }
-        return result
-    }
-
-    internal func attachNodes() {
-        if isLeaf {
-            node.removeChildren()
-            if isEnabled {
-                node.setMeasureFunc()
-            } else {
-                node.removeMeasureFunc()
-            }
-        } else {
-            node.removeMeasureFunc()
-            
-            let enabledSubelements = subelements.filter {
-                $0.isEnabled
-            }
-            
-            if !node.hasExactSameChildren(subelements: enabledSubelements) {
-                node.removeChildren()
-                node.insertChildren(subelements: enabledSubelements)
-            }
-            
-            enabledSubelements.forEach {
-                $0.attachNodes()
-            }
-        }
+    public class func vertical(_ sublayouts: Any...) -> YGLayout {
+        return YGLayout().flexDirection(.column).sublayout(sublayouts)
     }
     
-    internal func applyLayout(preserveOrigin: Bool, offset: CGPoint) {
-        assert(Thread.isMainThread, "Framesetting should only be done on the main thread.")
+    public class func horizontal(_ sublayouts: Any...) -> YGLayout {
+        return YGLayout().flexDirection(.row).sublayout(sublayouts)
+    }
+    
+    public func apply(preserveOrigin: Bool = false, dimensionFlexibility: YGDimensionFlexibility = [], _ callback: ((YGLayout) -> Void)? = nil) {
+        var size = view?.frame.size.ygSize ?? .undefined
         
+        if dimensionFlexibility.contains(.flexibleWidth) {
+            size.width = YGValueUndefined.value
+        }
+        if dimensionFlexibility.contains(.flexibleHeigth) {
+            size.height = YGValueUndefined.value
+        }
+        
+        node.calculateLayout(size: size, direction: direction)
+        
+        applyLayoutToViews(preserveOrigin: preserveOrigin)
+        
+        callback?(self)
+    }
+    
+    fileprivate func applyLayoutToViews(preserveOrigin: Bool = false, offset: CGPoint = .zero) {
         if isEnabled {
-            let topLeft = CGPoint(x: node.layoutLeft + offset.x, y: node.layoutTop + offset.y)
-            let nodeSize = CGSize(width: node.layoutWidth, height: node.layoutHeight)
             let origin = preserveOrigin ? frame.origin : .zero
+            let topLeft = CGPoint(x: node.layoutLeft + offset.x, y: node.layoutTop + offset.y)
+            let size = CGSize(width: node.layoutWidth, height: node.layoutHeight)
             
             frame = CGRect(
                 origin: CGPoint(x: (topLeft.x + origin.x).roundPixel, y: (topLeft.y + origin.y).roundPixel),
-                size: nodeSize.roundPixel
+                size: size.roundPixel
             )
             
-            if !isLeaf {
-                subelements.forEach {
-                    if isView {
-                        $0.applyLayout(preserveOrigin: preserveOrigin, offset: .zero)
-                    } else {
-                        $0.applyLayout(preserveOrigin: preserveOrigin, offset: frame.origin)
-                    }
+            sublayouts.forEach {
+                if isView {
+                    $0.applyLayoutToViews(preserveOrigin: preserveOrigin, offset: .zero)
+                } else {
+                    $0.applyLayoutToViews(preserveOrigin: preserveOrigin, offset: frame.origin)
                 }
             }
         }
     }
- 
-    internal func sizeThatFits(_ size: CGSize) -> CGSize {
-        return .zero
+}
+
+// MARK: - node -
+extension YGLayout {
+    fileprivate func markNode(detached: Bool) {
+        if detached {
+            YGNodeRemoveChild(superlayout?.node, node)
+        } else {
+            if let index = superlayout?.sublayouts.index(where: { $0.node.hashValue == self.node.hashValue }) {
+                superlayout?.node.insertChild(child: node, at: index)
+            }
+        }
+    }
+    
+    fileprivate var isDirty: Bool {
+        return YGNodeIsDirty(node)
+    }
+    
+    fileprivate func markDirty() {
+        if isDirty || !self.isLeaf {
+            return
+        }
+        
+        if node.existMeasureFunc() {
+            node.setMeasureFunc()
+        }
+        
+        YGNodeMarkDirty(node)
     }
 }
 
-public class YGLayoutView: YGLayoutElement {
-    internal let view: UIView
+// MARK: - view -
+extension YGLayout {
+    fileprivate var isView: Bool {
+        return view != nil
+    }
     
-    override internal var frame: CGRect {
-        get {
-            return view.frame
+    fileprivate func markView(hidden: Bool) {
+        view?.isHidden = hidden
+        sublayouts.forEach {
+            $0.view?.isHidden = hidden
         }
-        set {
-            view.frame = newValue
-        }
-    }
-    override public var isLeaf: Bool {
-        return !(isEnabled && (nil != subelements.first { $0.isEnabled }))
-    }
-    override public var isView: Bool {
-        return true
     }
     
-    public init(view: UIView) {
-        self.view = view
+    func sizeThatFits(_ size: CGSize) -> CGSize {
+        return view?.sizeThatFits(size) ?? .zero
     }
-    
-    override internal func sizeThatFits(_ size: CGSize) -> CGSize {
-        return view.sizeThatFits(size)
+}
+
+//// MARK: - sublayout -
+extension YGLayout {
+    @discardableResult
+    public func vertical(_ sublayouts: Any...) -> Self {
+        flexDirection = .column
+        return sublayout(sublayouts)
     }
     
     @discardableResult
-    public func layout(preserveOrigin: Bool = false, dimensionFlexibility: YGDimensionFlexibility = [], _ callback: ((YGLayoutView) -> Void)? = nil) -> Self {
-        var size = frame.size
+    public func horizontal(_ sublayouts: Any...) -> Self {
+        flexDirection = .row
+        return sublayout(sublayouts)
+    }
+    
+    @discardableResult
+    fileprivate func sublayout(_ subelements: [Any]) -> Self {
+        var marginStart: Float? = nil
         
-        if dimensionFlexibility.contains(.flexibleWidth) {
-            size.width = YGValueUndefined.value.cgFloat
+        for (index, subelement) in subelements.enumerated() {
+            switch subelement {
+            case let subview as UIView:
+                handleSublayout(subview: subview)
+                
+            case let sublayout as YGLayout:
+                handleSublayout(sublayout: sublayout)
+                
+            // case _ as String:() //Do nothin'!
+            case is Int: fallthrough
+            case is Double: fallthrough
+            case is Float: fallthrough
+            case is CGFloat:
+                if index == 0 {
+                    marginStart = Float(any: subelement)
+                } else {
+                    handleSublayout(marginEnd: Float(any: subelement))
+                }
+            default:
+                print("Don't support \(index) - \(subelement) yet.")
+            }
         }
-        if dimensionFlexibility.contains(.flexibleHeigth) {
-            size.height = YGValueUndefined.value.cgFloat
-        }
         
-        calculateLayout(size: size.ygSize)
-        
-        applyLayout(preserveOrigin: preserveOrigin, offset: .zero)
-        
-        callback?(self)
+        handleSublayout(marginStart: marginStart)
         
         return self
     }
     
-    internal func calculateLayout(size: YGSize) {
-        assert(Thread.isMainThread, "Yoga calculation must be done on main.")
-        assert(isEnabled, "Yoga is not enabled for this layout element.")
-        
-        attachNodes()
-        node.calculateLayout(size: size, direction: direction)
+    fileprivate func handleSublayout(marginStart: Float?) {
+        if let marginStart = marginStart, let firstSublayout = sublayouts.first {
+            if flexDirection == .column {
+                firstSublayout.marginTop(marginStart)
+            } else {
+                firstSublayout.marginStart(marginStart)
+            }
+        }
     }
-
+    
+    fileprivate func handleSublayout(marginEnd: Float) {
+        if let lastSublayout = sublayouts.last {
+            if flexDirection == .column {
+                lastSublayout.marginBottom(marginEnd)
+            } else {
+                lastSublayout.marginEnd(marginEnd)
+            }
+        }
+    }
+    
+    fileprivate func handleSublayout(subview: UIView) {        
+        handleSublayout(sublayout: subview.yoga)
+    }
+    
+    fileprivate func handleSublayout(sublayout: YGLayout) {
+        node.insertChild(child: sublayout.node, at: sublayouts.count)
+        if sublayout.isLeaf {
+            sublayout.node.setMeasureFunc()
+        } else {
+            sublayout.node.removeMeasureFunc()
+        }
+        
+        sublayouts.append(sublayout)
+    }
 }

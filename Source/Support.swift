@@ -11,7 +11,7 @@ import yoga
 
 internal let scaleFactor = UIScreen.main.scale
 
-public struct YGDimensionFlexibility : OptionSet {
+public struct YGDimensionFlexibility: OptionSet {
     public let rawValue: Int
     
     public static let flexibleWidth = YGDimensionFlexibility(rawValue: 1 << 0)

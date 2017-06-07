@@ -30,19 +30,23 @@ class ViewController2: UIViewController {
         view.heroID = "ironMan"
         
         isHeroEnabled = true
-        
-        let rootLayout = YGLayoutView(view: view)
-        
-        rootLayout.sublayout(
-            |blackView|.size(width: 200, height: 80).marginTop(50),
-            30,
-            |whiteView|.width(200).flexGrow(1)
+
+        view.subview(
+            blackView,
+            whiteView
         )
-        
-        rootLayout
+
+        view.yoga.vertical(
+            blackView.yoga
+                .size(width: 200, height: 80)
+                .marginTop(50),
+            30,
+            whiteView.yoga
+                .width(200)
+                .flexGrow(1)
+            )
             .crossAxis(align: .center)
-        
-        rootLayout.layout()
+            .apply()
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }

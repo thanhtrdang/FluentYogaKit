@@ -9,37 +9,23 @@
 import yoga
 
 // MARK: - YGNodeRef -
-
-fileprivate var YGNodeLayoutContext: [Int: YGLayoutElement] = [:]
+fileprivate var YGNodeLayoutContext: [Int: YGLayout] = [:]
 
 fileprivate let YGNodeMeasureFunc: YGMeasureFunc = { (node: YGNodeRef?, width: Float, widthMode: YGMeasureMode, height: Float, heightMode: YGMeasureMode) -> YGSize in
     let constrainedWidth = (widthMode == .undefined) ? YGValueUndefined.value : width
     let constrainedHeight = (heightMode == .undefined) ? YGValueUndefined.value : height
     let constrainedSize = YGSize(width: constrainedWidth, height: constrainedHeight)
     
-    guard let node = node else {
+    guard let node = node, let layout = node.yoga else {
         return .zero
     }
     
-    let element = node.element
-    let sizeThatFits = element.sizeThatFits(constrainedSize.cgSize)
+    let sizeThatFits = layout.sizeThatFits(constrainedSize.cgSize)
     
-    let ygSize = YGSize(
+    return YGSize(
         width: node.sanitizeMeasurement(constrainedWidth, sizeThatFits.width.float, widthMode),
         height: node.sanitizeMeasurement(constrainedHeight, sizeThatFits.height.float, heightMode)
     )
-    
-////    TODO remove this debug later
-//        let v = (element as! YGLayoutView).view
-//    
-//    //    if v is UILabel {
-//    //        let l = v as! UILabel
-//    //        print("\(l.text) - \(ygSize)")
-//    //    }
-//    
-//        print("YGMeasureFunc - \(ygSize) - \(v.className)")
-    
-    return ygSize
 }
 
 extension YGNodeRef {
@@ -50,12 +36,11 @@ extension YGNodeRef {
         
         return config
     }()
-    
-    internal init(element: YGLayoutElement) {
-        self = YGNodeNewWithConfig(YGNodeRef.globalConfig)
-        self.element = element
-    }
 
+    internal init() {
+        self = YGNodeNewWithConfig(YGNodeRef.globalConfig)
+    }
+    
     internal var layoutTop: CGFloat {
         return YGNodeLayoutGetTop(self).cgFloat
     }
@@ -69,68 +54,14 @@ extension YGNodeRef {
         return YGNodeLayoutGetHeight(self).cgFloat
     }
     
-    internal var element: YGLayoutElement {
-        get {
-            //TODO YGNodeGetContext(self).load(as: XLayoutElement.self)
-            return YGNodeLayoutContext[hashValue]!
-        }
-        set {
-            //TODO YGNodeSetContext(self, &element)
-            YGNodeLayoutContext[hashValue] = newValue
-        }
-    }
-    
-    internal func removeElement() {
-        YGNodeLayoutContext.removeValue(forKey: hashValue)
-    }
-    
     internal func insertChild(child: YGNodeRef, at index: Int) {
         YGNodeInsertChild(self, child, UInt32(index))
-    }
-    
-    internal func insertChildren(subelements: [YGLayoutElement]) {
-        for (index, subelement) in subelements.enumerated() {
-            insertChild(child: subelement.node, at: index)
-        }
-    }
-    
-    internal func getChild(at index: Int) -> YGNodeRef {
-        return YGNodeGetChild(self, UInt32(index))
-    }
-    
-    internal func childCount() -> Int {
-        return Int(YGNodeGetChildCount(self))
-    }
-    
-    internal func removeChildren() {
-        var childCount = YGNodeGetChildCount(self)
-        while childCount > 0 {
-            YGNodeRemoveChild(self, YGNodeGetChild(self, childCount - 1))
-            childCount = YGNodeGetChildCount(self)
-        }
-    }
-    
-    internal func hasExactSameChildren(subelements: [YGLayoutElement]) -> Bool {
-        var result = true
-        
-        if childCount() != subelements.count {
-            result = false
-        } else {
-            for (index, subelement) in subelements.enumerated() {
-                if getChild(at: index) != subelement.node {
-                    result = false
-                    break
-                }
-            }
-        }
-        
-        return result
     }
     
     internal func existMeasureFunc() -> Bool {
         return YGNodeGetMeasureFunc(self) != nil
     }
-    
+
     internal func setMeasureFunc() {
         YGNodeSetMeasureFunc(self, YGNodeMeasureFunc)
     }
@@ -156,5 +87,26 @@ extension YGNodeRef {
     
     internal func calculateLayout(size: YGSize, direction: YGDirection) {
         YGNodeCalculateLayout(self, size.width, size.height, direction)
+    }
+    
+    internal var isDirty: Bool {
+        return YGNodeIsDirty(self)
+    }
+    
+    internal func markDirty() {
+        YGNodeMarkDirty(self)
+    }
+}
+
+// MARK: - Layout association -
+extension YGNodeRef {
+    internal func attachYoga(_ layout: YGLayout) {
+        YGNodeLayoutContext[hashValue] = layout
+    }
+    internal func detachYoga() {
+        YGNodeLayoutContext.removeValue(forKey: hashValue)
+    }
+    internal var yoga: YGLayout? {
+        return YGNodeLayoutContext[hashValue]
     }
 }

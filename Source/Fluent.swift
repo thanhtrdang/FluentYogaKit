@@ -8,7 +8,7 @@
 
 import yoga
 
-extension YGLayoutElement {
+extension YGLayout {
     // MARK:
     /*
      - set on item itself
@@ -434,44 +434,8 @@ extension YGLayoutElement {
     //*NOTE: Mix of max/min vs. flexGrow/flexShrink
 }
 
-//TODO
-//https://bugs.swift.org/browse/SR-128
-//https://stackoverflow.com/questions/24024376/passing-an-array-to-a-function-with-variable-number-of-args-in-swift
-//func splatVariadicArgs<T>(_ args: T...) -> [T] {
-//    return args
-//}
-
 // MARK:
-extension YGLayoutElement {
-    // MARK:
-    convenience public init(vertical: YGLayoutElement...) {
-        self.init()
-        flexDirectionSubelements(.column, vertical)
-    }
-    convenience public init(vertical: [YGLayoutElement]) {
-        self.init()
-        flexDirectionSubelements(.column, vertical)
-    }
-
-    convenience public init(horizontal: YGLayoutElement...) {
-        self.init()
-        flexDirectionSubelements(.row, horizontal)
-    }
-    convenience public init(horizontal: [YGLayoutElement]) {
-        self.init()
-        flexDirectionSubelements(.row, horizontal)
-    }
-
-    @discardableResult
-    public func vertical(_ subelements: YGLayoutElement...) -> Self {
-        return flexDirectionSubelements(.column, subelements)
-    }
-    
-    @discardableResult
-    public func horizontal(_ subelements: YGLayoutElement...) -> Self {
-        return flexDirectionSubelements(.row, subelements)
-    }
-
+extension YGLayout {
     @discardableResult
     public func reverse() -> Self {
         switch flexDirection {
@@ -486,13 +450,7 @@ extension YGLayoutElement {
         return self
     }
     
-    @discardableResult
-    internal func flexDirectionSubelements(_ flexDirection: YGFlexDirection,_ subelements: [YGLayoutElement]) -> Self {
-        self.subelements = subelements
-        return self.flexDirection(flexDirection)
-    }
-    
-// For those who is flexbox newbie
+// For those who is a flexbox newbie
     @discardableResult
     public func mainAxis(align: YGJustify) -> Self {
         return justifyContent(align)
@@ -513,19 +471,4 @@ extension YGLayoutElement {
     public func crossSelf(align: YGAlign) -> Self {
         return alignSelf(align)
     }
-}
-
-// MARK:
-extension YGLayoutView {
-    // MARK:
-    convenience public init(view: UIView, vertical: YGLayoutElement...) {
-        self.init(view: view)
-        flexDirectionSubelements(.column, vertical)
-    }
-
-    convenience public init(view: UIView, horizontal: YGLayoutElement...) {
-        self.init(view: view)
-        flexDirectionSubelements(.row, horizontal)
-    }
-    
 }

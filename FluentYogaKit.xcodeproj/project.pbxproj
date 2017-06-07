@@ -12,8 +12,8 @@
 		6D2412A81EE11770005EF7BD /* ViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2412A71EE11770005EF7BD /* ViewController1.swift */; };
 		6D2412AA1EE1177D005EF7BD /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2412A91EE1177D005EF7BD /* ViewController2.swift */; };
 		6D2F12551EDD85AC00614D77 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2F12541EDD85AC00614D77 /* Style.swift */; };
-		6D2F12571EDE8FE500614D77 /* Stevia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2F12561EDE8FE500614D77 /* Stevia.swift */; };
 		6D2F12591EDEB65F00614D77 /* Duration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2F12581EDEB65F00614D77 /* Duration.swift */; };
+		6D5B9AA71EE89AAA007D8D26 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5B9AA61EE89AAA007D8D26 /* UIView.swift */; };
 		6D876C991EDC6486002663EA /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D876C981EDC6486002663EA /* Support.swift */; };
 		6D876C9B1EDC6E3F002663EA /* YGNodeRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D876C9A1EDC6E3F002663EA /* YGNodeRef.swift */; };
 		6D876C9D1EDC8158002663EA /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D876C9C1EDC8158002663EA /* Layout.swift */; };
@@ -30,8 +30,8 @@
 		6D2412A71EE11770005EF7BD /* ViewController1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController1.swift; sourceTree = "<group>"; };
 		6D2412A91EE1177D005EF7BD /* ViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 		6D2F12541EDD85AC00614D77 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
-		6D2F12561EDE8FE500614D77 /* Stevia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stevia.swift; sourceTree = "<group>"; };
 		6D2F12581EDEB65F00614D77 /* Duration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Duration.swift; sourceTree = "<group>"; };
+		6D5B9AA61EE89AAA007D8D26 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		6D876C981EDC6486002663EA /* Support.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		6D876C9A1EDC6E3F002663EA /* YGNodeRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YGNodeRef.swift; sourceTree = "<group>"; };
 		6D876C9C1EDC8158002663EA /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
@@ -95,11 +95,11 @@
 			isa = PBXGroup;
 			children = (
 				6D883BB91ED5EC1A00608385 /* FluentYogaKit.h */,
-				6D2F12561EDE8FE500614D77 /* Stevia.swift */,
 				6D876C9C1EDC8158002663EA /* Layout.swift */,
 				6D2F12541EDD85AC00614D77 /* Style.swift */,
 				6D15F9201EDC26EA0027C39C /* Fluent.swift */,
 				6D876C981EDC6486002663EA /* Support.swift */,
+				6D5B9AA61EE89AAA007D8D26 /* UIView.swift */,
 				6D876C9A1EDC6E3F002663EA /* YGNodeRef.swift */,
 			);
 			path = Source;
@@ -245,8 +245,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D5B9AA71EE89AAA007D8D26 /* UIView.swift in Sources */,
 				6D876C991EDC6486002663EA /* Support.swift in Sources */,
-				6D2F12571EDE8FE500614D77 /* Stevia.swift in Sources */,
 				6D876C9D1EDC8158002663EA /* Layout.swift in Sources */,
 				6D883BA71ED5D82A00608385 /* ViewController.swift in Sources */,
 				6D2412AA1EE1177D005EF7BD /* ViewController2.swift in Sources */,

@@ -9,7 +9,7 @@
 import yoga
 
 // MARK: - Style -
-extension YGLayoutElement {
+extension YGLayout {
     public var direction: YGDirection {
         get {
             return YGNodeStyleGetDirection(node)
