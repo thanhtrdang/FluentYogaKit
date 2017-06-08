@@ -95,22 +95,20 @@ class ViewController: UIViewController {
     @objc fileprivate func signUpButtonDidTap() {
         print("signUpButton did tap !!!")
         
-//        rootLayout[2]?.isEnabled(false)
-//        signUpLabel.isHidden = true
-//        signUpButton.isHidden = true
-//        Duration.measure("titleLabel hided") {
-//            rootLayout.layout()
-//        }
-
+        signUpLabel.yoga.isEnabled(false)
+        
+        Duration.measure("titleLabel hided") {
+            rootLayout.apply()
+        }
     }
 
     @objc fileprivate func signInButtonDidTap() {
         print("signInButton did tap !!!")
         
-        signUpLabel.yoga.isEnabled(false)
+        signUpLabel.yoga.isEnabled(true)
         
         Duration.measure("titleLabel shown") {
-//            rootLayout.layout()
+            rootLayout.apply()
         }
     }
 

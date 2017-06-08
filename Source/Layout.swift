@@ -9,14 +9,11 @@
 import UIKit
 import yoga
 
-import UIKit
-import yoga
-
 public class YGLayout {
     internal let node: YGNodeRef
     internal let view: UIView?
     
-    fileprivate var superlayout: YGLayout? = nil
+    fileprivate weak var superlayout: YGLayout? = nil
     fileprivate var sublayouts: [YGLayout] = []
     
     public var isEnabled: Bool = true {
@@ -100,7 +97,7 @@ public class YGLayout {
 extension YGLayout {
     fileprivate func markNode(detached: Bool) {
         if detached {
-            YGNodeRemoveChild(superlayout?.node, node)
+            superlayout?.node.removeChild(child: node)
         } else {
             if let index = superlayout?.sublayouts.index(where: { $0.node.hashValue == self.node.hashValue }) {
                 superlayout?.node.insertChild(child: node, at: index)
@@ -109,11 +106,11 @@ extension YGLayout {
     }
     
     fileprivate var isDirty: Bool {
-        return YGNodeIsDirty(node)
+        return node.isDirty
     }
     
     fileprivate func markDirty() {
-        if isDirty || !self.isLeaf {
+        if isDirty || !isLeaf {
             return
         }
         
@@ -121,7 +118,7 @@ extension YGLayout {
             node.setMeasureFunc()
         }
         
-        YGNodeMarkDirty(node)
+        node.markDirty()
     }
 }
 
@@ -143,7 +140,7 @@ extension YGLayout {
     }
 }
 
-//// MARK: - sublayout -
+// MARK: - sublayout -
 extension YGLayout {
     @discardableResult
     public func vertical(_ sublayouts: Any...) -> Self {
@@ -221,6 +218,7 @@ extension YGLayout {
             sublayout.node.removeMeasureFunc()
         }
         
+        superlayout?.superlayout = self
         sublayouts.append(sublayout)
     }
 }

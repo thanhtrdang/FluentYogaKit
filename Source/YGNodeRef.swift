@@ -55,6 +55,10 @@ extension YGNodeRef {
     internal func insertChild(child: YGNodeRef, at index: Int) {
         YGNodeInsertChild(self, child, UInt32(index))
     }
+
+    internal func removeChild(child: YGNodeRef) {
+        YGNodeRemoveChild(self, child)
+    }
     
     internal func existMeasureFunc() -> Bool {
         return YGNodeGetMeasureFunc(self) != nil

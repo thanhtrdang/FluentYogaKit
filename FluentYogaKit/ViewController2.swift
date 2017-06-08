@@ -12,6 +12,7 @@ import Hero
 class ViewController2: UIViewController {
     fileprivate var blackView: UIView!
     fileprivate var whiteView: UIView!
+    fileprivate var rootLayout: YGLayout!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +37,7 @@ class ViewController2: UIViewController {
             whiteView
         )
 
-        view.yoga.vertical(
+        rootLayout = view.yoga.vertical(
             blackView.yoga
                 .size(width: 200, height: 80)
                 .marginTop(50),
@@ -46,7 +47,8 @@ class ViewController2: UIViewController {
                 .flexGrow(1)
             )
             .crossAxis(align: .center)
-            .apply()
+            
+        rootLayout.apply()
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }
