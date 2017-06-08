@@ -14,11 +14,11 @@ fileprivate let YGNodeMeasureFunc: YGMeasureFunc = { (node: YGNodeRef?, width: F
     let constrainedHeight = (heightMode == .undefined) ? YGValueUndefined.value : height
     let constrainedSize = YGSize(width: constrainedWidth, height: constrainedHeight)
     
-    guard let node = node, let layout = node.yoga else {
+    guard let node = node, let view = node.view else {
         return .zero
     }
     
-    let sizeThatFits = layout.sizeThatFits(constrainedSize.cgSize)
+    let sizeThatFits = view.sizeThatFits(constrainedSize.cgSize)
     
     return YGSize(
         width: node.sanitizeMeasurement(constrainedWidth, sizeThatFits.width.float, widthMode),
@@ -101,14 +101,18 @@ extension YGNodeRef {
 }
 
 // MARK: - Layout association -
-fileprivate var YGNodeLayoutContext = NSMapTable<NSNumber, YGLayout>.strongToWeakObjects()
+fileprivate var YGNodeViewContext = NSMapTable<NSNumber, UIView>.weakToWeakObjects()
 
 extension YGNodeRef {
-    internal func attachYoga(_ layout: YGLayout) {
-        YGNodeLayoutContext.setObject(layout, forKey: yogaKey)
+    internal func attachView(_ view: UIView) {
+        YGNodeViewContext.setObject(view, forKey: yogaKey)
     }
-    internal var yoga: YGLayout? {
-        return YGNodeLayoutContext.object(forKey: yogaKey)
+    internal func detachView() {
+        YGNodeViewContext.removeObject(forKey: yogaKey)
+    }
+
+    internal var view: UIView? {
+        return YGNodeViewContext.object(forKey: yogaKey)
     }
     
     internal var yogaKey: NSNumber {

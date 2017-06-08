@@ -11,7 +11,7 @@ import yoga
 
 public class YGLayout {
     internal let node: YGNodeRef
-    internal let view: UIView?
+    fileprivate weak var view: UIView?
     
     fileprivate weak var superlayout: YGLayout? = nil
     fileprivate var sublayouts: [YGLayout] = []
@@ -38,11 +38,12 @@ public class YGLayout {
         node = YGNodeRef()
         self.view = view
         if view != nil {
-            node.attachYoga(self)
+            node.attachView(view!)
         }
     }
     
     deinit {
+        node.detachView()
         YGNodeFree(node)
     }
     
@@ -133,10 +134,6 @@ extension YGLayout {
         sublayouts.forEach {
             $0.view?.isHidden = hidden
         }
-    }
-    
-    func sizeThatFits(_ size: CGSize) -> CGSize {
-        return view?.sizeThatFits(size) ?? .zero
     }
 }
 

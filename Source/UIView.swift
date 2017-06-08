@@ -62,7 +62,7 @@ extension UIView {
         
         if layout == nil {
             layout = YGLayout(view: self)
-            objc_setAssociatedObject(self, &AssociatedKeys.YogaKitKey, layout, .OBJC_ASSOCIATION_ASSIGN)
+            objc_setAssociatedObject(self, &AssociatedKeys.YogaKitKey, layout, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         
         return layout!
