@@ -51,8 +51,8 @@ public extension UICollectionViewCell {
     }
 }
 
-// MARK: - view -
-public extension UIView {
+// MARK: - layout association -
+extension UIView {
     private struct AssociatedKeys {
         static var YogaKitKey = "YogaKit_ViewKey"
     }
@@ -62,13 +62,10 @@ public extension UIView {
         
         if layout == nil {
             layout = YGLayout(view: self)
-            objc_setAssociatedObject(self, &AssociatedKeys.YogaKitKey, layout, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociatedKeys.YogaKitKey, layout, .OBJC_ASSOCIATION_ASSIGN)
         }
         
         return layout!
     }
     
-    internal func detachYoga() {
-        objc_setAssociatedObject(self, &AssociatedKeys.YogaKitKey, nil, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-    }
 }

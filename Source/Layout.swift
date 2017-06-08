@@ -46,10 +46,6 @@ public class YGLayout {
     }
     
     deinit {
-        if view != nil {
-            node.detachYoga()
-            view?.detachYoga()
-        }
         YGNodeFree(node)
     }
     

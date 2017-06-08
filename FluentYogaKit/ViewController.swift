@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     
     fileprivate var signUpLabel: UILabel!
     fileprivate var signUpButton: UIButton!
+    fileprivate var rootLayout: YGLayout!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,7 +127,8 @@ class ViewController: UIViewController {
             signUpButton
         )
         
-        view.yoga.vertical(
+        rootLayout = view.yoga
+        rootLayout.vertical(
             titleLabel.yoga
                 .crossSelf(align: .flexStart),
             30,
@@ -153,7 +155,7 @@ class ViewController: UIViewController {
         .paddingTop(44)
         .paddingHorizontal(16)
         .paddingBottom(12)
-        .apply()
+        .apply()        
     }
     
 }

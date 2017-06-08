@@ -9,8 +9,6 @@
 import yoga
 
 // MARK: - YGNodeRef -
-fileprivate var YGNodeLayoutContext: [Int: YGLayout] = [:]
-
 fileprivate let YGNodeMeasureFunc: YGMeasureFunc = { (node: YGNodeRef?, width: Float, widthMode: YGMeasureMode, height: Float, heightMode: YGMeasureMode) -> YGSize in
     let constrainedWidth = (widthMode == .undefined) ? YGValueUndefined.value : width
     let constrainedHeight = (heightMode == .undefined) ? YGValueUndefined.value : height
@@ -99,14 +97,17 @@ extension YGNodeRef {
 }
 
 // MARK: - Layout association -
+fileprivate var YGNodeLayoutContext = NSMapTable<NSNumber, YGLayout>.strongToWeakObjects()
+
 extension YGNodeRef {
     internal func attachYoga(_ layout: YGLayout) {
-        YGNodeLayoutContext[hashValue] = layout
-    }
-    internal func detachYoga() {
-        YGNodeLayoutContext.removeValue(forKey: hashValue)
+        YGNodeLayoutContext.setObject(layout, forKey: yogaKey)
     }
     internal var yoga: YGLayout? {
-        return YGNodeLayoutContext[hashValue]
+        return YGNodeLayoutContext.object(forKey: yogaKey)
+    }
+    
+    internal var yogaKey: NSNumber {
+       return NSNumber(integerLiteral: hashValue)
     }
 }
