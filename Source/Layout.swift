@@ -153,7 +153,7 @@ extension YGLayout {
     
     @discardableResult
     fileprivate func sublayout(_ subelements: [Any]) -> Self {
-        var marginStart: Float? = nil
+        var marginStart: YGValue? = nil
         
         for (index, subelement) in subelements.enumerated() {
             switch subelement {
@@ -167,11 +167,12 @@ extension YGLayout {
             case is Int: fallthrough
             case is Double: fallthrough
             case is Float: fallthrough
-            case is CGFloat:
+            case is CGFloat: fallthrough
+            case is YGValue:
                 if index == 0 {
-                    marginStart = Float(any: subelement)
+                    marginStart = YGValue(any: subelement)
                 } else {
-                    handleSublayout(marginEnd: Float(any: subelement))
+                    handleSublayout(marginEnd: YGValue(any: subelement))
                 }
             default:
                 print("Don't support \(index) - \(subelement) yet.")
@@ -183,7 +184,7 @@ extension YGLayout {
         return self
     }
     
-    fileprivate func handleSublayout(marginStart: Float?) {
+    fileprivate func handleSublayout(marginStart: YGValue?) {
         if let marginStart = marginStart, let firstSublayout = sublayouts.first {
             if flexDirection == .column {
                 firstSublayout.marginTop(marginStart)
@@ -193,7 +194,7 @@ extension YGLayout {
         }
     }
     
-    fileprivate func handleSublayout(marginEnd: Float) {
+    fileprivate func handleSublayout(marginEnd: YGValue) {
         if let lastSublayout = sublayouts.last {
             if flexDirection == .column {
                 lastSublayout.marginBottom(marginEnd)

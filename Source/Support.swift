@@ -23,19 +23,6 @@ public struct YGDimensionFlexibility: OptionSet {
 }
 
 extension Float {
-    internal init(any value: Any) {
-        var m: Float = 0
-        if let i = value as? Int {
-            m = Float(i)
-        } else if let d = value as? Double {
-            m = Float(d)
-        } else if let cg = value as? CGFloat {
-            m = cg.float
-        }
-        
-        self = m
-    }
-    
     public var cg: CGFloat {
         return cgFloat
     }
@@ -70,6 +57,13 @@ extension CGSize {
 extension YGSize {
     public static let undefined = YGSize(width: YGValueUndefined.value, height: YGValueUndefined.value)
     public static let zero = YGSize(width: 0.0, height: 0.0)
+
+    public var ygWidth: YGValue {
+        return YGValue(floatLiteral: width)
+    }
+    public var ygHeight: YGValue {
+        return YGValue(floatLiteral: height)
+    }
     
     public var cgSize: CGSize {
         return CGSize(width: width.cgFloat, height: height.cgFloat)
@@ -112,5 +106,28 @@ extension YGValue : ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
     
     public init(_ value: CGFloat) {
         self = YGValue(value: Float(value), unit: .point)
+    }
+
+    public init(_ value: Double) {
+        self = YGValue(value: Float(value), unit: .point)
+    }
+
+    internal init(any value: Any) {
+        if value is YGValue {
+            self = value as! YGValue
+        } else {
+            var m: YGValue = 0
+            if let i = value as? Int {
+                m = YGValue(integerLiteral: i)
+            } else if let d = value as? Double {
+                m = YGValue(d)
+            } else if let d = value as? Float {
+                m = YGValue(d)
+            } else if let cg = value as? CGFloat {
+                m = YGValue(cg)
+            }
+            
+            self = m
+        }
     }
 }

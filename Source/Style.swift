@@ -119,231 +119,235 @@ extension YGLayout {
         
     }
     
-    public var flexBasis: Float {
+    public var flexBasis: YGValue {
         get {
-            return YGNodeStyleGetFlexBasis(node).value
+            return YGNodeStyleGetFlexBasis(node)
         }
         set {
-            YGNodeStyleSetFlexBasis(node, newValue)
+            switch newValue.unit {
+            case .point:
+                YGNodeStyleSetFlexBasis(node, newValue.value)
+            case .percent:
+                YGNodeStyleSetFlexBasisPercent(node, newValue.value)
+            default:
+                print("Unsupported - \(newValue.unit)")
+            }
+        }
+    }
+        
+    public var left: YGValue {
+        get {
+            return YGNodeStyleGetPosition(node, .left)
+        }
+        set {
+            _setPosition(.left, newValue)
         }
     }
     
-    
-    public var left: Float {
+    public var top: YGValue {
         get {
-            return YGNodeStyleGetPosition(node, .left).value
+            return YGNodeStyleGetPosition(node, .top)
         }
         set {
-            YGNodeStyleSetPosition(node, .left, newValue)
+            _setPosition(.top, newValue)
         }
     }
     
-    public var top: Float {
+    public var right: YGValue {
         get {
-            return YGNodeStyleGetPosition(node, .top).value
+            return YGNodeStyleGetPosition(node, .right)
         }
         set {
-            YGNodeStyleSetPosition(node, .top, newValue)
+            _setPosition(.right, newValue)
         }
     }
     
-    public var right: Float {
+    public var bottom: YGValue {
         get {
-            return YGNodeStyleGetPosition(node, .right).value
+            return YGNodeStyleGetPosition(node, .bottom)
         }
         set {
-            YGNodeStyleSetPosition(node, .right, newValue)
+            _setPosition(.bottom, newValue)            
         }
     }
     
-    public var bottom: Float {
+    public var start: YGValue {
         get {
-            return YGNodeStyleGetPosition(node, .bottom).value
+            return YGNodeStyleGetPosition(node, .start)
         }
         set {
-            YGNodeStyleSetPosition(node, .bottom, newValue)
+            _setPosition(.start, newValue)
         }
     }
     
-    public var start: Float {
+    public var end: YGValue {
         get {
-            return YGNodeStyleGetPosition(node, .start).value
+            return YGNodeStyleGetPosition(node, .end)
         }
         set {
-            YGNodeStyleSetPosition(node, .start, newValue)
+            _setPosition(.end, newValue)
+        }
+    }
+
+    public var marginLeft: YGValue {
+        get {
+            return YGNodeStyleGetMargin(node, .left)
+        }
+        set {
+            _setMargin(.left, newValue)
         }
     }
     
-    public var end: Float {
+    public var marginTop: YGValue {
         get {
-            return YGNodeStyleGetPosition(node, .end).value
+            return YGNodeStyleGetMargin(node, .top)
         }
         set {
-            YGNodeStyleSetPosition(node, .end, newValue)
+            _setMargin(.top, newValue)
         }
     }
     
-    
-    public var marginLeft: Float {
+    public var marginRight: YGValue {
         get {
-            return YGNodeStyleGetMargin(node, .left).value
+            return YGNodeStyleGetMargin(node, .right)
         }
         set {
-            YGNodeStyleSetMargin(node, .left, newValue)
+            _setMargin(.right, newValue)
         }
     }
     
-    public var marginTop: Float {
+    public var marginBottom: YGValue {
         get {
-            return YGNodeStyleGetMargin(node, .top).value
+            return YGNodeStyleGetMargin(node, .bottom)
         }
         set {
-            YGNodeStyleSetMargin(node, .top, newValue)
+            _setMargin(.bottom, newValue)
         }
     }
     
-    public var marginRight: Float {
+    public var marginStart: YGValue {
         get {
-            return YGNodeStyleGetMargin(node, .right).value
+            return YGNodeStyleGetMargin(node, .start)
         }
         set {
-            YGNodeStyleSetMargin(node, .right, newValue)
+            _setMargin(.start, newValue)
         }
     }
     
-    public var marginBottom: Float {
+    public var marginEnd: YGValue {
         get {
-            return YGNodeStyleGetMargin(node, .bottom).value
+            return YGNodeStyleGetMargin(node, .end)
         }
         set {
-            YGNodeStyleSetMargin(node, .bottom, newValue)
+            _setMargin(.end, newValue)
         }
     }
     
-    public var marginStart: Float {
+    public var marginHorizontal: YGValue {
         get {
-            return YGNodeStyleGetMargin(node, .start).value
+            return YGNodeStyleGetMargin(node, .horizontal)
         }
         set {
-            YGNodeStyleSetMargin(node, .start, newValue)
+            _setMargin(.horizontal, newValue)
         }
     }
     
-    public var marginEnd: Float {
+    public var marginVertical: YGValue {
         get {
-            return YGNodeStyleGetMargin(node, .end).value
+            return YGNodeStyleGetMargin(node, .vertical)
         }
         set {
-            YGNodeStyleSetMargin(node, .end, newValue)
+            _setMargin(.vertical, newValue)
         }
     }
     
-    public var marginHorizontal: Float {
+    public var margin: YGValue {
         get {
-            return YGNodeStyleGetMargin(node, .horizontal).value
+            return YGNodeStyleGetMargin(node, .all)
         }
         set {
-            YGNodeStyleSetMargin(node, .horizontal, newValue)
+            _setMargin(.all, newValue)
         }
     }
     
-    public var marginVertical: Float {
+    public var paddingLeft: YGValue {
         get {
-            return YGNodeStyleGetMargin(node, .vertical).value
+            return YGNodeStyleGetPadding(node, .left)
         }
         set {
-            YGNodeStyleSetMargin(node, .vertical, newValue)
+            _setPadding(.left, newValue)
         }
     }
     
-    public var margin: Float {
+    public var paddingTop: YGValue {
         get {
-            return YGNodeStyleGetMargin(node, .all).value
+            return YGNodeStyleGetPadding(node, .top)
         }
         set {
-            YGNodeStyleSetMargin(node, .all, newValue)
+            _setPadding(.top, newValue)
         }
     }
     
-    
-    public var paddingLeft: Float {
+    public var paddingRight: YGValue {
         get {
-            return YGNodeStyleGetPadding(node, .left).value
+            return YGNodeStyleGetPadding(node, .right)
         }
         set {
-            YGNodeStyleSetPadding(node, .left, newValue)
+            _setPadding(.right, newValue)
         }
     }
     
-    public var paddingTop: Float {
+    public var paddingBottom: YGValue {
         get {
-            return YGNodeStyleGetPadding(node, .top).value
+            return YGNodeStyleGetPadding(node, .bottom)
         }
         set {
-            YGNodeStyleSetPadding(node, .top, newValue)
+            _setPadding(.bottom, newValue)
         }
     }
     
-    public var paddingRight: Float {
+    public var paddingStart: YGValue {
         get {
-            return YGNodeStyleGetPadding(node, .right).value
+            return YGNodeStyleGetPadding(node, .start)
         }
         set {
-            YGNodeStyleSetPadding(node, .right, newValue)
+            _setPadding(.start, newValue)
         }
     }
     
-    public var paddingBottom: Float {
+    public var paddingEnd: YGValue {
         get {
-            return YGNodeStyleGetPadding(node, .bottom).value
+            return YGNodeStyleGetPadding(node, .end)
         }
         set {
-            YGNodeStyleSetPadding(node, .bottom, newValue)
+            _setPadding(.end, newValue)
         }
     }
     
-    public var paddingStart: Float {
+    public var paddingHorizontal: YGValue {
         get {
-            return YGNodeStyleGetPadding(node, .start).value
+            return YGNodeStyleGetPadding(node, .horizontal)
         }
         set {
-            YGNodeStyleSetPadding(node, .start, newValue)
+            _setPadding(.horizontal, newValue)
         }
     }
     
-    public var paddingEnd: Float {
+    public var paddingVertical: YGValue {
         get {
-            return YGNodeStyleGetPadding(node, .end).value
+            return YGNodeStyleGetPadding(node, .vertical)
         }
         set {
-            YGNodeStyleSetPadding(node, .end, newValue)
+            _setPadding(.vertical, newValue)
         }
     }
     
-    public var paddingHorizontal: Float {
+    public var padding: YGValue {
         get {
-            return YGNodeStyleGetPadding(node, .horizontal).value
+            return YGNodeStyleGetPadding(node, .all)
         }
         set {
-            YGNodeStyleSetPadding(node, .horizontal, newValue)
-        }
-    }
-    
-    public var paddingVertical: Float {
-        get {
-            return YGNodeStyleGetPadding(node, .vertical).value
-        }
-        set {
-            YGNodeStyleSetPadding(node, .vertical, newValue)
-        }
-    }
-    
-    public var padding: Float {
-        get {
-            return YGNodeStyleGetPadding(node, .all).value
-        }
-        set {
-            YGNodeStyleSetPadding(node, .all, newValue)
+            _setPadding(.all, newValue)
         }
     }
     
@@ -429,57 +433,99 @@ extension YGLayout {
         }
     }
     
-    public var width: Float {
+    public var width: YGValue {
         get {
-            return YGNodeStyleGetWidth(node).value
+            return YGNodeStyleGetWidth(node)
         }
         set {
-            YGNodeStyleSetWidth(node, newValue)
+            switch newValue.unit {
+            case .point:
+                YGNodeStyleSetWidth(node, newValue.value)
+            case .percent:
+                YGNodeStyleSetWidthPercent(node, newValue.value)
+            default:
+                print("Unsupported - \(newValue)")
+            }
         }
     }
     
-    public var height: Float {
+    public var height: YGValue {
         get {
-            return YGNodeStyleGetHeight(node).value
+            return YGNodeStyleGetHeight(node)
         }
         set {
-            YGNodeStyleSetHeight(node, newValue)
+            switch newValue.unit {
+            case .point:
+                YGNodeStyleSetHeight(node, newValue.value)
+            case .percent:
+                YGNodeStyleSetHeightPercent(node, newValue.value)
+            default:
+                print("Unsupported - \(newValue)")
+            }
         }
     }
     
-    public var minWidth: Float {
+    public var minWidth: YGValue {
         get {
-            return YGNodeStyleGetMinWidth(node).value
+            return YGNodeStyleGetMinWidth(node)
         }
         set {
-            YGNodeStyleSetMinWidth(node, newValue)
+            switch newValue.unit {
+            case .point:
+                YGNodeStyleSetMinWidth(node, newValue.value)
+            case .percent:
+                YGNodeStyleSetMinWidthPercent(node, newValue.value)
+            default:
+                print("Unsupported - \(newValue)")
+            }
         }
     }
     
-    public var minHeight: Float {
+    public var minHeight: YGValue {
         get {
-            return YGNodeStyleGetMinHeight(node).value
+            return YGNodeStyleGetMinHeight(node)
         }
         set {
-            YGNodeStyleSetMinHeight(node, newValue)
+            switch newValue.unit {
+            case .point:
+                YGNodeStyleSetMinHeight(node, newValue.value)
+            case .percent:
+                YGNodeStyleSetMinHeightPercent(node, newValue.value)
+            default:
+                print("Unsupported - \(newValue)")
+            }
         }
     }
     
-    public var maxWidth: Float {
+    public var maxWidth: YGValue {
         get {
-            return YGNodeStyleGetMaxWidth(node).value
+            return YGNodeStyleGetMaxWidth(node)
         }
         set {
-            YGNodeStyleSetMaxWidth(node, newValue)
+            switch newValue.unit {
+            case .point:
+                YGNodeStyleSetMaxWidth(node, newValue.value)
+            case .percent:
+                YGNodeStyleSetMaxWidthPercent(node, newValue.value)
+            default:
+                print("Unsupported - \(newValue)")
+            }
         }
     }
     
-    public var maxHeight: Float {
+    public var maxHeight: YGValue {
         get {
-            return YGNodeStyleGetMaxHeight(node).value
+            return YGNodeStyleGetMaxHeight(node)
         }
         set {
-            YGNodeStyleSetMaxHeight(node, newValue)
+            switch newValue.unit {
+            case .point:
+                YGNodeStyleSetMaxHeight(node, newValue.value)
+            case .percent:
+                YGNodeStyleSetMaxHeightPercent(node, newValue.value)
+            default:
+                print("Unsupported - \(newValue)")
+            }
         }
     }
     
@@ -502,4 +548,39 @@ extension YGLayout {
         return YGNodeLayoutGetDirection(node)
     }
     
+}
+
+fileprivate extension YGLayout {
+    func _setPosition(_ edge: YGEdge, _ value: YGValue) {
+        switch value.unit {
+        case .point:
+            YGNodeStyleSetPosition(node, edge, value.value)
+        case .percent:
+            YGNodeStyleSetPositionPercent(node, edge, value.value)
+        default:
+            print("Unsupported - \(value)")
+        }
+    }
+    
+    func _setMargin(_ edge: YGEdge, _ value: YGValue) {
+        switch value.unit {
+        case .point:
+            YGNodeStyleSetMargin(node, edge, value.value)
+        case .percent:
+            YGNodeStyleSetMarginPercent(node, edge, value.value)
+        default:
+            print("Unsupported - \(value)")
+        }
+    }
+
+    func _setPadding(_ edge: YGEdge, _ value: YGValue) {
+        switch value.unit {
+        case .point:
+            YGNodeStyleSetPadding(node, edge, value.value)
+        case .percent:
+            YGNodeStyleSetPaddingPercent(node, edge, value.value)
+        default:
+            print("Unsupported - \(value)")
+        }
+    }
 }
