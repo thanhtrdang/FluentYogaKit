@@ -66,12 +66,12 @@ class ViewController: UIViewController {
         }
         
         forgotPasswordButton = UIButton().then {
-            $0.text("Forgot password?")
+            $0.title("Forgot password?")
             $0.titleLabel?.font = .h4
             $0.setTitleColor(.black, for: .normal)
         }
         signInButton = UIButton().then {
-            $0.text("Sign in")
+            $0.title("Sign in")
             $0.titleLabel?.font = .h4
             $0.setTitleColor(.black, for: .normal)
             $0.addTarget(self, action: #selector(signInButtonDidTap), for: .touchUpInside)
@@ -85,7 +85,7 @@ class ViewController: UIViewController {
             $0.font = .h4
         }
         signUpButton = UIButton().then {
-            $0.text("Sign up")
+            $0.title("Sign up")
             $0.titleLabel?.font = .h4
             $0.setTitleColor(.black, for: .normal)
             $0.addTarget(self, action: #selector(signUpButtonDidTap), for: .touchUpInside)
@@ -119,10 +119,8 @@ class ViewController: UIViewController {
             usernameTextField,
             passwordLabel,
             passwordTextField,
-            forgotPasswordButton,
-            signInButton,
-            signUpLabel,
-            signUpButton
+            forgotPasswordButton, signInButton,
+            signUpLabel, signUpButton
         )
         
         rootLayout = view.yoga
@@ -139,16 +137,12 @@ class ViewController: UIViewController {
                 8,
                 passwordTextField,
                 16,
-                YGLayout.horizontal(
-                    forgotPasswordButton, signInButton
-                )
-                .mainAxis(align: .spaceBetween)
+                YGLayout.H(forgotPasswordButton, signInButton)
+                    .mainAxis(align: .spaceBetween)
             )
             .flexGrow(1),
-            YGLayout.horizontal(
-                signUpLabel, 4, signUpButton
-            )
-            .mainAxis(align: .center)
+            YGLayout.H(signUpLabel, 4, signUpButton)
+                .mainAxis(align: .center)
         )
         .paddingTop(44)
         .paddingHorizontal(16)

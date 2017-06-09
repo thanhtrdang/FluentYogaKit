@@ -34,6 +34,10 @@ public class YGLayout {
         }
     }
     
+    public var intrinsicSize: CGSize {
+        return calculate(with: YGSize.undefined.cgSize)
+    }
+    
     internal init(view: UIView? = nil) {
         node = YGNodeRef()
         self.view = view
@@ -47,32 +51,13 @@ public class YGLayout {
         YGNodeFree(node)
     }
     
-    public class func vertical(_ sublayouts: Any...) -> YGLayout {
-        return YGLayout().flexDirection(.column).sublayout(sublayouts)
+    //TODO Expose 2 methods later
+    fileprivate func calculate(with size: CGSize) -> CGSize {
+        node.calculateLayout(size: size.ygSize, direction: direction)
+        return CGSize(width: node.layoutWidth, height: node.layoutHeight)
     }
-    
-    public class func horizontal(_ sublayouts: Any...) -> YGLayout {
-        return YGLayout().flexDirection(.row).sublayout(sublayouts)
-    }
-    
-    public func apply(preserveOrigin: Bool = false, dimensionFlexibility: YGDimensionFlexibility = [], _ callback: ((YGLayout) -> Void)? = nil) {
-        var size = view?.frame.size.ygSize ?? .undefined
-        
-        if dimensionFlexibility.contains(.flexibleWidth) {
-            size.width = YGValueUndefined.value
-        }
-        if dimensionFlexibility.contains(.flexibleHeigth) {
-            size.height = YGValueUndefined.value
-        }
-        
-        node.calculateLayout(size: size, direction: direction)
-        
-        applyLayoutToViews(preserveOrigin: preserveOrigin)
-        
-        callback?(self)
-    }
-    
-    fileprivate func applyLayoutToViews(preserveOrigin: Bool = false, offset: CGPoint = .zero) {
+
+    fileprivate func applyToViews(preserveOrigin: Bool = false, offset: CGPoint = .zero) {
         if isEnabled {
             let origin = preserveOrigin ? frame.origin : .zero
             let topLeft = CGPoint(x: node.layoutLeft + offset.x, y: node.layoutTop + offset.y)
@@ -85,13 +70,31 @@ public class YGLayout {
             
             sublayouts.forEach {
                 if isView {
-                    $0.applyLayoutToViews(preserveOrigin: preserveOrigin, offset: .zero)
+                    $0.applyToViews(preserveOrigin: preserveOrigin, offset: .zero)
                 } else {
-                    $0.applyLayoutToViews(preserveOrigin: preserveOrigin, offset: frame.origin)
+                    $0.applyToViews(preserveOrigin: preserveOrigin, offset: frame.origin)
                 }
             }
         }
     }
+
+    public func apply(preserveOrigin: Bool = false, dimensionFlexibility: YGDimensionFlexibility = [], _ callback: ((YGLayout) -> Void)? = nil) {
+        var size = view?.frame.size.ygSize ?? .undefined
+        
+        if dimensionFlexibility.contains(.flexibleWidth) {
+            size.width = YGValueUndefined.value
+        }
+        if dimensionFlexibility.contains(.flexibleHeigth) {
+            size.height = YGValueUndefined.value
+        }
+        
+        node.calculateLayout(size: size, direction: direction)
+        
+        applyToViews(preserveOrigin: preserveOrigin)
+        
+        callback?(self)
+    }
+    
 }
 
 // MARK: - node -
@@ -139,16 +142,36 @@ extension YGLayout {
 
 // MARK: - sublayout -
 extension YGLayout {
-    @discardableResult
+    // Shortcuts, easier to read in case of inline uses
+    public class func V(_ sublayouts: Any...) -> YGLayout {
+        return YGLayout().config(.column, sublayouts)
+    }
+    public class func H(_ sublayouts: Any...) -> YGLayout {
+        return YGLayout().config(.row, sublayouts)
+    }
+    public func V(_ sublayouts: Any...) -> Self {
+        return config(.column, sublayouts)
+    }
+    public func H(_ sublayouts: Any...) -> Self {
+        return config(.row, sublayouts)
+    }
+
+    public class func vertical(_ sublayouts: Any...) -> YGLayout {
+        return YGLayout().config(.column, sublayouts)
+    }
+    public class func horizontal(_ sublayouts: Any...) -> YGLayout {
+        return YGLayout().config(.row, sublayouts)
+    }
     public func vertical(_ sublayouts: Any...) -> Self {
-        flexDirection = .column
-        return sublayout(sublayouts)
+        return config(.column, sublayouts)
+    }
+    public func horizontal(_ sublayouts: Any...) -> Self {
+        return config(.row, sublayouts)
     }
     
-    @discardableResult
-    public func horizontal(_ sublayouts: Any...) -> Self {
-        flexDirection = .row
-        return sublayout(sublayouts)
+    // Workaround https://bugs.swift.org/browse/SR-128
+    fileprivate func config(_ flexDirection: YGFlexDirection, _ subelements: [Any]) -> Self {
+        return self.flexDirection(flexDirection).sublayout(subelements)
     }
     
     @discardableResult
@@ -180,6 +203,8 @@ extension YGLayout {
         }
         
         handleSublayout(marginStart: marginStart)
+        
+        stretchIfOnlyOne()
         
         return self
     }
@@ -218,5 +243,11 @@ extension YGLayout {
         
         superlayout?.superlayout = self
         sublayouts.append(sublayout)
+    }
+    
+    fileprivate func stretchIfOnlyOne() {
+        if sublayouts.count == 1 {
+            sublayouts.first?.flexGrow(1)
+        }
     }
 }
