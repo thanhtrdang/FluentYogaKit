@@ -20,7 +20,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   FluentSwift:
-    :commit: 9e6104d01ca600b0844f1d83f36fec1ea864e0d9
+    :commit: 090b99f8ef28d4295137af2556266b7f825f2cf6
     :git: https://github.com/thanhtrdang/FluentSwift.git
   Hero:
     :commit: e84209f3538bac93897b132e9af59728bece2e82

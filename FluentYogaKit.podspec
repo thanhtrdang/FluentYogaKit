@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'FluentYogaKit'
-  spec.version      = '1.0.0'
+  spec.version      = '1.5.0'
   spec.license      = { :type => 'Apache License 2.0' }
   spec.homepage     = 'https://github.com/thanhtrdang/FluentYogaKit'
   spec.authors      = { 'Thanh Dang' => 'thanhtrdang@gmail.com' }
