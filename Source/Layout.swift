@@ -156,15 +156,19 @@ extension YGLayout {
         return config(.row, sublayouts)
     }
 
+    @discardableResult
     public class func vertical(_ sublayouts: Any...) -> YGLayout {
         return YGLayout().config(.column, sublayouts)
     }
+    @discardableResult
     public class func horizontal(_ sublayouts: Any...) -> YGLayout {
         return YGLayout().config(.row, sublayouts)
     }
+    @discardableResult
     public func vertical(_ sublayouts: Any...) -> Self {
         return config(.column, sublayouts)
     }
+    @discardableResult
     public func horizontal(_ sublayouts: Any...) -> Self {
         return config(.row, sublayouts)
     }
