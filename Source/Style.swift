@@ -125,12 +125,11 @@ extension YGLayout {
         }
         set {
             switch newValue.unit {
-            case .point:
-                YGNodeStyleSetFlexBasis(node, newValue.value)
             case .percent:
                 YGNodeStyleSetFlexBasisPercent(node, newValue.value)
+            case .point: fallthrough
             default:
-                print("Unsupported - \(newValue.unit)")
+                YGNodeStyleSetFlexBasis(node, newValue.value)
             }
         }
     }
@@ -439,12 +438,11 @@ extension YGLayout {
         }
         set {
             switch newValue.unit {
-            case .point:
-                YGNodeStyleSetWidth(node, newValue.value)
             case .percent:
                 YGNodeStyleSetWidthPercent(node, newValue.value)
+            case .point: fallthrough
             default:
-                print("Unsupported - \(newValue)")
+                YGNodeStyleSetWidth(node, newValue.value)
             }
         }
     }
@@ -455,12 +453,11 @@ extension YGLayout {
         }
         set {
             switch newValue.unit {
-            case .point:
-                YGNodeStyleSetHeight(node, newValue.value)
             case .percent:
                 YGNodeStyleSetHeightPercent(node, newValue.value)
+            case .point: fallthrough
             default:
-                print("Unsupported - \(newValue)")
+                YGNodeStyleSetHeight(node, newValue.value)
             }
         }
     }
@@ -471,12 +468,11 @@ extension YGLayout {
         }
         set {
             switch newValue.unit {
-            case .point:
-                YGNodeStyleSetMinWidth(node, newValue.value)
             case .percent:
                 YGNodeStyleSetMinWidthPercent(node, newValue.value)
+            case .point: fallthrough
             default:
-                print("Unsupported - \(newValue)")
+                YGNodeStyleSetMinWidth(node, newValue.value)
             }
         }
     }
@@ -487,12 +483,11 @@ extension YGLayout {
         }
         set {
             switch newValue.unit {
-            case .point:
-                YGNodeStyleSetMinHeight(node, newValue.value)
             case .percent:
                 YGNodeStyleSetMinHeightPercent(node, newValue.value)
+            case .point: fallthrough
             default:
-                print("Unsupported - \(newValue)")
+                YGNodeStyleSetMinHeight(node, newValue.value)
             }
         }
     }
@@ -503,12 +498,11 @@ extension YGLayout {
         }
         set {
             switch newValue.unit {
-            case .point:
-                YGNodeStyleSetMaxWidth(node, newValue.value)
             case .percent:
                 YGNodeStyleSetMaxWidthPercent(node, newValue.value)
+            case .point: fallthrough
             default:
-                print("Unsupported - \(newValue)")
+                YGNodeStyleSetMaxWidth(node, newValue.value)
             }
         }
     }
@@ -519,16 +513,14 @@ extension YGLayout {
         }
         set {
             switch newValue.unit {
-            case .point:
-                YGNodeStyleSetMaxHeight(node, newValue.value)
             case .percent:
                 YGNodeStyleSetMaxHeightPercent(node, newValue.value)
+            case .point: fallthrough
             default:
-                print("Unsupported - \(newValue)")
+                YGNodeStyleSetMaxHeight(node, newValue.value)
             }
         }
     }
-    
     
     // Yoga specific properties, not compatible with flexbox specification
     public var aspectRatio: Float {
@@ -539,7 +531,6 @@ extension YGLayout {
             YGNodeStyleSetAspectRatio(node, newValue)
         }
     }
-    
     
     /**
      Get the resolved direction of this node. This won't be YGDirectionInherit
@@ -553,34 +544,31 @@ extension YGLayout {
 fileprivate extension YGLayout {
     func _setPosition(_ edge: YGEdge, _ value: YGValue) {
         switch value.unit {
-        case .point:
-            YGNodeStyleSetPosition(node, edge, value.value)
         case .percent:
             YGNodeStyleSetPositionPercent(node, edge, value.value)
+        case .point: fallthrough
         default:
-            print("Unsupported - \(value)")
+            YGNodeStyleSetPosition(node, edge, value.value)
         }
     }
     
     func _setMargin(_ edge: YGEdge, _ value: YGValue) {
         switch value.unit {
-        case .point:
-            YGNodeStyleSetMargin(node, edge, value.value)
         case .percent:
             YGNodeStyleSetMarginPercent(node, edge, value.value)
+        case .point: fallthrough
         default:
-            print("Unsupported - \(value)")
+            YGNodeStyleSetMargin(node, edge, value.value)
         }
     }
 
     func _setPadding(_ edge: YGEdge, _ value: YGValue) {
         switch value.unit {
-        case .point:
-            YGNodeStyleSetPadding(node, edge, value.value)
         case .percent:
             YGNodeStyleSetPaddingPercent(node, edge, value.value)
+        case .point: fallthrough
         default:
-            print("Unsupported - \(value)")
+            YGNodeStyleSetPadding(node, edge, value.value)
         }
     }
 }

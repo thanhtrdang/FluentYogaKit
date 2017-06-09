@@ -22,12 +22,23 @@ public struct YGDimensionFlexibility: OptionSet {
     }
 }
 
+// MARK: - Convertable - 
 extension Float {
+    public var roundPixel: Float {
+        return Darwin.round(self * scaleFactor.f) / scaleFactor.f
+    }
+
     public var cg: CGFloat {
         return cgFloat
     }
     public var cgFloat: CGFloat {
         return CGFloat(self)
+    }
+    public var yg: YGValue {
+        return ygValue
+    }
+    public var ygValue: YGValue {
+        return YGValue(self)
     }
 }
 
@@ -39,25 +50,62 @@ extension CGFloat {
     public var f: Float {
         return float
     }
-    
     public var float: Float {
         return Float(self)
+    }
+    public var yg: YGValue {
+        return ygValue
+    }
+    public var ygValue: YGValue {
+        return YGValue(self)
+    }
+}
+
+// Support type = .point only
+extension YGValue {
+    public var roundPixel: YGValue {
+        if unit == .point {
+            return YGValue(Darwin.round(self.cg * scaleFactor) / scaleFactor)
+        } else {
+            return self
+        }
+    }
+    
+    public var f: Float {
+        return float
+    }
+    public var float: Float {
+        return value
+    }
+    public var cg: CGFloat {
+        return cgFloat
+    }
+    public var cgFloat: CGFloat {
+        return value.cg
     }
 }
 
 extension CGSize {
-    public var ygSize: YGSize {
-        return YGSize(width: width.float, height: height.float)
-    }
     public var roundPixel: CGSize {
         return CGSize(width: width.roundPixel, height: height.roundPixel)
     }
+    public var yg: YGSize {
+        return ygSize
+    }
+    public var ygSize: YGSize {
+        return YGSize(width: width.float, height: height.float)
+    }
 }
 
+// Support type = .point only
 extension YGSize {
     public static let undefined = YGSize(width: YGValueUndefined.value, height: YGValueUndefined.value)
     public static let zero = YGSize(width: 0.0, height: 0.0)
 
+    public var roundPixel: YGSize {
+        return YGSize(width: width.roundPixel, height: height.roundPixel)
+    }
+    
     public var ygWidth: YGValue {
         return YGValue(floatLiteral: width)
     }
@@ -91,7 +139,7 @@ extension CGFloat {
     }
 }
 
-extension YGValue : ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
+extension YGValue: ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
     public init(integerLiteral value: Int) {
         self = YGValue(value: Float(value), unit: .point)
     }
