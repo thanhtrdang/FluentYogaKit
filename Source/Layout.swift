@@ -142,6 +142,10 @@ extension YGLayout {
 
 // MARK: - sublayout -
 extension YGLayout {
+    public class func spacer() -> YGLayout {
+        return YGLayout().flexGrow(1)
+    }
+
     // Shortcuts, easier to read in case of inline uses
     public class func V(_ sublayouts: Any...) -> YGLayout {
         return YGLayout().config(.column, sublayouts)
