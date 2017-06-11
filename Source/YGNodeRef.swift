@@ -52,11 +52,15 @@ extension YGNodeRef {
         return YGNodeLayoutGetHeight(self).cgFloat
     }
     
-    internal func insertChild(child: YGNodeRef, at index: Int) {
+    internal func insertChild(_ child: YGNodeRef, at index: Int) {
         YGNodeInsertChild(self, child, UInt32(index))
     }
 
-    internal func removeChild(child: YGNodeRef) {
+    internal func getParent() -> YGNodeRef? {
+        return YGNodeGetParent(self)
+    }
+    
+    internal func removeChild(_ child: YGNodeRef) {
         YGNodeRemoveChild(self, child)
     }
     
