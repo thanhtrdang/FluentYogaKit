@@ -96,11 +96,12 @@ class ViewController: UIViewController {
     @objc fileprivate func signUpButtonDidTap() {
         print("signUpButton did tap !!!")
         
-        formLayout.isEnabled(false)
-        
-        Duration.measure("titleLabel hided") {
-            rootLayout.apply()
-        }
+        UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: { _ in
+            self.formLayout.isEnabled(!self.formLayout.isEnabled)            
+            Duration.measure("titleLabel hided") {
+                self.rootLayout.apply()
+            }
+        }, completion: nil)
     }
 
     @objc fileprivate func signInButtonDidTap() {

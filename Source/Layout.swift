@@ -19,8 +19,9 @@ public class YGLayout {
     public internal(set) var isEnabled: Bool = true
     
     internal var isRecursiveEnabled: Bool {
+        @available(*, unavailable)
         get {
-            return isEnabled
+            fatalError("Swift limit: setter must has getter. So use isEnabled instead of.")
         }
         set {
             isEnabled = newValue
