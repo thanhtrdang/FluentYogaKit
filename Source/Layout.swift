@@ -11,16 +11,21 @@ import yoga
 
 public class YGLayout {
     internal let node: YGNodeRef
-    fileprivate weak var view: UIView?
+    internal weak var view: UIView?
     
-    fileprivate weak var superlayout: YGLayout? = nil
-    fileprivate var sublayouts: [YGLayout] = []
+    internal weak var superlayout: YGLayout? = nil
+    internal var sublayouts: [YGLayout] = []
     
-    public var isEnabled: Bool = true {
-        didSet {
-            markNode(detached: !isEnabled)
-            markView(hidden: !isEnabled)
-            superlayout?.markDirty()
+    public internal(set) var isEnabled: Bool = true
+    
+    internal var isRecursiveEnabled: Bool {
+        get {
+            return isEnabled
+        }
+        set {
+            isEnabled = newValue
+            view?.isHidden = !newValue
+            sublayouts.forEach { $0.isRecursiveEnabled = newValue }
         }
     }
     
@@ -99,7 +104,7 @@ public class YGLayout {
 
 // MARK: - node -
 extension YGLayout {
-    fileprivate func markNode(detached: Bool) {
+    internal func markNode(detached: Bool) {
         if detached {
             superlayout?.node.removeChild(node)
         }
@@ -115,11 +120,11 @@ extension YGLayout {
         }
     }
     
-    fileprivate var isDirty: Bool {
+    public var isDirty: Bool {
         return node.isDirty
     }
     
-    fileprivate func markDirty() {
+    public func markDirty() {
         if isDirty || !isLeaf {
             return
         }
@@ -134,11 +139,11 @@ extension YGLayout {
 
 // MARK: - view -
 extension YGLayout {
-    fileprivate var isView: Bool {
+    public var isView: Bool {
         return view != nil
     }
     
-    fileprivate func markView(hidden: Bool) {
+    internal func markView(hidden: Bool) {
         view?.isHidden = hidden
         sublayouts.forEach {
             $0.view?.isHidden = hidden

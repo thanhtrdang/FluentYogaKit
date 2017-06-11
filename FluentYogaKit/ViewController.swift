@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     fileprivate var signUpLabel: UILabel!
     fileprivate var signUpButton: UIButton!
     fileprivate var rootLayout: YGLayout!
+    fileprivate var formLayout: YGLayout!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,7 +96,7 @@ class ViewController: UIViewController {
     @objc fileprivate func signUpButtonDidTap() {
         print("signUpButton did tap !!!")
         
-        signUpLabel.yoga.isEnabled(false)
+        formLayout.isEnabled(false)
         
         Duration.measure("titleLabel hided") {
             rootLayout.apply()
@@ -105,7 +106,7 @@ class ViewController: UIViewController {
     @objc fileprivate func signInButtonDidTap() {
         print("signInButton did tap !!!")
         
-        signUpLabel.yoga.isEnabled(true)
+        formLayout.isEnabled(true)
         
         Duration.measure("titleLabel shown") {
             rootLayout.apply()
@@ -123,24 +124,26 @@ class ViewController: UIViewController {
             signUpLabel, signUpButton
         )
         
+        formLayout = YGLayout.vertical(
+            usernameLabel,
+            8,
+            usernameTextField,
+            16,
+            passwordLabel,
+            8,
+            passwordTextField,
+            16,
+            YGLayout.H(forgotPasswordButton, signInButton)
+                .mainAxis(align: .spaceBetween)
+        )
+        .flexGrow(1)
+        
         rootLayout = view.yoga
         rootLayout.vertical(
             titleLabel.yoga
                 .crossSelf(align: .flexStart),
             30,
-            YGLayout.vertical(
-                usernameLabel,
-                8,
-                usernameTextField,
-                16,
-                passwordLabel,
-                8,
-                passwordTextField,
-                16,
-                YGLayout.H(forgotPasswordButton, signInButton)
-                    .mainAxis(align: .spaceBetween)
-            )
-            .flexGrow(1),
+            formLayout,
             YGLayout.H(signUpLabel, 4, signUpButton)
                 .mainAxis(align: .center)
         )

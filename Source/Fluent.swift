@@ -13,11 +13,23 @@ extension YGLayout {
     /*
      - set on item itself
      - decides during layout/sizing whether or not styling properties should be applied
-     - false (default)
+     - true (default)
+     - recursive: apply to the whole tree
     */
     @discardableResult
-    public func isEnabled(_ isEnabled: Bool) -> Self {
-        self.isEnabled = isEnabled
+    public func isEnabled(_ isEnabled: Bool, recursive: Bool = true) -> Self {
+        if isEnabled != self.isEnabled {
+            if recursive {
+                isRecursiveEnabled = isEnabled
+            } else {
+                self.isEnabled = isEnabled
+                markView(hidden: !isEnabled)
+            }
+            
+            markNode(detached: !isEnabled)
+            superlayout?.markDirty()
+        }
+        
         return self
     }
     
