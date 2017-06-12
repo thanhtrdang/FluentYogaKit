@@ -569,9 +569,8 @@ extension YGLayout {
             .mainAxis(align: .center)
             .crossAxis(align: .center)
     }
-    
     @discardableResult
-    public func filled(by subelement: Any) -> Self {
+    public func filled(by subelement: Any, edges: (YGEdge, YGValue)...) -> Self {
         var result: YGLayout? = nil
         
         switch subelement {
@@ -585,9 +584,22 @@ extension YGLayout {
         }
         
         if let sublayout = result {
-            sublayout
-                .flexGrow(1)
-                .crossSelf(align: .stretch)
+            sublayout.position(.absolute)
+            edges.forEach { (edge, value) in
+                // TODO: Remove switch-cases later, when the code generation is optimized.
+                // if DON'T use switch-case then e.g. <div layout="width: 275; height: 427; top: 120; left: 50;" style="position: absolute; left: 50px; right: 50px; top: 50px; bottom: 50px; " has-custom-measure="true"></div>
+                // if switch-case then e.g. <div layout="width: 275; height: 427; top: 120; left: 50;" style="position: absolute;" has-custom-measure="true"></div>
+                switch edge {
+                case .vertical:
+                    sublayout._setPosition(.top, value)
+                    sublayout._setPosition(.bottom, value)
+                case .horizontal:
+                    sublayout._setPosition(.start, value)
+                    sublayout._setPosition(.end, value)
+                default:
+                    sublayout._setPosition(edge, value)
+                }
+            }
             return config(.column, [sublayout])
         } else {
             return self

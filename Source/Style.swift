@@ -541,7 +541,7 @@ extension YGLayout {
     
 }
 
-fileprivate extension YGLayout {
+internal extension YGLayout {
     func _setPosition(_ edge: YGEdge, _ value: YGValue) {
         switch value.unit {
         case .percent:
