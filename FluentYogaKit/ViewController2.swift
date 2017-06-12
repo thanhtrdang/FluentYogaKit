@@ -37,16 +37,16 @@ class ViewController2: UIViewController {
             whiteView
         )
 
-        rootLayout = view.yoga.vertical(
-            blackView.yoga
-                .size(width: 200, height: 80)
-                .marginTop(50),
-            30,
-            whiteView.yoga
-                .width(200)
-                .flexGrow(1)
+        rootLayout = view.yoga
+            .vTop(hAlign: .center,
+                blackView.yoga
+                    .size(width: 200, height: 80)
+                    .marginTop(50),
+                30,
+                whiteView.yoga
+                    .width(200)
+                    .flexGrow(1)
             )
-            .crossAxis(align: .center)
             
         rootLayout.apply()
         

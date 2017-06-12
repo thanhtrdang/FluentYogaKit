@@ -34,15 +34,13 @@ class ViewController1: UIViewController {
         )
         
         view.yoga
-            .vertical(
+            .vCenter(hAlign: .center,
                 blackView.yoga
                     .size(width: 200, height: 80),
                 30,
                 redView.yoga
                     .size(width: 200, height: 200)
             )
-            .mainAxis(align: .center)
-            .crossAxis(align: .center)
             .apply()
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))

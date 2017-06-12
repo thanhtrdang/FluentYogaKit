@@ -134,7 +134,7 @@ class ViewController: UIViewController {
             8,
             passwordTextField,
             16,
-            YGLayout.H(forgotPasswordButton, signInButton)
+            YGLayout.horizontal(forgotPasswordButton, signInButton)
                 .mainAxis(align: .spaceBetween)
         )
         .flexGrow(1)
@@ -145,7 +145,7 @@ class ViewController: UIViewController {
                 .crossSelf(align: .flexStart),
             30,
             formLayout,
-            YGLayout.H(signUpLabel, 4, signUpButton)
+            YGLayout.horizontal(signUpLabel, 4, signUpButton)
                 .mainAxis(align: .center)
         )
         .paddingTop(44)
