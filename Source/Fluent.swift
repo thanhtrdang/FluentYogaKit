@@ -8,6 +8,7 @@
 
 import yoga
 
+// MARK: Basic flexbox -
 extension YGLayout {
     // MARK:
     /*
@@ -164,7 +165,7 @@ extension YGLayout {
     
     /*
      - set on item itself
-     - default size of an item on the main axis (before any flexGrow and flexShrink calculations are performed)
+     - default size of an item on the MAIN AXIS (before any flexGrow and flexShrink calculations are performed)
      - ~ the width of the item if its parent is a container with flexDirection = row
      - ~ the height of the item if its parent is a container with flexDirection = column
      - value: 0 (default), float => 0
@@ -446,7 +447,7 @@ extension YGLayout {
     //*NOTE: Mix of max/min vs. flexGrow/flexShrink
 }
 
-// MARK:
+// MARK: - Flexbox for newbie -
 extension YGLayout {
     @discardableResult
     public func reverse() -> Self {
@@ -483,4 +484,78 @@ extension YGLayout {
     public func crossSelf(align: YGAlign) -> Self {
         return alignSelf(align)
     }
+}
+
+// MARK: - Pin layout -
+extension YGLayout {
+    public class func spacer() -> YGLayout {
+        return YGLayout().flexGrow(1)
+    }
+    
+    public func vTop(hAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
+        return config(.column, subelements)
+            .mainAxis(align: .flexStart)
+            .crossAxis(align: hAlign)
+    }
+    
+    public func vCenter(hAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
+        return config(.column, subelements)
+            .mainAxis(align: .center)
+            .crossAxis(align: hAlign)
+    }
+    
+    public func vBottom(hAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
+        return config(.column, subelements)
+            .mainAxis(align: .flexEnd)
+            .crossAxis(align: hAlign)
+    }
+
+    public func hStart(vAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
+        return config(.row, subelements)
+            .mainAxis(align: .flexStart)
+            .crossAxis(align: vAlign)
+    }
+
+    public func hCenter(vAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
+        return config(.row, subelements)
+            .mainAxis(align: .center)
+            .crossAxis(align: vAlign)
+    }
+    
+    public func hEnd(vAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
+        return config(.row, subelements)
+            .mainAxis(align: .flexEnd)
+            .crossAxis(align: vAlign)
+    }
+    
+    // subelement: UIView or YGLayout
+    //TODO Swift generic: Don't know how to do e.g. where Element: UIView or Element: YGLayout
+    public func center(_ subelement: Any) -> Self {
+        return config(.column, [subelement])
+            .mainAxis(align: .center)
+            .crossAxis(align: .center)
+    }
+    public func filled(by subelement: Any) -> Self {
+        var result: YGLayout? = nil
+        
+        switch subelement {
+        case let subview as UIView:
+            result = YGLayout(view: subview)
+            
+        case let sublayout as YGLayout:
+            result = sublayout
+        default:
+            print("Don't support \(subelement) yet.")
+        }
+        
+        if let sublayout = result {
+            sublayout
+                .flexGrow(1)
+                .crossSelf(align: .stretch)
+            return config(.column, [sublayout])
+        } else {
+            return self
+        }
+    }
+    
 }

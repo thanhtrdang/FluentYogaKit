@@ -154,24 +154,6 @@ extension YGLayout {
 
 // MARK: - sublayout -
 extension YGLayout {
-    public class func spacer() -> YGLayout {
-        return YGLayout().flexGrow(1)
-    }
-
-    // Shortcuts, easier to read in case of inline uses
-    public class func V(_ sublayouts: Any...) -> YGLayout {
-        return YGLayout().config(.column, sublayouts)
-    }
-    public class func H(_ sublayouts: Any...) -> YGLayout {
-        return YGLayout().config(.row, sublayouts)
-    }
-    public func V(_ sublayouts: Any...) -> Self {
-        return config(.column, sublayouts)
-    }
-    public func H(_ sublayouts: Any...) -> Self {
-        return config(.row, sublayouts)
-    }
-
     @discardableResult
     public class func vertical(_ sublayouts: Any...) -> YGLayout {
         return YGLayout().config(.column, sublayouts)
@@ -190,12 +172,13 @@ extension YGLayout {
     }
     
     // Workaround https://bugs.swift.org/browse/SR-128
-    fileprivate func config(_ flexDirection: YGFlexDirection, _ subelements: [Any]) -> Self {
+    @discardableResult
+    internal func config(_ flexDirection: YGFlexDirection, _ subelements: [Any]) -> Self {
         return self.flexDirection(flexDirection).sublayout(subelements)
     }
     
     @discardableResult
-    fileprivate func sublayout(_ subelements: [Any]) -> Self {
+    internal func sublayout(_ subelements: [Any]) -> Self {
         var marginStart: YGValue? = nil
         
         for (index, subelement) in subelements.enumerated() {
@@ -223,8 +206,6 @@ extension YGLayout {
         }
         
         handleSublayout(marginStart: marginStart)
-        
-        stretchIfOnlyOne()
         
         return self
     }
@@ -267,9 +248,4 @@ extension YGLayout {
         sublayouts.append(sublayout)
     }
     
-    fileprivate func stretchIfOnlyOne() {
-        if sublayouts.count == 1 {
-            sublayouts.first?.flexGrow(1)
-        }
-    }
 }
