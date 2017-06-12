@@ -154,14 +154,13 @@ extension YGLayout {
 
 // MARK: - sublayout -
 extension YGLayout {
-    @discardableResult
     public class func vertical(_ sublayouts: Any...) -> YGLayout {
         return YGLayout().config(.column, sublayouts)
     }
-    @discardableResult
     public class func horizontal(_ sublayouts: Any...) -> YGLayout {
         return YGLayout().config(.row, sublayouts)
     }
+    
     @discardableResult
     public func vertical(_ sublayouts: Any...) -> Self {
         return config(.column, sublayouts)
@@ -172,12 +171,10 @@ extension YGLayout {
     }
     
     // Workaround https://bugs.swift.org/browse/SR-128
-    @discardableResult
     internal func config(_ flexDirection: YGFlexDirection, _ subelements: [Any]) -> Self {
         return self.flexDirection(flexDirection).sublayout(subelements)
     }
     
-    @discardableResult
     internal func sublayout(_ subelements: [Any]) -> Self {
         var marginStart: YGValue? = nil
         

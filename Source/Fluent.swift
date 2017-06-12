@@ -489,39 +489,73 @@ extension YGLayout {
 // MARK: - Pin layout -
 extension YGLayout {
     public class func spacer() -> YGLayout {
-        return YGLayout().flexGrow(1)
+        return YGLayout().flexGrow(1).crossSelf(align: .stretch)
     }
     
+    public class func vTop(hAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+        return YGLayout().config(.column, sublayouts)
+            .mainAxis(align: .flexStart)
+            .crossAxis(align: hAlign)
+    }
+    public class func vCenter(hAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+        return YGLayout().config(.column, sublayouts)
+            .mainAxis(align: .center)
+            .crossAxis(align: hAlign)
+    }
+    public class func vBottom(hAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+        return YGLayout().config(.column, sublayouts)
+            .mainAxis(align: .flexEnd)
+            .crossAxis(align: hAlign)
+    }
+    
+    public class func hStart(vAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+        return YGLayout().config(.row, sublayouts)
+            .mainAxis(align: .flexStart)
+            .crossAxis(align: vAlign)
+    }
+    public class func hCenter(vAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+        return YGLayout().config(.row, sublayouts)
+            .mainAxis(align: .center)
+            .crossAxis(align: vAlign)
+    }
+    public class func hEnd(vAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+        return YGLayout().config(.row, sublayouts)
+            .mainAxis(align: .flexEnd)
+            .crossAxis(align: vAlign)
+    }
+
+    @discardableResult
     public func vTop(hAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
         return config(.column, subelements)
             .mainAxis(align: .flexStart)
             .crossAxis(align: hAlign)
     }
-    
+    @discardableResult
     public func vCenter(hAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
         return config(.column, subelements)
             .mainAxis(align: .center)
             .crossAxis(align: hAlign)
     }
-    
+    @discardableResult
     public func vBottom(hAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
         return config(.column, subelements)
             .mainAxis(align: .flexEnd)
             .crossAxis(align: hAlign)
     }
 
+    @discardableResult
     public func hStart(vAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
         return config(.row, subelements)
             .mainAxis(align: .flexStart)
             .crossAxis(align: vAlign)
     }
-
+    @discardableResult
     public func hCenter(vAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
         return config(.row, subelements)
             .mainAxis(align: .center)
             .crossAxis(align: vAlign)
     }
-    
+    @discardableResult
     public func hEnd(vAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
         return config(.row, subelements)
             .mainAxis(align: .flexEnd)
@@ -530,11 +564,14 @@ extension YGLayout {
     
     // subelement: UIView or YGLayout
     //TODO Swift generic: Don't know how to do e.g. where Element: UIView or Element: YGLayout
+    @discardableResult
     public func center(_ subelement: Any) -> Self {
         return config(.column, [subelement])
             .mainAxis(align: .center)
             .crossAxis(align: .center)
     }
+    
+    @discardableResult
     public func filled(by subelement: Any) -> Self {
         var result: YGLayout? = nil
         
