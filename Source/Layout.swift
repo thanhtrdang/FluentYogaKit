@@ -105,17 +105,22 @@ public class YGLayout {
 
 // MARK: - node -
 extension YGLayout {
+    fileprivate func index(of sublayout: YGLayout) -> Int? {
+        return sublayouts.index(where: { $0.node == sublayout.node })
+    }
+    
     internal func markNode(detached: Bool) {
         if detached {
-            superlayout?.node.removeChild(node)
+            if let index = superlayout?.index(of: self) {
+                superlayout?.node.setChildToDummy(node, at: index)
+            }
         }
         else {
             let parent = node.getParent()
             if parent != superlayout?.node {
                 parent?.removeChild(node)
-                
-                if let index = superlayout?.sublayouts.index(where: { $0.node == self.node }) {
-                    superlayout?.node.insertChild(node, at: index)
+                if let index = superlayout?.index(of: self) {
+                    superlayout?.node.setDummyToChild(node, at: index)
                 }
             }
         }

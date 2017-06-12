@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     fileprivate var signUpButton: UIButton!
     fileprivate var rootLayout: YGLayout!
     fileprivate var formLayout: YGLayout!
+    fileprivate var bottomLayout: YGLayout!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,12 +97,17 @@ class ViewController: UIViewController {
     @objc fileprivate func signUpButtonDidTap() {
         print("signUpButton did tap !!!")
         
+        bottomLayout.isEnabled(false)
         UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: { _ in
-            self.formLayout.isEnabled(!self.formLayout.isEnabled)            
+            self.formLayout.isEnabled(!self.formLayout.isEnabled)
+            
             Duration.measure("titleLabel hided") {
                 self.rootLayout.apply()
             }
-        }, completion: nil)
+        }, completion: {_ in
+            self.bottomLayout.isEnabled(true)
+            self.rootLayout.apply()
+        })
     }
 
     @objc fileprivate func signInButtonDidTap() {
@@ -125,7 +131,7 @@ class ViewController: UIViewController {
             signUpLabel, signUpButton
         )
         
-        formLayout = YGLayout.vertical(
+        formLayout = YGLayout.vTop(
             usernameLabel,
             8,
             usernameTextField,
@@ -134,19 +140,19 @@ class ViewController: UIViewController {
             8,
             passwordTextField,
             16,
-            YGLayout.horizontal(forgotPasswordButton, signInButton)
-                .mainAxis(align: .spaceBetween)
+            YGLayout.hStart(forgotPasswordButton, YGLayout.spacer(), signInButton)
         )
         .flexGrow(1)
         
+        bottomLayout = YGLayout.hCenter(signUpLabel, 4, signUpButton)
+        
         rootLayout = view.yoga
-        rootLayout.vertical(
+        rootLayout.vTop(
             titleLabel.yoga
                 .crossSelf(align: .flexStart),
             30,
             formLayout,
-            YGLayout.horizontal(signUpLabel, 4, signUpButton)
-                .mainAxis(align: .center)
+            bottomLayout
         )
         .paddingTop(44)
         .paddingHorizontal(16)

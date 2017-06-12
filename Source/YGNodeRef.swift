@@ -39,6 +39,15 @@ extension YGNodeRef {
         self = YGNodeNewWithConfig(YGNodeRef.globalConfig)
     }
     
+    internal static func dummy() -> YGNodeRef {
+        let dummy = YGNodeRef()
+        
+        YGNodeStyleSetWidth(dummy, 0)
+        YGNodeStyleSetHeight(dummy, 0)
+        
+        return dummy
+    }
+    
     internal var layoutTop: CGFloat {
         return YGNodeLayoutGetTop(self).cgFloat
     }
@@ -51,15 +60,30 @@ extension YGNodeRef {
     internal var layoutHeight: CGFloat {
         return YGNodeLayoutGetHeight(self).cgFloat
     }
-    
-    internal func insertChild(_ child: YGNodeRef, at index: Int) {
-        YGNodeInsertChild(self, child, UInt32(index))
-    }
 
     internal func getParent() -> YGNodeRef? {
         return YGNodeGetParent(self)
     }
     
+    internal func setChildToDummy(_ child: YGNodeRef, at index: Int) {
+        removeChild(child)
+        insertChild(YGNodeRef.dummy(), at: index)
+    }
+    internal func setDummyToChild(_ child: YGNodeRef, at index: Int) {
+        if let dummy = getChild(at: index) {
+            removeChild(dummy)
+        }
+        insertChild(child, at: index)
+    }
+    
+    internal func getChild(at index: Int) -> YGNodeRef? {
+        return YGNodeGetChild(self, UInt32(index))
+    }
+    
+    internal func insertChild(_ child: YGNodeRef, at index: Int) {
+        YGNodeInsertChild(self, child, UInt32(index))
+    }
+
     internal func removeChild(_ child: YGNodeRef) {
         YGNodeRemoveChild(self, child)
     }

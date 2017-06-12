@@ -28,7 +28,6 @@ extension YGLayout {
             }
             
             markNode(detached: !isEnabled)
-            superlayout?.markDirty()
         }
         
         return self
