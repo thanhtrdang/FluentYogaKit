@@ -617,15 +617,17 @@ extension YGLayout {
             .crossAxis(align: .center)
     }
     
+    // These must be synced with view.insertSubview(subview, at: first), view.insertSubview(subview, at: last)
     @discardableResult
-    public func filled(by subview: UIView, edges: (YGEdge, YGValue)...) -> Self {        
-        return _filled(by: YGLayout(view: subview), edges: edges)
+    public func overlay(_ overlay: UIView, edges: (YGEdge, YGValue)...) -> Self {
+        return _filled(by: YGLayout(view: overlay), edges: edges)
     }
     @discardableResult
-    public func filled(by sublayout: YGLayout, edges: (YGEdge, YGValue)...) -> Self {
-        return _filled(by: sublayout, edges: edges)
+    public func background(_ background: UIView, edges: (YGEdge, YGValue)...) -> Self {
+        return _filled(by: YGLayout(view: background), edges: edges, atFirst: true)
     }
-    fileprivate func _filled(by sublayout: YGLayout, edges: [(YGEdge, YGValue)]) -> Self {
+    
+    fileprivate func _filled(by sublayout: YGLayout, edges: [(YGEdge, YGValue)], atFirst: Bool = false) -> Self {
         sublayout.position(.absolute)
         edges.forEach { (edge, value) in
             // TODO: Remove switch-cases later, when the code generation is optimized.
@@ -642,7 +644,10 @@ extension YGLayout {
                 sublayout._setPosition(edge, value)
             }
         }
-        return self.sublayout([sublayout])
+        
+        handleSublayout(sublayout: sublayout, atFirst: atFirst)
+        
+        return self
     }
     
 }

@@ -232,13 +232,15 @@ extension YGLayout {
         }
     }
     
-    fileprivate func handleSublayout(subview: UIView) {        
+    internal func handleSublayout(subview: UIView, atFirst: Bool = false) {
         handleSublayout(sublayout: subview.yoga)
     }
     
-    fileprivate func handleSublayout(sublayout: YGLayout) {
+    internal func handleSublayout(sublayout: YGLayout, atFirst: Bool = false) {
+        let index = atFirst ? 0 : sublayouts.count
+        
         if sublayout.isEnabled {
-            node.insertChild(sublayout.node, at: sublayouts.count)
+            node.insertChild(sublayout.node, at: index)
         }
         if sublayout.isLeaf {
             sublayout.node.setMeasureFunc()
@@ -247,7 +249,7 @@ extension YGLayout {
         }
         
         sublayout.superlayout = self
-        sublayouts.append(sublayout)
+        sublayouts.insert(sublayout, at: index)
     }
     
 }
