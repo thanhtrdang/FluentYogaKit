@@ -10,18 +10,11 @@ class ViewController: UIViewController {
         let redView = UIView()
         redView.backgroundColor = .red
         
-        view.addSubview(redView)
+        view.subview(redView)
         
         view.yoga
-            .isEnabled(true)
-            .justifyContent(.center)
-            .alignItems(.center)
-        
-        redView.yoga
-            .isEnabled(true)
-            .size(width: 56, height: 56)
-        
-        view.yoga.applyLayout(preservingOrigin: true)
+            .center(redView.yoga.size(width: 56, height: 56))
+            .apply()
     }
 
 }
