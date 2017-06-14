@@ -507,6 +507,11 @@ extension YGLayout {
             .mainAxis(align: .flexEnd)
             .crossAxis(align: hAlign)
     }
+    public class func vSpace(vAlign: YGJustify = .spaceBetween, hAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+        return YGLayout().config(.column, sublayouts)
+            .mainAxis(align: vAlign)
+            .crossAxis(align: hAlign)
+    }
     
     public class func hStart(vAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
         return YGLayout().config(.row, sublayouts)
@@ -521,6 +526,11 @@ extension YGLayout {
     public class func hEnd(vAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
         return YGLayout().config(.row, sublayouts)
             .mainAxis(align: .flexEnd)
+            .crossAxis(align: vAlign)
+    }
+    public class func hSpace(hAlign: YGJustify = .spaceBetween, vAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+        return YGLayout().config(.row, sublayouts)
+            .mainAxis(align: hAlign)
             .crossAxis(align: vAlign)
     }
 
@@ -542,6 +552,12 @@ extension YGLayout {
             .mainAxis(align: .flexEnd)
             .crossAxis(align: hAlign)
     }
+    @discardableResult
+    public func vSpace(vAlign: YGJustify = .spaceBetween, hAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+        return config(.column, sublayouts)
+            .mainAxis(align: vAlign)
+            .crossAxis(align: hAlign)
+    }
 
     @discardableResult
     public func hStart(vAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
@@ -559,6 +575,12 @@ extension YGLayout {
     public func hEnd(vAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
         return config(.row, subelements)
             .mainAxis(align: .flexEnd)
+            .crossAxis(align: vAlign)
+    }
+    @discardableResult
+    public func hSpace(hAlign: YGJustify = .spaceBetween, vAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+        return config(.row, sublayouts)
+            .mainAxis(align: hAlign)
             .crossAxis(align: vAlign)
     }
     
