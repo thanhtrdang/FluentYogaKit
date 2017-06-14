@@ -21,8 +21,8 @@ fileprivate let YGNodeMeasureFunc: YGMeasureFunc = { (node: YGNodeRef?, width: F
     let sizeThatFits = view.sizeThatFits(constrainedSize.cgSize)
     
     return YGSize(
-        width: node.sanitizeMeasurement(constrainedWidth, sizeThatFits.width.float, widthMode),
-        height: node.sanitizeMeasurement(constrainedHeight, sizeThatFits.height.float, heightMode)
+        width: node.sanitizeMeasurement(constrainedWidth, sizeThatFits.width.value, widthMode),
+        height: node.sanitizeMeasurement(constrainedHeight, sizeThatFits.height.value, heightMode)
     )
 }
 
@@ -49,16 +49,16 @@ extension YGNodeRef {
     }
     
     internal var layoutTop: CGFloat {
-        return YGNodeLayoutGetTop(self).cgFloat
+        return YGNodeLayoutGetTop(self).cgValue
     }
     internal var layoutLeft: CGFloat {
-        return YGNodeLayoutGetLeft(self).cgFloat
+        return YGNodeLayoutGetLeft(self).cgValue
     }
     internal var layoutWidth: CGFloat {
-        return YGNodeLayoutGetWidth(self).cgFloat
+        return YGNodeLayoutGetWidth(self).cgValue
     }
     internal var layoutHeight: CGFloat {
-        return YGNodeLayoutGetHeight(self).cgFloat
+        return YGNodeLayoutGetHeight(self).cgValue
     }
 
     internal func getParent() -> YGNodeRef? {

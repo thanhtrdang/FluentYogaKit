@@ -119,7 +119,7 @@ extension YGLayout {
         
     }
     
-    public var flexBasis: YGValue {
+    public var flexBasis: YGValueType {
         get {
             return YGNodeStyleGetFlexBasis(node)
         }
@@ -134,7 +134,7 @@ extension YGLayout {
         }
     }
         
-    public var left: YGValue {
+    public var left: YGValueType {
         get {
             return YGNodeStyleGetPosition(node, .left)
         }
@@ -143,7 +143,7 @@ extension YGLayout {
         }
     }
     
-    public var top: YGValue {
+    public var top: YGValueType {
         get {
             return YGNodeStyleGetPosition(node, .top)
         }
@@ -152,7 +152,7 @@ extension YGLayout {
         }
     }
     
-    public var right: YGValue {
+    public var right: YGValueType {
         get {
             return YGNodeStyleGetPosition(node, .right)
         }
@@ -161,7 +161,7 @@ extension YGLayout {
         }
     }
     
-    public var bottom: YGValue {
+    public var bottom: YGValueType {
         get {
             return YGNodeStyleGetPosition(node, .bottom)
         }
@@ -170,7 +170,7 @@ extension YGLayout {
         }
     }
     
-    public var start: YGValue {
+    public var start: YGValueType {
         get {
             return YGNodeStyleGetPosition(node, .start)
         }
@@ -179,7 +179,7 @@ extension YGLayout {
         }
     }
     
-    public var end: YGValue {
+    public var end: YGValueType {
         get {
             return YGNodeStyleGetPosition(node, .end)
         }
@@ -188,7 +188,7 @@ extension YGLayout {
         }
     }
 
-    public var marginLeft: YGValue {
+    public var marginLeft: YGValueType {
         get {
             return YGNodeStyleGetMargin(node, .left)
         }
@@ -197,7 +197,7 @@ extension YGLayout {
         }
     }
     
-    public var marginTop: YGValue {
+    public var marginTop: YGValueType {
         get {
             return YGNodeStyleGetMargin(node, .top)
         }
@@ -206,7 +206,7 @@ extension YGLayout {
         }
     }
     
-    public var marginRight: YGValue {
+    public var marginRight: YGValueType {
         get {
             return YGNodeStyleGetMargin(node, .right)
         }
@@ -215,7 +215,7 @@ extension YGLayout {
         }
     }
     
-    public var marginBottom: YGValue {
+    public var marginBottom: YGValueType {
         get {
             return YGNodeStyleGetMargin(node, .bottom)
         }
@@ -224,7 +224,7 @@ extension YGLayout {
         }
     }
     
-    public var marginStart: YGValue {
+    public var marginStart: YGValueType {
         get {
             return YGNodeStyleGetMargin(node, .start)
         }
@@ -233,7 +233,7 @@ extension YGLayout {
         }
     }
     
-    public var marginEnd: YGValue {
+    public var marginEnd: YGValueType {
         get {
             return YGNodeStyleGetMargin(node, .end)
         }
@@ -242,7 +242,7 @@ extension YGLayout {
         }
     }
     
-    public var marginHorizontal: YGValue {
+    public var marginHorizontal: YGValueType {
         get {
             return YGNodeStyleGetMargin(node, .horizontal)
         }
@@ -251,7 +251,7 @@ extension YGLayout {
         }
     }
     
-    public var marginVertical: YGValue {
+    public var marginVertical: YGValueType {
         get {
             return YGNodeStyleGetMargin(node, .vertical)
         }
@@ -260,7 +260,7 @@ extension YGLayout {
         }
     }
     
-    public var margin: YGValue {
+    public var margin: YGValueType {
         get {
             return YGNodeStyleGetMargin(node, .all)
         }
@@ -269,7 +269,7 @@ extension YGLayout {
         }
     }
     
-    public var paddingLeft: YGValue {
+    public var paddingLeft: YGValueType {
         get {
             return YGNodeStyleGetPadding(node, .left)
         }
@@ -278,7 +278,7 @@ extension YGLayout {
         }
     }
     
-    public var paddingTop: YGValue {
+    public var paddingTop: YGValueType {
         get {
             return YGNodeStyleGetPadding(node, .top)
         }
@@ -287,7 +287,7 @@ extension YGLayout {
         }
     }
     
-    public var paddingRight: YGValue {
+    public var paddingRight: YGValueType {
         get {
             return YGNodeStyleGetPadding(node, .right)
         }
@@ -296,7 +296,7 @@ extension YGLayout {
         }
     }
     
-    public var paddingBottom: YGValue {
+    public var paddingBottom: YGValueType {
         get {
             return YGNodeStyleGetPadding(node, .bottom)
         }
@@ -305,7 +305,7 @@ extension YGLayout {
         }
     }
     
-    public var paddingStart: YGValue {
+    public var paddingStart: YGValueType {
         get {
             return YGNodeStyleGetPadding(node, .start)
         }
@@ -314,7 +314,7 @@ extension YGLayout {
         }
     }
     
-    public var paddingEnd: YGValue {
+    public var paddingEnd: YGValueType {
         get {
             return YGNodeStyleGetPadding(node, .end)
         }
@@ -323,7 +323,7 @@ extension YGLayout {
         }
     }
     
-    public var paddingHorizontal: YGValue {
+    public var paddingHorizontal: YGValueType {
         get {
             return YGNodeStyleGetPadding(node, .horizontal)
         }
@@ -332,7 +332,7 @@ extension YGLayout {
         }
     }
     
-    public var paddingVertical: YGValue {
+    public var paddingVertical: YGValueType {
         get {
             return YGNodeStyleGetPadding(node, .vertical)
         }
@@ -341,7 +341,7 @@ extension YGLayout {
         }
     }
     
-    public var padding: YGValue {
+    public var padding: YGValueType {
         get {
             return YGNodeStyleGetPadding(node, .all)
         }
@@ -432,7 +432,7 @@ extension YGLayout {
         }
     }
     
-    public var width: YGValue {
+    public var width: YGValueType {
         get {
             return YGNodeStyleGetWidth(node)
         }
@@ -447,7 +447,7 @@ extension YGLayout {
         }
     }
     
-    public var height: YGValue {
+    public var height: YGValueType {
         get {
             return YGNodeStyleGetHeight(node)
         }
@@ -462,7 +462,7 @@ extension YGLayout {
         }
     }
     
-    public var minWidth: YGValue {
+    public var minWidth: YGValueType {
         get {
             return YGNodeStyleGetMinWidth(node)
         }
@@ -477,7 +477,7 @@ extension YGLayout {
         }
     }
     
-    public var minHeight: YGValue {
+    public var minHeight: YGValueType {
         get {
             return YGNodeStyleGetMinHeight(node)
         }
@@ -492,7 +492,7 @@ extension YGLayout {
         }
     }
     
-    public var maxWidth: YGValue {
+    public var maxWidth: YGValueType {
         get {
             return YGNodeStyleGetMaxWidth(node)
         }
@@ -507,7 +507,7 @@ extension YGLayout {
         }
     }
     
-    public var maxHeight: YGValue {
+    public var maxHeight: YGValueType {
         get {
             return YGNodeStyleGetMaxHeight(node)
         }
@@ -542,7 +542,7 @@ extension YGLayout {
 }
 
 internal extension YGLayout {
-    func _setPosition(_ edge: YGEdge, _ value: YGValue) {
+    func _setPosition(_ edge: YGEdge, _ value: YGValueType) {
         switch value.unit {
         case .percent:
             YGNodeStyleSetPositionPercent(node, edge, value.value)
@@ -552,7 +552,7 @@ internal extension YGLayout {
         }
     }
     
-    func _setMargin(_ edge: YGEdge, _ value: YGValue) {
+    func _setMargin(_ edge: YGEdge, _ value: YGValueType) {
         switch value.unit {
         case .percent:
             YGNodeStyleSetMarginPercent(node, edge, value.value)
@@ -562,7 +562,7 @@ internal extension YGLayout {
         }
     }
 
-    func _setPadding(_ edge: YGEdge, _ value: YGValue) {
+    func _setPadding(_ edge: YGEdge, _ value: YGValueType) {
         switch value.unit {
         case .percent:
             YGNodeStyleSetPaddingPercent(node, edge, value.value)

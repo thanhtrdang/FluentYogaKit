@@ -9,7 +9,7 @@
 import UIKit
 import yoga
 
-internal let scaleFactor = UIScreen.main.scale
+internal let scaleFactor = Float(UIScreen.main.scale)
 
 public struct YGDimensionFlexibility: OptionSet {
     public let rawValue: Int
@@ -22,99 +22,66 @@ public struct YGDimensionFlexibility: OptionSet {
     }
 }
 
-// MARK: - Convertable - 
-extension Float {
-    public var roundPixel: Float {
-        return Darwin.round(self * scaleFactor.f) / scaleFactor.f
-    }
+// MARK: - YGValueType -
+public protocol YGValueType {
+    var value: Float { get }
+    var unit: YGUnit { get }
+    
+    init(value: Float, unit: YGUnit)
+}
 
-    public var cg: CGFloat {
-        return cgFloat
+extension YGValueType {
+    public var roundPixel: CGFloat {
+        return roundfPixel.cgValue
     }
-    public var cgFloat: CGFloat {
-        return CGFloat(self)
+    
+    public var roundfPixel: Float {
+        return Darwin.roundf(value * scaleFactor) / scaleFactor
     }
-    public var yg: YGValue {
-        return ygValue
-    }
-    public var ygValue: YGValue {
-        return YGValue(self)
+    
+    public var cgValue: CGFloat {
+        return CGFloat(value)
     }
 }
 
-extension CGFloat {
-    public var roundPixel: CGFloat {
-        return Darwin.round(self * scaleFactor) / scaleFactor
-    }
-    
-    public var f: Float {
-        return float
-    }
-    public var float: Float {
+extension YGValue: YGValueType {}
+
+extension Int: YGValueType {
+    public var value: Float {
         return Float(self)
     }
-    public var yg: YGValue {
-        return ygValue
+    public var unit: YGUnit {
+        return .point
     }
-    public var ygValue: YGValue {
-        return YGValue(self)
+    
+    public init(value: Float = 0, unit: YGUnit = .point) {
+        self = Int(value)
     }
 }
 
-// Support type = .point only
-extension YGValue {
-    public var roundPixel: YGValue {
-        if unit == .point {
-            return YGValue(Darwin.round(self.cg * scaleFactor) / scaleFactor)
-        } else {
-            return self
-        }
+extension Float: YGValueType {
+    public var value: Float {
+        return self
+    }
+    public var unit: YGUnit {
+        return .point
     }
     
-    public var f: Float {
-        return float
-    }
-    public var float: Float {
-        return value
-    }
-    public var cg: CGFloat {
-        return cgFloat
-    }
-    public var cgFloat: CGFloat {
-        return value.cg
+    public init(value: Float = 0, unit: YGUnit = .point) {
+        self = value
     }
 }
 
-extension CGSize {
-    public var roundPixel: CGSize {
-        return CGSize(width: width.roundPixel, height: height.roundPixel)
+extension CGFloat: YGValueType {
+    public var value: Float {
+        return Float(self)
     }
-    public var yg: YGSize {
-        return ygSize
+    public var unit: YGUnit {
+        return .point
     }
-    public var ygSize: YGSize {
-        return YGSize(width: width.float, height: height.float)
-    }
-}
 
-// Support type = .point only
-extension YGSize {
-    public static let undefined = YGSize(width: YGValueUndefined.value, height: YGValueUndefined.value)
-    public static let zero = YGSize(width: 0.0, height: 0.0)
-
-    public var roundPixel: YGSize {
-        return YGSize(width: width.roundPixel, height: height.roundPixel)
-    }
-    
-    public var ygWidth: YGValue {
-        return YGValue(floatLiteral: width)
-    }
-    public var ygHeight: YGValue {
-        return YGValue(floatLiteral: height)
-    }
-    
-    public var cgSize: CGSize {
-        return CGSize(width: width.cgFloat, height: height.cgFloat)
+    public init(value: Float = 0, unit: YGUnit = .point) {
+        self = value.cgValue
     }
 }
 
@@ -122,60 +89,49 @@ extension YGSize {
 postfix operator %
 
 extension Int {
-    public static postfix func %(value: Int) -> YGValue {
+    public static postfix func %(value: Int) -> YGValueType {
         return YGValue(value: Float(value), unit: .percent)
     }
 }
 
 extension Float {
-    public static postfix func %(value: Float) -> YGValue {
+    public static postfix func %(value: Float) -> YGValueType {
         return YGValue(value: value, unit: .percent)
     }
 }
 
 extension CGFloat {
-    public static postfix func %(value: CGFloat) -> YGValue {
+    public static postfix func %(value: CGFloat) -> YGValueType {
         return YGValue(value: Float(value), unit: .percent)
     }
 }
 
-extension YGValue: ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
-    public init(integerLiteral value: Int) {
-        self = YGValue(value: Float(value), unit: .point)
+extension YGValue {
+    public static postfix func %(value: YGValue) -> YGValueType {
+        return YGValue(value: value.value, unit: .percent)
     }
-    
-    public init(floatLiteral value: Float) {
-        self = YGValue(value: value, unit: .point)
-    }
-    
-    public init(_ value: Float) {
-        self = YGValue(value: value, unit: .point)
-    }
-    
-    public init(_ value: CGFloat) {
-        self = YGValue(value: Float(value), unit: .point)
-    }
+}
 
-    public init(_ value: Double) {
-        self = YGValue(value: Float(value), unit: .point)
+extension CGSize {
+    public static let undefined = CGSize(width: YGValueUndefined.cgValue, height: YGValueUndefined.cgValue)
+    
+    public var roundPixel: CGSize {
+        return CGSize(width: width.roundPixel, height: height.roundPixel)
     }
+    public var ygSize: YGSize {
+        return YGSize(width: width.value, height: height.value)
+    }
+}
 
-    internal init(any value: Any) {
-        if value is YGValue {
-            self = value as! YGValue
-        } else {
-            var m: YGValue = 0
-            if let i = value as? Int {
-                m = YGValue(integerLiteral: i)
-            } else if let d = value as? Double {
-                m = YGValue(d)
-            } else if let d = value as? Float {
-                m = YGValue(d)
-            } else if let cg = value as? CGFloat {
-                m = YGValue(cg)
-            }
-            
-            self = m
-        }
+extension YGSize {
+    public static let undefined = YGSize(width: YGValueUndefined.value, height: YGValueUndefined.value)
+    public static let zero = YGSize(width: 0.0, height: 0.0)
+
+    public var roundPixel: YGSize {
+        return YGSize(width: width.roundfPixel, height: height.roundfPixel)
+    }
+    
+    public var cgSize: CGSize {
+        return CGSize(width: width.cgValue, height: height.cgValue)
     }
 }

@@ -46,7 +46,7 @@ public class YGLayout {
     }
     
     public var intrinsicSize: CGSize {
-        return calculate(with: YGSize.undefined.cgSize)
+        return calculate(with: .undefined)
     }
     
     internal init(view: UIView? = nil) {
@@ -203,7 +203,7 @@ extension YGLayout {
     }
     
     internal func sublayout(_ subelements: [Any]) -> Self {
-        var marginStart: YGValue? = nil
+        var marginStart: YGValueType? = nil
         
         for (index, subelement) in subelements.enumerated() {
             switch subelement {
@@ -213,16 +213,11 @@ extension YGLayout {
             case let sublayout as YGLayout:
                 handleSublayout(sublayout: sublayout)
                 
-            // case _ as String:() //Do nothin'!
-            case is Int: fallthrough
-            case is Double: fallthrough
-            case is Float: fallthrough
-            case is CGFloat: fallthrough
-            case is YGValue:
+            case is YGValueType:
                 if index == 0 {
-                    marginStart = YGValue(any: subelement)
+                    marginStart = subelement as? YGValueType
                 } else {
-                    handleSublayout(marginEnd: YGValue(any: subelement))
+                    handleSublayout(marginEnd: subelement as! YGValueType)
                 }
             default:
                 print("Don't support \(index) - \(subelement) yet.")
@@ -234,7 +229,7 @@ extension YGLayout {
         return self
     }
     
-    fileprivate func handleSublayout(marginStart: YGValue?) {
+    fileprivate func handleSublayout(marginStart: YGValueType?) {
         if let marginStart = marginStart, let firstSublayout = sublayouts.first {
             if flexDirection == .column {
                 firstSublayout.marginTop(marginStart)
@@ -244,7 +239,7 @@ extension YGLayout {
         }
     }
     
-    fileprivate func handleSublayout(marginEnd: YGValue) {
+    fileprivate func handleSublayout(marginEnd: YGValueType) {
         if let lastSublayout = sublayouts.last {
             if flexDirection == .column {
                 lastSublayout.marginBottom(marginEnd)
