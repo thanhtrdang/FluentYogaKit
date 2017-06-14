@@ -100,6 +100,8 @@ extension YGLayout {
     /*
     - set on containers
     - control how multiple lines of content are aligned within a container which uses [flexWrap = wrap]
+    - only 1 line -> no impact at all
+    => think line as item in cross axis
     - value: flexStart (default)/flexEnd/center/stretch/spaceBetween/spaceAround
     */
     @discardableResult
@@ -468,19 +470,18 @@ extension YGLayout {
         return justifyContent(align)
     }
 
-//TODO: Need understand more then implement later
-//    @discardableResult
-//    public func mainWrap(align: YGAlign) -> Self {
-//        return alignContent(align)
-//    }
-
     @discardableResult
     public func crossAxis(align: YGAlign) -> Self {
         return alignItems(align)
     }
-    
+
     @discardableResult
-    public func crossSelf(align: YGAlign) -> Self {
+    public func crossAxisIfWrap(align: YGAlign) -> Self {
+        return alignContent(align)
+    }
+
+    @discardableResult
+    public func crossAxisSelf(align: YGAlign) -> Self {
         return alignSelf(align)
     }
 }
@@ -488,7 +489,7 @@ extension YGLayout {
 // MARK: - Pin layout -
 extension YGLayout {
     public class func spacer() -> YGLayout {
-        return YGLayout().flexGrow(1).crossSelf(align: .stretch)
+        return YGLayout().flexGrow(1).crossAxisSelf(align: .stretch)
     }
     
     public class func vTop(hAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {

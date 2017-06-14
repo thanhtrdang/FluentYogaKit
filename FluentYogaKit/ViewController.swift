@@ -149,7 +149,7 @@ class ViewController: UIViewController {
         rootLayout = view.yoga
         rootLayout.vTop(
             titleLabel.yoga
-                .crossSelf(align: .flexStart),
+                .crossAxis(align: .flexStart),
             30,
             formLayout,
             bottomLayout
