@@ -623,8 +623,16 @@ extension YGLayout {
         return _filled(by: YGLayout(view: overlay), edges: edges)
     }
     @discardableResult
+    public func overlay(_ overlay: YGLayout, edges: (YGEdge, YGValue)...) -> Self {
+        return _filled(by: overlay, edges: edges)
+    }
+    @discardableResult
     public func background(_ background: UIView, edges: (YGEdge, YGValue)...) -> Self {
         return _filled(by: YGLayout(view: background), edges: edges, atFirst: true)
+    }
+    @discardableResult
+    public func background(_ background: YGLayout, edges: (YGEdge, YGValue)...) -> Self {
+        return _filled(by: background, edges: edges, atFirst: true)
     }
     
     fileprivate func _filled(by sublayout: YGLayout, edges: [(YGEdge, YGValue)], atFirst: Bool = false) -> Self {
