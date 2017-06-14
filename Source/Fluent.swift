@@ -512,6 +512,10 @@ extension YGLayout {
             .mainAxis(align: vAlign)
             .crossAxis(align: hAlign)
     }
+    public class func vWrap(hAlign: YGAlign = .flexStart, _ sublayouts: Any...) -> YGLayout {
+        return YGLayout().config(.column, sublayouts)
+            .crossAxisIfWrap(align: hAlign)
+    }
     
     public class func hStart(vAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
         return YGLayout().config(.row, sublayouts)
@@ -532,6 +536,10 @@ extension YGLayout {
         return YGLayout().config(.row, sublayouts)
             .mainAxis(align: hAlign)
             .crossAxis(align: vAlign)
+    }
+    public class func hWrap(vAlign: YGAlign = .flexStart, _ sublayouts: Any...) -> YGLayout {
+        return YGLayout().config(.row, sublayouts)
+            .crossAxisIfWrap(align: vAlign)
     }
 
     @discardableResult
@@ -558,6 +566,11 @@ extension YGLayout {
             .mainAxis(align: vAlign)
             .crossAxis(align: hAlign)
     }
+    @discardableResult
+    public func vWrap(hAlign: YGAlign = .flexStart, _ sublayouts: Any...) -> YGLayout {
+        return config(.column, sublayouts)
+            .crossAxisIfWrap(align: hAlign)
+    }
 
     @discardableResult
     public func hStart(vAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
@@ -582,6 +595,11 @@ extension YGLayout {
         return config(.row, sublayouts)
             .mainAxis(align: hAlign)
             .crossAxis(align: vAlign)
+    }
+    @discardableResult
+    public func hWrap(vAlign: YGAlign = .flexStart, _ sublayouts: Any...) -> YGLayout {
+        return config(.row, sublayouts)
+            .crossAxisIfWrap(align: vAlign)
     }
     
     //TODO Swift generic: Don't know how to do e.g. center<Element>() where Element: UIView or Element: YGLayout
