@@ -11,6 +11,7 @@ import yoga
 
 public class YGLayout {
     internal let node: YGNodeRef
+    internal var dummy: YGNodeRef?
     internal weak var view: UIView?
     
     internal weak var superlayout: YGLayout? = nil
@@ -58,6 +59,10 @@ public class YGLayout {
     
     deinit {
         node.detachView()
+        if dummy != nil {
+            YGNodeFree(dummy)
+        }
+
         YGNodeFree(node)
     }
     
@@ -113,20 +118,33 @@ extension YGLayout {
         return sublayouts.index(where: { $0.node == sublayout.node })
     }
     
-    internal func markNode(detached: Bool) {
-        if detached {
-            if let index = superlayout?.index(of: self) {
-                superlayout?.node.setChildToDummy(node, at: index)
-            }
+    internal func markNode(dummy: Bool) {
+        if dummy {
+            node2Dummy()
         }
         else {
             let parent = node.getParent()
             if parent != superlayout?.node {
                 parent?.removeChild(node)
-                if let index = superlayout?.index(of: self) {
-                    superlayout?.node.setDummyToChild(node, at: index)
-                }
+                dummy2Node()
             }
+        }
+    }
+    
+    fileprivate func node2Dummy() {
+        if let index = superlayout?.index(of: self) {
+            superlayout?.node.removeChild(node)
+            dummy = dummy ?? YGNodeRef.dummy()
+            superlayout?.node.insertChild(dummy!, at: index)
+        }
+    }
+    
+    fileprivate func dummy2Node() {
+        if let dummy = dummy {
+            superlayout?.node.removeChild(dummy)
+        }
+        if let index = superlayout?.index(of: self) {
+            superlayout?.node.insertChild(node, at: index)
         }
     }
     
@@ -266,7 +284,13 @@ extension YGLayout {
     public func removeSublayout(at index: Int) -> YGLayout? {
         if 0 <= index && index < sublayouts.count {
             let sublayout = sublayouts[index]
+            
+            if let subdummy = sublayout.dummy {
+                node.removeChild(subdummy)
+            }
             node.removeChild(sublayout.node)
+            
+            sublayout.superlayout = nil
             sublayouts.remove(at: index)
             
             return sublayout

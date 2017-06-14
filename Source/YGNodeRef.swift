@@ -65,17 +65,6 @@ extension YGNodeRef {
         return YGNodeGetParent(self)
     }
     
-    internal func setChildToDummy(_ child: YGNodeRef, at index: Int) {
-        removeChild(child)
-        insertChild(YGNodeRef.dummy(), at: index)
-    }
-    internal func setDummyToChild(_ child: YGNodeRef, at index: Int) {
-        if let dummy = getChild(at: index) {
-            removeChild(dummy)
-        }
-        insertChild(child, at: index)
-    }
-    
     internal func getChild(at index: Int) -> YGNodeRef? {
         return YGNodeGetChild(self, UInt32(index))
     }

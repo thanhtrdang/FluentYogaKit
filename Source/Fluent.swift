@@ -27,7 +27,7 @@ extension YGLayout {
                 markView(hidden: !isEnabled)
             }
             
-            markNode(detached: !isEnabled)
+            markNode(dummy: !isEnabled)
         }
         
         return self

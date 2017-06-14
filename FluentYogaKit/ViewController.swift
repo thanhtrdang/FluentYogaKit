@@ -76,6 +76,7 @@ class ViewController: UIViewController {
             $0.title("Sign in")
             $0.titleLabel?.font = .h4
             $0.setTitleColor(.black, for: .normal)
+            $0.addTarget(self, action: #selector(signInButtonDidTap), for: .touchUpInside)
         }
     }
     
@@ -107,6 +108,10 @@ class ViewController: UIViewController {
 //            self.bottomLayout.isEnabled(true)
 //            self.rootLayout.apply()
         })
+    }
+    
+    @objc fileprivate func signInButtonDidTap() {
+        present(ViewController2(), animated: true, completion: nil)
     }
 
     fileprivate func applyLayout() {
