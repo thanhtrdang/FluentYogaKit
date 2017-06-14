@@ -562,7 +562,6 @@ extension YGLayout {
             .crossAxis(align: vAlign)
     }
     
-    // subelement: UIView or YGLayout
     //TODO Swift generic: Don't know how to do e.g. center<Element>() where Element: UIView or Element: YGLayout
     @discardableResult
     public func center(_ subview: UIView) -> Self {
@@ -579,9 +578,8 @@ extension YGLayout {
     }
     
     @discardableResult
-    public func filled(by subview: UIView, edges: (YGEdge, YGValue)...) -> Self {
-        let sublayout = YGLayout(view: subview)
-        return _filled(by: sublayout, edges: edges)
+    public func filled(by subview: UIView, edges: (YGEdge, YGValue)...) -> Self {        
+        return _filled(by: YGLayout(view: subview), edges: edges)
     }
     @discardableResult
     public func filled(by sublayout: YGLayout, edges: (YGEdge, YGValue)...) -> Self {
@@ -604,44 +602,7 @@ extension YGLayout {
                 sublayout._setPosition(edge, value)
             }
         }
-        return config(.column, [sublayout])
-    }
-    
-    @discardableResult
-    public func filled(by subelement: Any, edges: (YGEdge, YGValue)...) -> Self {
-        var result: YGLayout? = nil
-        
-        switch subelement {
-        case let subview as UIView:
-            result = YGLayout(view: subview)
-            
-        case let sublayout as YGLayout:
-            result = sublayout
-        default:
-            print("Don't support \(subelement) yet.")
-        }
-        
-        if let sublayout = result {
-            sublayout.position(.absolute)
-            edges.forEach { (edge, value) in
-                // TODO: Remove switch-cases later, when the code generation is optimized.
-                // if DON'T use switch-case then e.g. <div layout="width: 275; height: 427; top: 120; left: 50;" style="position: absolute; left: 50px; right: 50px; top: 50px; bottom: 50px; " has-custom-measure="true"></div>
-                // if switch-case then e.g. <div layout="width: 275; height: 427; top: 120; left: 50;" style="position: absolute;" has-custom-measure="true"></div>
-                switch edge {
-                case .vertical:
-                    sublayout._setPosition(.top, value)
-                    sublayout._setPosition(.bottom, value)
-                case .horizontal:
-                    sublayout._setPosition(.start, value)
-                    sublayout._setPosition(.end, value)
-                default:
-                    sublayout._setPosition(edge, value)
-                }
-            }
-            return config(.column, [sublayout])
-        } else {
-            return self
-        }
+        return self.sublayout([sublayout])
     }
     
 }
