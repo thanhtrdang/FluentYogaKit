@@ -563,13 +563,50 @@ extension YGLayout {
     }
     
     // subelement: UIView or YGLayout
-    //TODO Swift generic: Don't know how to do e.g. where Element: UIView or Element: YGLayout
+    //TODO Swift generic: Don't know how to do e.g. center<Element>() where Element: UIView or Element: YGLayout
     @discardableResult
-    public func center(_ subelement: Any) -> Self {
+    public func center(_ subview: UIView) -> Self {
+        return _center(subview)
+    }
+    @discardableResult
+    public func center(_ sublayout: YGLayout) -> Self {
+        return _center(sublayout)
+    }
+    fileprivate func _center(_ subelement: Any) -> Self {
         return config(.column, [subelement])
             .mainAxis(align: .center)
             .crossAxis(align: .center)
     }
+    
+    @discardableResult
+    public func filled(by subview: UIView, edges: (YGEdge, YGValue)...) -> Self {
+        let sublayout = YGLayout(view: subview)
+        return _filled(by: sublayout, edges: edges)
+    }
+    @discardableResult
+    public func filled(by sublayout: YGLayout, edges: (YGEdge, YGValue)...) -> Self {
+        return _filled(by: sublayout, edges: edges)
+    }
+    fileprivate func _filled(by sublayout: YGLayout, edges: [(YGEdge, YGValue)]) -> Self {
+        sublayout.position(.absolute)
+        edges.forEach { (edge, value) in
+            // TODO: Remove switch-cases later, when the code generation is optimized.
+            // if DON'T use switch-case then e.g. <div layout="width: 275; height: 427; top: 120; left: 50;" style="position: absolute; left: 50px; right: 50px; top: 50px; bottom: 50px; " has-custom-measure="true"></div>
+            // if switch-case then e.g. <div layout="width: 275; height: 427; top: 120; left: 50;" style="position: absolute;" has-custom-measure="true"></div>
+            switch edge {
+            case .vertical:
+                sublayout._setPosition(.top, value)
+                sublayout._setPosition(.bottom, value)
+            case .horizontal:
+                sublayout._setPosition(.start, value)
+                sublayout._setPosition(.end, value)
+            default:
+                sublayout._setPosition(edge, value)
+            }
+        }
+        return config(.column, [sublayout])
+    }
+    
     @discardableResult
     public func filled(by subelement: Any, edges: (YGEdge, YGValue)...) -> Self {
         var result: YGLayout? = nil
