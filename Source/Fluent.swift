@@ -617,7 +617,7 @@ extension YGLayout {
             .crossAxis(align: .center)
     }
     
-    // These must be synced with view.insertSubview(subview, at: first), view.insertSubview(subview, at: last)
+    // These must be synced with view.insertSubview(subview, at: first) -> background, view.insertSubview(subview, at: last) -> overlay
     @discardableResult
     public func overlay(_ overlay: UIView, edges: (YGEdge, YGValue)...) -> Self {
         return _filled(by: YGLayout(view: overlay), edges: edges)

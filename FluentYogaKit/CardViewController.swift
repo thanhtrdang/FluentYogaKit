@@ -17,19 +17,23 @@ class CardViewController: UIViewController {
     fileprivate var cardFrame: CGRect!
     
     func generateCard() -> UIView {
-//        let card = UIView()
-//        view.subview(card)
-//        view.yoga
-//            .filled(by: card, edges: (.vertical, 120), (.horizontal, 50))
-//            .apply {_ in
-//                card.layer.cornerRadius = 7
-//                card.backgroundColor = .white
-//            }
+        let card = UIView()
         
-        let card = UIView(frame: cardFrame)
         view.insertSubview(card, at: 0)
-        card.layer.cornerRadius = 7
-        card.backgroundColor = .white
+        
+        view.yoga
+            .removeSublayout(at: 0)
+        
+        view.yoga
+            .background(card, edges: (.vertical, 120), (.horizontal, 50))
+            .apply {_ in
+                card.layer.cornerRadius = 8
+                card.backgroundColor = .white
+                
+                card.layer.shadowOffset = .zero
+                card.layer.shadowOpacity = 0.5
+                card.layer.shadowRadius = 5
+            }
         
         card.yaal.center.value
             => { [weak view] newCenter in

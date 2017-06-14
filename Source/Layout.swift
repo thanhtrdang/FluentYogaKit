@@ -34,6 +34,10 @@ public class YGLayout {
         return sublayouts.isEmpty
     }
     
+    public var isRoot: Bool {
+        return superlayout == nil
+    }
+    
     public private(set) var frame: CGRect = .zero {
         didSet {
             view?.frame = frame
@@ -238,18 +242,56 @@ extension YGLayout {
     
     internal func handleSublayout(sublayout: YGLayout, atFirst: Bool = false) {
         let index = atFirst ? 0 : sublayouts.count
-        
-        if sublayout.isEnabled {
-            node.insertChild(sublayout.node, at: index)
-        }
-        if sublayout.isLeaf {
-            sublayout.node.setMeasureFunc()
-        } else {
-            sublayout.node.removeMeasureFunc()
-        }
-        
-        sublayout.superlayout = self
-        sublayouts.insert(sublayout, at: index)
+        insertSublayout(sublayout, at: index)
     }
     
+}
+
+// MARK: - Sublayout - Collection -
+extension YGLayout {
+    public subscript(index: Int) -> YGLayout {
+        get {
+            return sublayouts[index]
+        }
+        set {
+            let oldValue = sublayouts[index]
+            if oldValue.node != newValue.node {
+                removeSublayout(at: index)
+                insertSublayout(newValue, at: index)
+            }
+        }
+    }
+    
+    @discardableResult
+    public func removeSublayout(at index: Int) -> YGLayout? {
+        if 0 <= index && index < sublayouts.count {
+            let sublayout = sublayouts[index]
+            node.removeChild(sublayout.node)
+            sublayouts.remove(at: index)
+            
+            return sublayout
+        } else {
+            return nil
+        }
+    }
+    
+    public func insertSublayout(_ subview: UIView, at index: Int) {
+        insertSublayout(YGLayout(view: subview), at: index)
+    }
+    
+    public func insertSublayout(_ sublayout: YGLayout, at index: Int) {
+        if 0 <= index && index <= sublayouts.count {
+            if sublayout.isEnabled {
+                node.insertChild(sublayout.node, at: index)
+            }
+            if sublayout.isLeaf {
+                sublayout.node.setMeasureFunc()
+            } else {
+                sublayout.node.removeMeasureFunc()
+            }
+            
+            sublayout.superlayout = self
+            sublayouts.insert(sublayout, at: index)
+        }
+    }
 }
