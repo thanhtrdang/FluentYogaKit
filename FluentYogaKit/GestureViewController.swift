@@ -33,6 +33,7 @@ class GestureViewController: UIViewController {
         super.viewDidLoad()
         
         view.subview(redView)
+        
         view.yoga
             .center(redView.yoga.size(width: 100, height: 100))
             .apply {_ in

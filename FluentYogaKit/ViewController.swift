@@ -21,10 +21,10 @@ class ViewController: UIViewController {
     
     fileprivate var signUpLabel: UILabel!
     fileprivate var signUpButton: UIButton!
+    
     fileprivate var rootLayout: YGLayout!
     fileprivate var formLayout: YGLayout!
-    fileprivate var bottomLayout: YGLayout!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -76,7 +76,6 @@ class ViewController: UIViewController {
             $0.title("Sign in")
             $0.titleLabel?.font = .h4
             $0.setTitleColor(.black, for: .normal)
-            $0.addTarget(self, action: #selector(signInButtonDidTap), for: .touchUpInside)
         }
     }
     
@@ -101,23 +100,13 @@ class ViewController: UIViewController {
         UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: { _ in
             self.formLayout.isEnabled(!self.formLayout.isEnabled)
             
-//            Duration.measure("titleLabel hided") {
-//                self.rootLayout.apply()
-//            }
+            Duration.measure("titleLabel hided") {
+                self.rootLayout.apply()
+            }
         }, completion: {_ in
 //            self.bottomLayout.isEnabled(true)
 //            self.rootLayout.apply()
         })
-    }
-
-    @objc fileprivate func signInButtonDidTap() {
-        print("signInButton did tap !!!")
-        
-        formLayout.isEnabled(true)
-        
-        Duration.measure("titleLabel shown") {
-            rootLayout.apply()
-        }
     }
 
     fileprivate func applyLayout() {
@@ -140,11 +129,9 @@ class ViewController: UIViewController {
             8,
             passwordTextField,
             16,
-            YGLayout.hStart(forgotPasswordButton, YGLayout.spacer(), signInButton)
+            YGLayout.hSpace(forgotPasswordButton, signInButton)
         )
         .flexGrow(1)
-        
-        bottomLayout = YGLayout.hCenter(signUpLabel, 4, signUpButton)
         
         rootLayout = view.yoga
         rootLayout.vTop(
@@ -152,7 +139,7 @@ class ViewController: UIViewController {
                 .crossAxis(align: .flexStart),
             30,
             formLayout,
-            bottomLayout
+            YGLayout.hCenter(signUpLabel, 4, signUpButton)
         )
         .paddingTop(44)
         .paddingHorizontal(16)

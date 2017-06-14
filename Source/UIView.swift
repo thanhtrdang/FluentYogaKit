@@ -52,20 +52,26 @@ public extension UICollectionViewCell {
 }
 
 // MARK: - layout association -
+// Use pattern https://github.com/ReactiveX/RxSwift/blob/master/RxSwift/Reactive.swift
+// in case UIButton, UILabel, UITableView... need some customizations later.
 extension UIView {
-    private struct AssociatedKeys {
-        static var YogaKitKey = "YogaKit_ViewKey"
-    }
-    
     public var yoga: YGLayout {
-        var layout = objc_getAssociatedObject(self, &AssociatedKeys.YogaKitKey) as? YGLayout
-        
-        if layout == nil {
-            layout = YGLayout(view: self)
-            objc_setAssociatedObject(self, &AssociatedKeys.YogaKitKey, layout, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-        
-        return layout!
+        return YGLayout(view: self)
     }
     
+//TODO: Clean it up later
+//    private struct AssociatedKeys {
+//        static var YogaKitKey = "YogaKit_ViewKey"
+//    }
+//    
+//    public var yoga: YGLayout {
+//        var layout = objc_getAssociatedObject(self, &AssociatedKeys.YogaKitKey) as? YGLayout
+//        
+//        if layout == nil {
+//            layout = YGLayout(view: self)
+//            objc_setAssociatedObject(self, &AssociatedKeys.YogaKitKey, layout, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+//        }
+//        
+//        return layout!
+//    }
 }

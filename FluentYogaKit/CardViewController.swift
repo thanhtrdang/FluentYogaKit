@@ -22,9 +22,6 @@ class CardViewController: UIViewController {
         view.insertSubview(card, at: 0)
         
         view.yoga
-            .removeSublayout(at: 0)
-        
-        view.yoga
             .background(card, edges: (.vertical, 120), (.horizontal, 50))
             .apply {_ in
                 card.layer.cornerRadius = 8
