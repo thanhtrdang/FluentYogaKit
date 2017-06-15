@@ -24,6 +24,9 @@ public struct YGDimensionFlexibility: OptionSet {
 
 // MARK: - YGValueType -
 public protocol YGValueType {
+    static var undefined: Float { get }
+    static var cgUndefined: CGFloat { get }
+    
     var value: Float { get }
     var unit: YGUnit { get }
     
@@ -31,6 +34,14 @@ public protocol YGValueType {
 }
 
 extension YGValueType {
+    public static var undefined: Float {
+        return YGValueUndefined.value
+    }
+    
+    public static var cgUndefined: CGFloat {
+        return YGValueUndefined.cgValue
+    }
+    
     public var roundPixel: CGFloat {
         return roundfPixel.cgValue
     }
