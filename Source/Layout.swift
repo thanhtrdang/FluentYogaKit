@@ -39,14 +39,11 @@ public class YGLayout {
         return superlayout == nil
     }
     
-    public private(set) var frame: CGRect = .zero {
-        didSet {
-            view?.frame = frame
-        }
-    }
+    public private(set) var frame: CGRect = .zero
     
     public var intrinsicSize: CGSize {
-        return calculate(with: .undefined)
+        _calculateNode(.undefined)
+        return CGSize(width: node.layoutWidth, height: node.layoutHeight)
     }
     
     internal init(view: UIView? = nil) {
@@ -66,13 +63,30 @@ public class YGLayout {
         YGNodeFree(node)
     }
     
-    //TODO Expose 2 methods later
-    fileprivate func calculate(with size: CGSize) -> CGSize {
-        node.calculateLayout(size: size.ygSize, direction: direction)
-        return CGSize(width: node.layoutWidth, height: node.layoutHeight)
+    
+    public func calculate(constrainedSize: CGSize? = nil, preserveOrigin: Bool = false) {
+        _calculateNode(constrainedSize)
+        _calculateFrame(preserveOrigin: preserveOrigin, offset: .zero)
     }
-
-    fileprivate func applyToViews(preserveOrigin: Bool = false, offset: CGPoint = .zero) {
+    
+    public func apply() {
+        view?.frame = frame
+        sublayouts.forEach {
+            $0.apply()
+        }
+    }
+    
+    public func layout(preserveOrigin: Bool = false) {
+        calculate(preserveOrigin: preserveOrigin)
+        apply()
+    }
+    
+    fileprivate func _calculateNode(_ size: CGSize? = nil) {
+        let constrainedSize = size ?? view?.frame.size ?? .undefined
+        node.calculateLayout(size: constrainedSize.ygSize, direction: direction)
+    }
+    
+    fileprivate func _calculateFrame(preserveOrigin: Bool = false, offset: CGPoint = .zero) {
         if isEnabled {
             let origin = preserveOrigin ? frame.origin : .zero
             let topLeft = CGPoint(x: node.layoutLeft + offset.x, y: node.layoutTop + offset.y)
@@ -85,29 +99,12 @@ public class YGLayout {
             
             sublayouts.forEach {
                 if isView {
-                    $0.applyToViews(preserveOrigin: preserveOrigin, offset: .zero)
+                    $0._calculateFrame(preserveOrigin: preserveOrigin, offset: .zero)
                 } else {
-                    $0.applyToViews(preserveOrigin: preserveOrigin, offset: frame.origin)
+                    $0._calculateFrame(preserveOrigin: preserveOrigin, offset: frame.origin)
                 }
             }
         }
-    }
-
-    public func apply(preserveOrigin: Bool = false, dimensionFlexibility: YGDimensionFlexibility = [], _ callback: ((YGLayout) -> Void)? = nil) {
-        var size = view?.frame.size.ygSize ?? .undefined
-        
-        if dimensionFlexibility.contains(.flexibleWidth) {
-            size.width = YGValueUndefined.value
-        }
-        if dimensionFlexibility.contains(.flexibleHeigth) {
-            size.height = YGValueUndefined.value
-        }
-        
-        node.calculateLayout(size: size, direction: direction)
-        
-        applyToViews(preserveOrigin: preserveOrigin)
-        
-        callback?(self)
     }
     
 }
