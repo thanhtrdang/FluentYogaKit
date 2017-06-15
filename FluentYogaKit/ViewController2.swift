@@ -46,7 +46,7 @@ class ViewController2: UIViewController {
                     .width(200)
                     .flexGrow(1)
             )
-            .apply()
+            .layout()
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }

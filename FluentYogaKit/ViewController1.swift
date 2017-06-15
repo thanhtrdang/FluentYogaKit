@@ -41,7 +41,7 @@ class ViewController1: UIViewController {
                 redView.yoga
                     .size(width: 200, height: 200)
             )
-            .apply()
+            .layout()
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }

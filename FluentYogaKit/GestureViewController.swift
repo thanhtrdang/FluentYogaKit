@@ -36,10 +36,10 @@ class GestureViewController: UIViewController {
         
         view.yoga
             .center(redView.yoga.size(width: 100, height: 100))
-            .apply {_ in
-                self.redView.layer.cornerRadius = 7
-                self.redView.backgroundColor = UIColor(colorLiteralRed: 1.0, green: 0.5, blue: 0.5, alpha: 1.0)
-            }
+            .layout()
+        
+        redView.layer.cornerRadius = 7
+        redView.backgroundColor = UIColor(colorLiteralRed: 1.0, green: 0.5, blue: 0.5, alpha: 1.0)
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap(gr:))))
         redView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(pan(gr:))))

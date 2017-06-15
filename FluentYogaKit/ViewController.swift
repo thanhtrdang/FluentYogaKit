@@ -97,16 +97,13 @@ class ViewController: UIViewController {
     @objc fileprivate func signUpButtonDidTap() {
         print("signUpButton did tap !!!")
         
-//        bottomLayout.isEnabled(false)
         UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: { _ in
             self.formLayout.isEnabled(!self.formLayout.isEnabled)
             
             Duration.measure("titleLabel hided") {
-                self.rootLayout.apply()
+                self.rootLayout.layout()
             }
         }, completion: {_ in
-//            self.bottomLayout.isEnabled(true)
-//            self.rootLayout.apply()
         })
     }
     
@@ -149,7 +146,7 @@ class ViewController: UIViewController {
         .paddingTop(44)
         .paddingHorizontal(16)
         .paddingBottom(12)
-        .apply()        
+        .layout()
     }
     
 }

@@ -23,14 +23,14 @@ class CardViewController: UIViewController {
         
         view.yoga
             .background(card, edges: (.vertical, 120), (.horizontal, 50))
-            .apply {_ in
-                card.layer.cornerRadius = 8
-                card.backgroundColor = .white
-                
-                card.layer.shadowOffset = .zero
-                card.layer.shadowOpacity = 0.5
-                card.layer.shadowRadius = 5
-            }
+            .layout()
+        
+        card.layer.cornerRadius = 8
+        card.backgroundColor = .white
+        
+        card.layer.shadowOffset = .zero
+        card.layer.shadowOpacity = 0.5
+        card.layer.shadowRadius = 5
         
         card.yaal.center.value
             => { [weak view] newCenter in
