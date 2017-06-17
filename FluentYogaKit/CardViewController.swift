@@ -22,7 +22,7 @@ class CardViewController: UIViewController {
         view.insertSubview(card, at: 0)
         
         view.yoga
-            .background(card, edges: (.vertical, 120), (.horizontal, 50))
+            .background(card, edges: [.vertical: 120, .horizontal: 50])
             .layout()
         
         card.layer.cornerRadius = 8

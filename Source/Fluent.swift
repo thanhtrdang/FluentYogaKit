@@ -618,44 +618,54 @@ extension YGLayout {
     }
     
     // These must be synced with view.insertSubview(subview, at: first) -> background, view.insertSubview(subview, at: last) -> overlay
+    // Use start, end instead of left, right
     @discardableResult
-    public func overlay(_ overlay: UIView, edges: (YGEdge, YGValueType)...) -> Self {
+    public func overlay(_ overlay: UIView, edges: [YGEdge: YGValueType] = [.all: Float(0)]) -> Self {
         return _filled(by: YGLayout(view: overlay), edges: edges)
     }
     @discardableResult
-    public func overlay(_ overlay: YGLayout, edges: (YGEdge, YGValueType)...) -> Self {
+    public func overlay(_ overlay: YGLayout, edges: [YGEdge: YGValueType] = [.all: Float(0)]) -> Self {
         return _filled(by: overlay, edges: edges)
     }
     @discardableResult
-    public func background(_ background: UIView, edges: (YGEdge, YGValueType)...) -> Self {
+    public func background(_ background: UIView, edges: [YGEdge: YGValueType] = [.all: Float(0)]) -> Self {
         return _filled(by: YGLayout(view: background), edges: edges, atFirst: true)
     }
     @discardableResult
-    public func background(_ background: YGLayout, edges: (YGEdge, YGValueType)...) -> Self {
+    public func background(_ background: YGLayout, edges: [YGEdge: YGValueType] = [.all: Float(0)]) -> Self {
         return _filled(by: background, edges: edges, atFirst: true)
     }
     
-    fileprivate func _filled(by sublayout: YGLayout, edges: [(YGEdge, YGValueType)], atFirst: Bool = false) -> Self {
+    fileprivate func _filled(by sublayout: YGLayout, edges: [YGEdge: YGValueType], atFirst: Bool = false) -> Self {
         sublayout.position(.absolute)
+        var fullEdges: [YGEdge: YGValueType] = [
+            .top: 0, .bottom: 0, .start: 0, .end: 0
+        ]
+        
         edges.forEach { (edge, value) in
-            // TODO: Remove switch-cases later, when the code generation is optimized.
-            // if DON'T use switch-case then e.g. <div layout="width: 275; height: 427; top: 120; left: 50;" style="position: absolute; left: 50px; right: 50px; top: 50px; bottom: 50px; " has-custom-measure="true"></div>
-            // if switch-case then e.g. <div layout="width: 275; height: 427; top: 120; left: 50;" style="position: absolute;" has-custom-measure="true"></div>
             switch edge {
+            case .all:
+                fullEdges[.top] = value
+                fullEdges[.bottom] = value
+                fullEdges[.start] = value
+                fullEdges[.end] = value
             case .vertical:
-                sublayout._setPosition(.top, value)
-                sublayout._setPosition(.bottom, value)
+                fullEdges[.top] = value
+                fullEdges[.bottom] = value
             case .horizontal:
-                sublayout._setPosition(.start, value)
-                sublayout._setPosition(.end, value)
+                fullEdges[.start] = value
+                fullEdges[.end] = value
             default:
-                sublayout._setPosition(edge, value)
+                fullEdges[edge] = value
             }
+        }
+        
+        fullEdges.forEach { (edge, value) in
+            sublayout._setPosition(edge, value)
         }
         
         handleSublayout(sublayout: sublayout, atFirst: atFirst)
         
         return self
     }
-    
 }
