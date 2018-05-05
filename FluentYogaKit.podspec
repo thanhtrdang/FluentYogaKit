@@ -10,6 +10,6 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target = '8.0'
 
   spec.source_files = 'Source/*.swift'
-  spec.dependency 'Yoga', :git => 'https://github.com/facebook/yoga.git', :tag => '1.7.0'
-
+#spec.dependency 'Yoga', '~> 1.7.0'
+#https://stackoverflow.com/questions/16905112/cocoapods-dependency-in-pod-spec-not-working
 end
