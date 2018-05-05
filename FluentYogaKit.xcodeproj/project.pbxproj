@@ -40,7 +40,6 @@
 		6D36354A1EEE53E900ADF611 /* CardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		6D5B9AA61EE89AAA007D8D26 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		6D68998E209DFEFB008783E7 /* UIViewController+HotReloading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+HotReloading.swift"; sourceTree = "<group>"; };
-		6D7A4CB4209E2DD70045428F /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6D7A4CB5209E2DD70045428F /* FluentYogaKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FluentYogaKit.podspec; sourceTree = "<group>"; };
 		6D876C981EDC6486002663EA /* Support.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		6D876C9A1EDC6E3F002663EA /* YGNodeRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YGNodeRef.swift; sourceTree = "<group>"; };
@@ -73,7 +72,6 @@
 			children = (
 				6D24FC75209E3C980065E00D /* .swiftlint.yml */,
 				6D7A4CB5209E2DD70045428F /* FluentYogaKit.podspec */,
-				6D7A4CB4209E2DD70045428F /* Podfile */,
 				6D883BB61ED5D9D700608385 /* Source */,
 				6D883BA31ED5D82A00608385 /* FluentYogaKit */,
 				6D883BA21ED5D82A00608385 /* Products */,
