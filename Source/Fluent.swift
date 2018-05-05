@@ -10,7 +10,7 @@ import yoga
 
 // MARK: Basic flexbox -
 
-extension YGLayout {
+public extension YGLayout {
 
   // MARK: 
 
@@ -21,7 +21,7 @@ extension YGLayout {
    - recursive: apply to the whole tree
    */
   @discardableResult
-  public func isEnabled(_ isEnabled: Bool, recursive: Bool = true) -> Self {
+  func isEnabled(_ isEnabled: Bool, recursive: Bool = true) -> Self {
     if isEnabled != self.isEnabled {
       if recursive {
         isRecursiveEnabled = isEnabled
@@ -43,7 +43,7 @@ extension YGLayout {
    - relative (default), absolute
    */
   @discardableResult
-  public func position(_ position: YGPositionType) -> Self {
+  func position(_ position: YGPositionType) -> Self {
     self.position = position
     return self
   }
@@ -53,7 +53,7 @@ extension YGLayout {
    - inherit (default), LTR, RTL
    */
   @discardableResult
-  public func direction(_ direction: YGDirection) -> Self {
+  func direction(_ direction: YGDirection) -> Self {
     self.direction = direction
     return self
   }
@@ -63,7 +63,7 @@ extension YGLayout {
    - value: column (default)/row/columnReverse/rowReverse
    */
   @discardableResult
-  public func flexDirection(_ flexDirection: YGFlexDirection) -> Self {
+  func flexDirection(_ flexDirection: YGFlexDirection) -> Self {
     self.flexDirection = flexDirection
     return self
   }
@@ -74,7 +74,7 @@ extension YGLayout {
    - value: flexStart (default)/flexEnd/center/spaceBetween/spaceAround
    */
   @discardableResult
-  public func justifyContent(_ justifyContent: YGJustify) -> Self {
+  func justifyContent(_ justifyContent: YGJustify) -> Self {
     self.justifyContent = justifyContent
     return self
   }
@@ -85,7 +85,7 @@ extension YGLayout {
    - value: flexStart/flexEnd/center/stretch (default)
    */
   @discardableResult
-  public func alignItems(_ alignItems: YGAlign) -> Self {
+  func alignItems(_ alignItems: YGAlign) -> Self {
     self.alignItems = alignItems
     return self
   }
@@ -96,7 +96,7 @@ extension YGLayout {
    - value: flexStart/flexEnd/center/stretch (default)
    */
   @discardableResult
-  public func alignSelf(_ alignSelf: YGAlign) -> Self {
+  func alignSelf(_ alignSelf: YGAlign) -> Self {
     self.alignSelf = alignSelf
     return self
   }
@@ -109,7 +109,7 @@ extension YGLayout {
    - value: flexStart (default)/flexEnd/center/stretch/spaceBetween/spaceAround
    */
   @discardableResult
-  public func alignContent(_ alignContent: YGAlign) -> Self {
+  func alignContent(_ alignContent: YGAlign) -> Self {
     self.alignContent = alignContent
     return self
   }
@@ -122,7 +122,7 @@ extension YGLayout {
    - value: nowrap (default)/wrap/wrapReverse
    */
   @discardableResult
-  public func flexWrap(_ flexWrap: YGWrap) -> Self {
+  func flexWrap(_ flexWrap: YGWrap) -> Self {
     self.flexWrap = flexWrap
     return self
   }
@@ -132,7 +132,7 @@ extension YGLayout {
    - value: visible (default???)/hidden/scroll
    */
   @discardableResult
-  public func overflow(_ overflow: YGOverflow) -> Self {
+  func overflow(_ overflow: YGOverflow) -> Self {
     self.overflow = overflow
     return self
   }
@@ -141,7 +141,7 @@ extension YGLayout {
    - value: flex/none
    */
   @discardableResult
-  public func display(_ display: YGDisplay) -> Self {
+  func display(_ display: YGDisplay) -> Self {
     self.display = display
     return self
   }
@@ -154,7 +154,7 @@ extension YGLayout {
    - value: 0 (default), float => 0
    */
   @discardableResult
-  public func flexGrow(_ flexGrow: Float) -> Self {
+  func flexGrow(_ flexGrow: Float) -> Self {
     self.flexGrow = flexGrow
     return self
   }
@@ -165,7 +165,7 @@ extension YGLayout {
    - value: 0 (default), float => 0
    */
   @discardableResult
-  public func flexShrink(_ flexShrink: Float) -> Self {
+  func flexShrink(_ flexShrink: Float) -> Self {
     self.flexShrink = flexShrink
     return self
   }
@@ -178,7 +178,7 @@ extension YGLayout {
    - value: 0 (default), float => 0
    */
   @discardableResult
-  public func flexBasis(_ flexBasis: YGValueType) -> Self {
+  func flexBasis(_ flexBasis: YGValueType) -> Self {
     self.flexBasis = flexBasis
     return self
   }
@@ -190,37 +190,37 @@ extension YGLayout {
    - set on item itself
    */
   @discardableResult
-  public func top(_ top: YGValueType) -> Self {
+  func top(_ top: YGValueType) -> Self {
     self.top = top
     return self
   }
 
   @discardableResult
-  public func bottom(_ bottom: YGValueType) -> Self {
+  func bottom(_ bottom: YGValueType) -> Self {
     self.bottom = bottom
     return self
   }
 
   @discardableResult
-  public func start(_ start: YGValueType) -> Self {
+  func start(_ start: YGValueType) -> Self {
     self.start = start
     return self
   }
 
   @discardableResult
-  public func end(_ end: YGValueType) -> Self {
+  func end(_ end: YGValueType) -> Self {
     self.end = end
     return self
   }
 
   @discardableResult
-  public func left(_ left: YGValueType) -> Self {
+  func left(_ left: YGValueType) -> Self {
     self.left = left
     return self
   }
 
   @discardableResult
-  public func right(_ right: YGValueType) -> Self {
+  func right(_ right: YGValueType) -> Self {
     self.right = right
     return self
   }
@@ -228,55 +228,55 @@ extension YGLayout {
   // MARK: 
 
   @discardableResult
-  public func marginTop(_ marginTop: YGValueType) -> Self {
+  func marginTop(_ marginTop: YGValueType) -> Self {
     self.marginTop = marginTop
     return self
   }
 
   @discardableResult
-  public func marginBottom(_ marginBottom: YGValueType) -> Self {
+  func marginBottom(_ marginBottom: YGValueType) -> Self {
     self.marginBottom = marginBottom
     return self
   }
 
   @discardableResult
-  public func marginStart(_ marginStart: YGValueType) -> Self {
+  func marginStart(_ marginStart: YGValueType) -> Self {
     self.marginStart = marginStart
     return self
   }
 
   @discardableResult
-  public func marginEnd(_ marginEnd: YGValueType) -> Self {
+  func marginEnd(_ marginEnd: YGValueType) -> Self {
     self.marginEnd = marginEnd
     return self
   }
 
   @discardableResult
-  public func marginLeft(_ marginLeft: YGValueType) -> Self {
+  func marginLeft(_ marginLeft: YGValueType) -> Self {
     self.marginLeft = marginLeft
     return self
   }
 
   @discardableResult
-  public func marginRight(_ marginRight: YGValueType) -> Self {
+  func marginRight(_ marginRight: YGValueType) -> Self {
     self.marginRight = marginRight
     return self
   }
 
   @discardableResult
-  public func marginVertical(_ marginVertical: YGValueType) -> Self {
+  func marginVertical(_ marginVertical: YGValueType) -> Self {
     self.marginVertical = marginVertical
     return self
   }
 
   @discardableResult
-  public func marginHorizontal(_ marginHorizontal: YGValueType) -> Self {
+  func marginHorizontal(_ marginHorizontal: YGValueType) -> Self {
     self.marginHorizontal = marginHorizontal
     return self
   }
 
   @discardableResult
-  public func margin(_ margin: YGValueType) -> Self {
+  func margin(_ margin: YGValueType) -> Self {
     self.margin = margin
     return self
   }
@@ -284,55 +284,55 @@ extension YGLayout {
   // MARK: 
 
   @discardableResult
-  public func paddingTop(_ paddingTop: YGValueType) -> Self {
+  func paddingTop(_ paddingTop: YGValueType) -> Self {
     self.paddingTop = paddingTop
     return self
   }
 
   @discardableResult
-  public func paddingBottom(_ paddingBottom: YGValueType) -> Self {
+  func paddingBottom(_ paddingBottom: YGValueType) -> Self {
     self.paddingBottom = paddingBottom
     return self
   }
 
   @discardableResult
-  public func paddingStart(_ paddingStart: YGValueType) -> Self {
+  func paddingStart(_ paddingStart: YGValueType) -> Self {
     self.paddingStart = paddingStart
     return self
   }
 
   @discardableResult
-  public func paddingEnd(_ paddingEnd: YGValueType) -> Self {
+  func paddingEnd(_ paddingEnd: YGValueType) -> Self {
     self.paddingEnd = paddingEnd
     return self
   }
 
   @discardableResult
-  public func paddingLeft(_ paddingLeft: YGValueType) -> Self {
+  func paddingLeft(_ paddingLeft: YGValueType) -> Self {
     self.paddingLeft = paddingLeft
     return self
   }
 
   @discardableResult
-  public func paddingRight(_ paddingRight: YGValueType) -> Self {
+  func paddingRight(_ paddingRight: YGValueType) -> Self {
     self.paddingRight = paddingRight
     return self
   }
 
   @discardableResult
-  public func paddingVertical(_ paddingVertical: YGValueType) -> Self {
+  func paddingVertical(_ paddingVertical: YGValueType) -> Self {
     self.paddingVertical = paddingVertical
     return self
   }
 
   @discardableResult
-  public func paddingHorizontal(_ paddingHorizontal: YGValueType) -> Self {
+  func paddingHorizontal(_ paddingHorizontal: YGValueType) -> Self {
     self.paddingHorizontal = paddingHorizontal
     return self
   }
 
   @discardableResult
-  public func padding(_ padding: YGValueType) -> Self {
+  func padding(_ padding: YGValueType) -> Self {
     self.padding = padding
     return self
   }
@@ -340,55 +340,55 @@ extension YGLayout {
   // MARK: 
 
   @discardableResult
-  public func borderTop(_ borderTop: Float) -> Self {
+  func borderTop(_ borderTop: Float) -> Self {
     self.borderTop = borderTop
     return self
   }
 
   @discardableResult
-  public func borderBottom(_ borderBottom: Float) -> Self {
+  func borderBottom(_ borderBottom: Float) -> Self {
     self.borderBottom = borderBottom
     return self
   }
 
   @discardableResult
-  public func borderStart(_ borderStart: Float) -> Self {
+  func borderStart(_ borderStart: Float) -> Self {
     self.borderStart = borderStart
     return self
   }
 
   @discardableResult
-  public func borderEnd(_ borderEnd: Float) -> Self {
+  func borderEnd(_ borderEnd: Float) -> Self {
     self.borderEnd = borderEnd
     return self
   }
 
   @discardableResult
-  public func borderLeft(_ borderLeft: Float) -> Self {
+  func borderLeft(_ borderLeft: Float) -> Self {
     self.borderLeft = borderLeft
     return self
   }
 
   @discardableResult
-  public func borderRight(_ borderRight: Float) -> Self {
+  func borderRight(_ borderRight: Float) -> Self {
     self.borderRight = borderRight
     return self
   }
 
   @discardableResult
-  public func borderVertical(_ borderVertical: Float) -> Self {
+  func borderVertical(_ borderVertical: Float) -> Self {
     self.borderVertical = borderVertical
     return self
   }
 
   @discardableResult
-  public func borderHorizontal(_ borderHorizontal: Float) -> Self {
+  func borderHorizontal(_ borderHorizontal: Float) -> Self {
     self.borderHorizontal = borderHorizontal
     return self
   }
 
   @discardableResult
-  public func border(_ border: Float) -> Self {
+  func border(_ border: Float) -> Self {
     self.border = border
     return self
   }
@@ -396,93 +396,93 @@ extension YGLayout {
   // MARK: 
 
   @discardableResult
-  public func width(_ width: YGValueType) -> Self {
+  func width(_ width: YGValueType) -> Self {
     self.width = width
     return self
   }
 
   @discardableResult
-  public func height(_ height: YGValueType) -> Self {
+  func height(_ height: YGValueType) -> Self {
     self.height = height
     return self
   }
 
   @discardableResult
-  public func size(width: YGValueType, height: YGValueType) -> Self {
+  func size(width: YGValueType, height: YGValueType) -> Self {
     self.height = height
     self.width = width
     return self
   }
 
   @discardableResult
-  public func size(_ size: YGSize) -> Self {
+  func size(_ size: YGSize) -> Self {
     height = size.height
     width = size.height
     return self
   }
 
   @discardableResult
-  public func minWidth(_ minWidth: YGValueType) -> Self {
+  func minWidth(_ minWidth: YGValueType) -> Self {
     self.minWidth = minWidth
     return self
   }
 
   @discardableResult
-  public func minHeight(_ minHeight: YGValueType) -> Self {
+  func minHeight(_ minHeight: YGValueType) -> Self {
     self.minHeight = minHeight
     return self
   }
 
   @discardableResult
-  public func minSize(_ size: YGSize) -> Self {
+  func minSize(_ size: YGSize) -> Self {
     minHeight = size.height
     minWidth = size.width
     return self
   }
 
   @discardableResult
-  public func minSize(width: YGValueType, height: YGValueType) -> Self {
+  func minSize(width: YGValueType, height: YGValueType) -> Self {
     minHeight = height
     minWidth = width
     return self
   }
 
   @discardableResult
-  public func maxWidth(_ maxWidth: YGValueType) -> Self {
+  func maxWidth(_ maxWidth: YGValueType) -> Self {
     self.maxWidth = maxWidth
     return self
   }
 
   @discardableResult
-  public func maxHeight(_ maxHeight: YGValueType) -> Self {
+  func maxHeight(_ maxHeight: YGValueType) -> Self {
     self.maxHeight = maxHeight
     return self
   }
 
   @discardableResult
-  public func maxSize(_ size: YGSize) -> Self {
+  func maxSize(_ size: YGSize) -> Self {
     maxHeight = size.height
     maxWidth = size.width
     return self
   }
 
   @discardableResult
-  public func maxSize(width: YGValueType, height: YGValueType) -> Self {
+  func maxSize(width: YGValueType, height: YGValueType) -> Self {
     maxHeight = height
     maxWidth = width
     return self
   }
 
   @discardableResult
-  public func sizeRange(min: YGSize, max: YGSize) -> Self {
+  func sizeRange(min: YGSize, max: YGSize) -> Self {
     minSize(min)
     maxSize(max)
     return self
   }
 
   @discardableResult
-  public func sizeRange(minWidth: YGValueType, minHeight: YGValueType,
-                        maxWidth: YGValueType, maxHeight: YGValueType) -> Self {
+  func sizeRange(minWidth: YGValueType, minHeight: YGValueType,
+                 maxWidth: YGValueType, maxHeight: YGValueType) -> Self {
     minSize(width: minWidth, height: minHeight)
     maxSize(width: maxWidth, height: maxHeight)
     return self
@@ -492,7 +492,7 @@ extension YGLayout {
 
   // width / height, e.g. 0.5 (w = 1/2 h), 2.0 (w = 2 h)
   @discardableResult
-  public func aspectRatio(_ aspectRatio: Float) -> Self {
+  func aspectRatio(_ aspectRatio: Float) -> Self {
     self.aspectRatio = aspectRatio
     return self
   }
@@ -502,9 +502,9 @@ extension YGLayout {
 
 // MARK: - Flexbox for newbie -
 
-extension YGLayout {
+public extension YGLayout {
   @discardableResult
-  public func reverse() -> Self {
+  func reverse() -> Self {
     switch flexDirection {
     case .column:
       flexDirection(.columnReverse)
@@ -519,157 +519,157 @@ extension YGLayout {
 
   // For those who is a flexbox newbie
   @discardableResult
-  public func mainAxis(align: YGJustify) -> Self {
+  func mainAxis(align: YGJustify) -> Self {
     return justifyContent(align)
   }
 
   @discardableResult
-  public func crossAxis(align: YGAlign) -> Self {
+  func crossAxis(align: YGAlign) -> Self {
     return alignItems(align)
   }
 
   @discardableResult
-  public func crossAxisIfWrap(align: YGAlign) -> Self {
+  func crossAxisIfWrap(align: YGAlign) -> Self {
     return alignContent(align)
   }
 
   @discardableResult
-  public func crossAxisSelf(align: YGAlign) -> Self {
+  func crossAxisSelf(align: YGAlign) -> Self {
     return alignSelf(align)
   }
 }
 
 // MARK: - Pin layout -
 
-extension YGLayout {
-  public class func spacer(_ flexGrow: Float = 1) -> YGLayout {
+public extension YGLayout {
+  class func spacer(_ flexGrow: Float = 1) -> YGLayout {
     return YGLayout().flexGrow(flexGrow).crossAxisSelf(align: .stretch)
   }
 
-  public class func vTop(hAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+  class func vTop(hAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
     return YGLayout().config(.column, sublayouts)
       .mainAxis(align: .flexStart)
       .crossAxis(align: hAlign)
   }
 
-  public class func vCenter(hAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+  class func vCenter(hAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
     return YGLayout().config(.column, sublayouts)
       .mainAxis(align: .center)
       .crossAxis(align: hAlign)
   }
 
-  public class func vBottom(hAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+  class func vBottom(hAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
     return YGLayout().config(.column, sublayouts)
       .mainAxis(align: .flexEnd)
       .crossAxis(align: hAlign)
   }
 
-  public class func vSpace(vAlign: YGJustify = .spaceBetween, hAlign: YGAlign = .stretch,
-                           _ sublayouts: Any...) -> YGLayout {
+  class func vSpace(vAlign: YGJustify = .spaceBetween, hAlign: YGAlign = .stretch,
+                    _ sublayouts: Any...) -> YGLayout {
     return YGLayout().config(.column, sublayouts)
       .mainAxis(align: vAlign)
       .crossAxis(align: hAlign)
   }
 
-  public class func vWrap(hAlign: YGAlign = .flexStart, _ sublayouts: Any...) -> YGLayout {
+  class func vWrap(hAlign: YGAlign = .flexStart, _ sublayouts: Any...) -> YGLayout {
     return YGLayout().config(.column, sublayouts)
       .crossAxisIfWrap(align: hAlign)
   }
 
-  public class func hStart(vAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+  class func hStart(vAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
     return YGLayout().config(.row, sublayouts)
       .mainAxis(align: .flexStart)
       .crossAxis(align: vAlign)
   }
 
-  public class func hCenter(vAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+  class func hCenter(vAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
     return YGLayout().config(.row, sublayouts)
       .mainAxis(align: .center)
       .crossAxis(align: vAlign)
   }
 
-  public class func hEnd(vAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+  class func hEnd(vAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
     return YGLayout().config(.row, sublayouts)
       .mainAxis(align: .flexEnd)
       .crossAxis(align: vAlign)
   }
 
-  public class func hSpace(hAlign: YGJustify = .spaceBetween, vAlign: YGAlign = .stretch,
-                           _ sublayouts: Any...) -> YGLayout {
+  class func hSpace(hAlign: YGJustify = .spaceBetween, vAlign: YGAlign = .stretch,
+                    _ sublayouts: Any...) -> YGLayout {
     return YGLayout().config(.row, sublayouts)
       .mainAxis(align: hAlign)
       .crossAxis(align: vAlign)
   }
 
-  public class func hWrap(vAlign: YGAlign = .flexStart, _ sublayouts: Any...) -> YGLayout {
+  class func hWrap(vAlign: YGAlign = .flexStart, _ sublayouts: Any...) -> YGLayout {
     return YGLayout().config(.row, sublayouts)
       .crossAxisIfWrap(align: vAlign)
   }
 
   @discardableResult
-  public func vTop(hAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
+  func vTop(hAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
     return config(.column, subelements)
       .mainAxis(align: .flexStart)
       .crossAxis(align: hAlign)
   }
 
   @discardableResult
-  public func vCenter(hAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
+  func vCenter(hAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
     return config(.column, subelements)
       .mainAxis(align: .center)
       .crossAxis(align: hAlign)
   }
 
   @discardableResult
-  public func vBottom(hAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
+  func vBottom(hAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
     return config(.column, subelements)
       .mainAxis(align: .flexEnd)
       .crossAxis(align: hAlign)
   }
 
   @discardableResult
-  public func vSpace(vAlign: YGJustify = .spaceBetween, hAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+  func vSpace(vAlign: YGJustify = .spaceBetween, hAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
     return config(.column, sublayouts)
       .mainAxis(align: vAlign)
       .crossAxis(align: hAlign)
   }
 
   @discardableResult
-  public func vWrap(hAlign: YGAlign = .flexStart, _ sublayouts: Any...) -> YGLayout {
+  func vWrap(hAlign: YGAlign = .flexStart, _ sublayouts: Any...) -> YGLayout {
     return config(.column, sublayouts)
       .crossAxisIfWrap(align: hAlign)
   }
 
   @discardableResult
-  public func hStart(vAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
+  func hStart(vAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
     return config(.row, subelements)
       .mainAxis(align: .flexStart)
       .crossAxis(align: vAlign)
   }
 
   @discardableResult
-  public func hCenter(vAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
+  func hCenter(vAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
     return config(.row, subelements)
       .mainAxis(align: .center)
       .crossAxis(align: vAlign)
   }
 
   @discardableResult
-  public func hEnd(vAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
+  func hEnd(vAlign: YGAlign = .stretch, _ subelements: Any...) -> Self {
     return config(.row, subelements)
       .mainAxis(align: .flexEnd)
       .crossAxis(align: vAlign)
   }
 
   @discardableResult
-  public func hSpace(hAlign: YGJustify = .spaceBetween, vAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+  func hSpace(hAlign: YGJustify = .spaceBetween, vAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
     return config(.row, sublayouts)
       .mainAxis(align: hAlign)
       .crossAxis(align: vAlign)
   }
 
   @discardableResult
-  public func hWrap(vAlign: YGAlign = .flexStart, _ sublayouts: Any...) -> YGLayout {
+  func hWrap(vAlign: YGAlign = .flexStart, _ sublayouts: Any...) -> YGLayout {
     return config(.row, sublayouts)
       .crossAxisIfWrap(align: vAlign)
   }
@@ -677,16 +677,16 @@ extension YGLayout {
   // TODO: Swift generic: Don't know how to do e.g. center<Element>()
   // where Element: UIView or Element: YGLayout
   @discardableResult
-  public func center(_ subview: UIView) -> Self {
+  func center(_ subview: UIView) -> Self {
     return _center(subview)
   }
 
   @discardableResult
-  public func center(_ sublayout: YGLayout) -> Self {
+  func center(_ sublayout: YGLayout) -> Self {
     return _center(sublayout)
   }
 
-  fileprivate func _center(_ subelement: Any) -> Self {
+  private func _center(_ subelement: Any) -> Self {
     return config(.column, [subelement])
       .mainAxis(align: .center)
       .crossAxis(align: .center)
@@ -697,26 +697,26 @@ extension YGLayout {
   // view.insertSubview(subview, at: last) -> overlay
   // Use start/end instead of left/right
   @discardableResult
-  public func overlay(_ overlay: UIView, edges: [YGEdge: YGValueType] = [.all: Float(0)]) -> Self {
+  func overlay(_ overlay: UIView, edges: [YGEdge: YGValueType] = [.all: Float(0)]) -> Self {
     return _filled(by: YGLayout(view: overlay), edges: edges)
   }
 
   @discardableResult
-  public func overlay(_ overlay: YGLayout, edges: [YGEdge: YGValueType] = [.all: Float(0)]) -> Self {
+  func overlay(_ overlay: YGLayout, edges: [YGEdge: YGValueType] = [.all: Float(0)]) -> Self {
     return _filled(by: overlay, edges: edges)
   }
 
   @discardableResult
-  public func background(_ background: UIView, edges: [YGEdge: YGValueType] = [.all: Float(0)]) -> Self {
+  func background(_ background: UIView, edges: [YGEdge: YGValueType] = [.all: Float(0)]) -> Self {
     return _filled(by: YGLayout(view: background), edges: edges, atFirst: true)
   }
 
   @discardableResult
-  public func background(_ background: YGLayout, edges: [YGEdge: YGValueType] = [.all: Float(0)]) -> Self {
+  func background(_ background: YGLayout, edges: [YGEdge: YGValueType] = [.all: Float(0)]) -> Self {
     return _filled(by: background, edges: edges, atFirst: true)
   }
 
-  fileprivate func _filled(by sublayout: YGLayout, edges: [YGEdge: YGValueType], atFirst: Bool = false) -> Self {
+  private func _filled(by sublayout: YGLayout, edges: [YGEdge: YGValueType], atFirst: Bool = false) -> Self {
     sublayout.position(.absolute)
     var fullEdges: [YGEdge: YGValueType] = [
       .top: 0, .bottom: 0, .start: 0, .end: 0

@@ -13,17 +13,17 @@ import UIKit
 // MARK: subview -
 
 /*
- E.g. Build a sign-in form
- formView.subview(
- usernameLabel,
- usernameTextField,
- passwordLabel,
- passwordTextField,
- buttonsView.subview(
- forgotPasswordButton, signInButton
- )
- )
- */
+E.g. Build a sign-in form
+formView.subview(
+  usernameLabel,
+  usernameTextField,
+  passwordLabel,
+  passwordTextField,
+  buttonsView.subview(
+    forgotPasswordButton, signInButton
+  )
+)
+*/
 public extension UIView {
   @discardableResult
   public func subview(_ subviews: UIView...) -> UIView {
@@ -57,7 +57,7 @@ public extension UICollectionViewCell {
 
 // Use pattern https://github.com/ReactiveX/RxSwift/blob/master/RxSwift/Reactive.swift
 // in case UIButton, UILabel, UITableView... need some customizations later.
-extension UIView {
+public extension UIView {
   public var yoga: YGLayout {
     return YGLayout(view: self)
   }

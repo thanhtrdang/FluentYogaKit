@@ -29,7 +29,7 @@ private let YGNodeMeasureFunc: YGMeasureFunc = {
 }
 
 extension YGNodeRef {
-  fileprivate static let globalConfig: YGConfigRef? = {
+  private static let globalConfig: YGConfigRef? = {
     let config = YGConfigNew()
     YGConfigSetExperimentalFeatureEnabled(config, .webFlexBasis, true)
     YGConfigSetPointScaleFactor(config, Float(scaleFactor))
@@ -37,11 +37,11 @@ extension YGNodeRef {
     return config
   }()
 
-  internal init() {
+  init() {
     self = YGNodeNewWithConfig(YGNodeRef.globalConfig)
   }
 
-  internal static func dummy() -> YGNodeRef {
+  static func dummy() -> YGNodeRef {
     let dummy = YGNodeRef()
 
     YGNodeStyleSetWidth(dummy, 0)
@@ -50,47 +50,47 @@ extension YGNodeRef {
     return dummy
   }
 
-  internal var layoutTop: CGFloat {
+  var layoutTop: CGFloat {
     return YGNodeLayoutGetTop(self).cgValue
   }
 
-  internal var layoutLeft: CGFloat {
+  var layoutLeft: CGFloat {
     return YGNodeLayoutGetLeft(self).cgValue
   }
 
-  internal var layoutWidth: CGFloat {
+  var layoutWidth: CGFloat {
     return YGNodeLayoutGetWidth(self).cgValue
   }
 
-  internal var layoutHeight: CGFloat {
+  var layoutHeight: CGFloat {
     return YGNodeLayoutGetHeight(self).cgValue
   }
 
-  internal func getParent() -> YGNodeRef? {
+  func getParent() -> YGNodeRef? {
     return YGNodeGetParent(self)
   }
 
-  internal func getChild(at index: Int) -> YGNodeRef? {
+  func getChild(at index: Int) -> YGNodeRef? {
     return YGNodeGetChild(self, UInt32(index))
   }
 
-  internal func insertChild(_ child: YGNodeRef, at index: Int) {
+  func insertChild(_ child: YGNodeRef, at index: Int) {
     YGNodeInsertChild(self, child, UInt32(index))
   }
 
-  internal func removeChild(_ child: YGNodeRef) {
+  func removeChild(_ child: YGNodeRef) {
     YGNodeRemoveChild(self, child)
   }
 
-  internal func existMeasureFunc() -> Bool {
+  func existMeasureFunc() -> Bool {
     return YGNodeGetMeasureFunc(self) != nil
   }
 
-  internal func setMeasureFunc() {
+  func setMeasureFunc() {
     YGNodeSetMeasureFunc(self, YGNodeMeasureFunc)
   }
 
-  internal func removeMeasureFunc() {
+  func removeMeasureFunc() {
     YGNodeSetMeasureFunc(self, nil)
   }
 
@@ -110,15 +110,15 @@ extension YGNodeRef {
     return result
   }
 
-  internal func calculateLayout(size: YGSize, direction: YGDirection) {
+  func calculateLayout(size: YGSize, direction: YGDirection) {
     YGNodeCalculateLayout(self, size.width, size.height, direction)
   }
 
-  internal var isDirty: Bool {
+  var isDirty: Bool {
     return YGNodeIsDirty(self)
   }
 
-  internal func markDirty() {
+  func markDirty() {
     YGNodeMarkDirty(self)
   }
 }
@@ -128,19 +128,19 @@ extension YGNodeRef {
 private var YGNodeViewContext = NSMapTable<NSNumber, UIView>.weakToWeakObjects()
 
 extension YGNodeRef {
-  internal func attachView(_ view: UIView) {
+  func attachView(_ view: UIView) {
     YGNodeViewContext.setObject(view, forKey: yogaKey)
   }
 
-  internal func detachView() {
+  func detachView() {
     YGNodeViewContext.removeObject(forKey: yogaKey)
   }
 
-  internal var view: UIView? {
+  var view: UIView? {
     return YGNodeViewContext.object(forKey: yogaKey)
   }
 
-  internal var yogaKey: NSNumber {
+  var yogaKey: NSNumber {
     return NSNumber(integerLiteral: hashValue)
   }
 }

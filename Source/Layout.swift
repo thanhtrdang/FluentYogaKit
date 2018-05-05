@@ -16,7 +16,7 @@ public class YGLayout {
   internal weak var superlayout: YGLayout?
   internal var sublayouts: [YGLayout] = []
 
-  public internal(set) var isEnabled: Bool = true
+  internal(set) var isEnabled: Bool = true
 
   internal var isRecursiveEnabled: Bool {
     @available(*, unavailable)
@@ -30,17 +30,17 @@ public class YGLayout {
     }
   }
 
-  public var isLeaf: Bool {
+  var isLeaf: Bool {
     return sublayouts.isEmpty
   }
 
-  public var isRoot: Bool {
+  var isRoot: Bool {
     return superlayout == nil
   }
 
-  public private(set) var frame: CGRect = .zero
+  private(set) var frame: CGRect = .zero
 
-  public var intrinsicSize: CGSize {
+  var intrinsicSize: CGSize {
     _calculateNode(.undefined)
     return CGSize(width: node.layoutWidth, height: node.layoutHeight)
   }
@@ -62,19 +62,19 @@ public class YGLayout {
     YGNodeFree(node)
   }
 
-  public func calculate(constrainedSize: CGSize? = nil, preserveOrigin: Bool = false) {
+  func calculate(constrainedSize: CGSize? = nil, preserveOrigin: Bool = false) {
     _calculateNode(constrainedSize)
     _calculateFrame(preserveOrigin: preserveOrigin, offset: .zero)
   }
 
-  public func apply() {
+  func apply() {
     view?.frame = frame
     sublayouts.forEach {
       $0.apply()
     }
   }
 
-  public func layout(preserveOrigin: Bool = false) {
+  func layout(preserveOrigin: Bool = false) {
     calculate(preserveOrigin: preserveOrigin)
     apply()
   }
@@ -113,7 +113,7 @@ extension YGLayout {
     return sublayouts.index(where: { $0.node == sublayout.node })
   }
 
-  internal func markNode(dummy: Bool) {
+  func markNode(dummy: Bool) {
     if dummy {
       node2Dummy()
     } else {
@@ -166,7 +166,7 @@ extension YGLayout {
     return view != nil
   }
 
-  internal func markView(hidden: Bool) {
+  func markView(hidden: Bool) {
     view?.isHidden = hidden
     sublayouts.forEach {
       $0.view?.isHidden = hidden
@@ -196,11 +196,11 @@ extension YGLayout {
   }
 
   // Workaround https://bugs.swift.org/browse/SR-128
-  internal func config(_ flexDirection: YGFlexDirection, _ subelements: [Any]) -> Self {
+  func config(_ flexDirection: YGFlexDirection, _ subelements: [Any]) -> Self {
     return self.flexDirection(flexDirection).sublayout(subelements)
   }
 
-  internal func sublayout(_ subelements: [Any]) -> Self {
+  func sublayout(_ subelements: [Any]) -> Self {
     var marginStart: YGValueType?
 
     for (index, subelement) in subelements.enumerated() {
@@ -247,11 +247,11 @@ extension YGLayout {
     }
   }
 
-  internal func handleSublayout(subview: UIView, atFirst _: Bool = false) {
+  func handleSublayout(subview: UIView, atFirst _: Bool = false) {
     handleSublayout(sublayout: subview.yoga)
   }
 
-  internal func handleSublayout(sublayout: YGLayout, atFirst: Bool = false) {
+  func handleSublayout(sublayout: YGLayout, atFirst: Bool = false) {
     let index = atFirst ? 0 : sublayouts.count
     insertSublayout(sublayout, at: index)
   }
@@ -260,7 +260,7 @@ extension YGLayout {
 // MARK: - Sublayout - Collection -
 
 extension YGLayout {
-  public subscript(index: Int) -> YGLayout {
+  subscript(index: Int) -> YGLayout {
     get {
       return sublayouts[index]
     }
@@ -274,7 +274,7 @@ extension YGLayout {
   }
 
   @discardableResult
-  public func removeSublayout(at index: Int) -> YGLayout? {
+  func removeSublayout(at index: Int) -> YGLayout? {
     if 0 <= index && index < sublayouts.count {
       let sublayout = sublayouts[index]
 
@@ -292,11 +292,11 @@ extension YGLayout {
     }
   }
 
-  public func insertSublayout(_ subview: UIView, at index: Int) {
+  func insertSublayout(_ subview: UIView, at index: Int) {
     insertSublayout(YGLayout(view: subview), at: index)
   }
 
-  public func insertSublayout(_ sublayout: YGLayout, at index: Int) {
+  func insertSublayout(_ sublayout: YGLayout, at index: Int) {
     if 0 <= index && index <= sublayouts.count {
       if sublayout.isEnabled {
         node.insertChild(sublayout.node, at: index)
