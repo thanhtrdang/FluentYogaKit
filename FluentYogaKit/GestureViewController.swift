@@ -39,7 +39,7 @@ class GestureViewController: UIViewController {
             .layout()
         
         redView.layer.cornerRadius = 7
-        redView.backgroundColor = UIColor(colorLiteralRed: 1.0, green: 0.5, blue: 0.5, alpha: 1.0)
+        redView.backgroundColor = UIColor(red: 1.0, green: 0.5, blue: 0.5, alpha: 1.0)
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap(gr:))))
         redView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(pan(gr:))))
@@ -57,11 +57,11 @@ class GestureViewController: UIViewController {
         redView.yaal.center.velocity => { (-$0.y / 1000).clamp(-limit, b: limit) } => redView.yaal.rotationX
     }
     
-    func tap(gr: UITapGestureRecognizer) {
+    @objc func tap(gr: UITapGestureRecognizer) {
         redView.yaal.center.animateTo(gr.location(in: view))
     }
     
-    func pan(gr: UIPanGestureRecognizer) {
+    @objc func pan(gr: UIPanGestureRecognizer) {
         switch gr.state {
         case .began:
             beginPosition = redView.center

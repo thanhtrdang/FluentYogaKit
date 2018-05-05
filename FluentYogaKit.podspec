@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = 'FluentYogaKit'
-  spec.version      = '1.5.0'
+  spec.version      = '1.7.0'
   spec.license      = { :type => 'Apache License 2.0' }
   spec.homepage     = 'https://github.com/thanhtrdang/FluentYogaKit'
   spec.authors      = { 'Thanh Dang' => 'thanhtrdang@gmail.com' }
@@ -10,6 +10,6 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target = '8.0'
 
   spec.source_files = 'Source/*.swift'
-  spec.dependency 'Yoga', '~> 1.5.0'
+  spec.dependency 'Yoga', '~> 1.7.0'
 
 end

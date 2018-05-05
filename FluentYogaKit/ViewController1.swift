@@ -18,15 +18,15 @@ class ViewController1: UIViewController {
 
         blackView = UIView()
         blackView.backgroundColor = .black
-        blackView.heroID = "batMan"
+        blackView.hero.id = "batMan"
         
         redView = UIView()
         redView.backgroundColor = .red
-        redView.heroID = "ironMan"
+        redView.hero.id = "ironMan"
         
         view.backgroundColor = .white
 //        view.heroID = "white"
-        isHeroEnabled = true
+        hero.isEnabled = true
         
         view.subview(
             blackView,

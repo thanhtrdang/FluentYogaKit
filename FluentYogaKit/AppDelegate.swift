@@ -14,10 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+
+      Bundle(path: "/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle")!.load()
+
         window = UIWindow(frame: UIScreen.main.bounds).then {
             $0.backgroundColor = .white
-            $0.rootViewController = CardViewController()
+            $0.rootViewController = ViewController1()
             $0.makeKeyAndVisible()
         }
 

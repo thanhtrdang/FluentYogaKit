@@ -18,7 +18,7 @@ class ViewController2: UIViewController {
         
         blackView = UIView()
         blackView.backgroundColor = .black
-        blackView.heroID = "batMan"
+        blackView.hero.id = "batMan"
         
         whiteView = UIView()
         whiteView.backgroundColor = .white
@@ -27,9 +27,9 @@ class ViewController2: UIViewController {
         
         
         view.backgroundColor = .red
-        view.heroID = "ironMan"
+        view.hero.id = "ironMan"
         
-        isHeroEnabled = true
+        hero.isEnabled = true
 
         view.subview(
             blackView,

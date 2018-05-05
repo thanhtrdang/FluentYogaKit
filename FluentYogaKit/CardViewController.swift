@@ -51,14 +51,14 @@ class CardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         cardFrame = UIEdgeInsetsInsetRect(view.bounds, UIEdgeInsets(top:120, left: 50, bottom: 120, right: 50))
-        view.backgroundColor = UIColor(colorLiteralRed: 1.0, green: 0.5, blue: 0.5, alpha: 1.0)
+        view.backgroundColor = UIColor(red: 1.0, green: 0.5, blue: 0.5, alpha: 1.0)
         gr.addTarget(self, action: #selector(pan(gr:)))
         view.addGestureRecognizer(gr)
         
         card = generateCard()
     }
     
-    func pan(gr: UIPanGestureRecognizer) {
+    @objc func pan(gr: UIPanGestureRecognizer) {
         let translation = gr.translation(in: view)
         switch gr.state {
         case .began:

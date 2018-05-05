@@ -28,7 +28,7 @@ public extension UIView {
         return subview(subviews)
     }
     
-    @discardableResult
+    @objc @discardableResult
     public func subview(_ subviews: [UIView]) -> UIView {
         subviews.forEach {
             addSubview($0)
