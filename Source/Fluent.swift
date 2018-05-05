@@ -12,7 +12,7 @@ import yoga
 
 extension YGLayout {
 
-  // MARK:
+  // MARK: 
 
   /*
    - set on item itself
@@ -36,7 +36,7 @@ extension YGLayout {
     return self
   }
 
-  // MARK:
+  // MARK: 
 
   /*
    - set on item itself
@@ -114,7 +114,7 @@ extension YGLayout {
     return self
   }
 
-  // MARK:
+  // MARK: 
 
   /*
    - set on containers
@@ -146,7 +146,7 @@ extension YGLayout {
     return self
   }
 
-  // MARK:
+  // MARK: 
 
   /*
    - set on item itself
@@ -183,7 +183,7 @@ extension YGLayout {
     return self
   }
 
-  // MARK:
+  // MARK: 
 
   /*
    - in case of position = absolute
@@ -225,7 +225,7 @@ extension YGLayout {
     return self
   }
 
-  // MARK:
+  // MARK: 
 
   @discardableResult
   public func marginTop(_ marginTop: YGValueType) -> Self {
@@ -281,7 +281,7 @@ extension YGLayout {
     return self
   }
 
-  // MARK:
+  // MARK: 
 
   @discardableResult
   public func paddingTop(_ paddingTop: YGValueType) -> Self {
@@ -337,7 +337,7 @@ extension YGLayout {
     return self
   }
 
-  // MARK:
+  // MARK: 
 
   @discardableResult
   public func borderTop(_ borderTop: Float) -> Self {
@@ -393,7 +393,7 @@ extension YGLayout {
     return self
   }
 
-  // MARK:
+  // MARK: 
 
   @discardableResult
   public func width(_ width: YGValueType) -> Self {
@@ -481,13 +481,14 @@ extension YGLayout {
   }
 
   @discardableResult
-  public func sizeRange(minWidth: YGValueType, minHeight: YGValueType, maxWidth: YGValueType, maxHeight: YGValueType) -> Self {
+  public func sizeRange(minWidth: YGValueType, minHeight: YGValueType,
+                        maxWidth: YGValueType, maxHeight: YGValueType) -> Self {
     minSize(width: minWidth, height: minHeight)
     maxSize(width: maxWidth, height: maxHeight)
     return self
   }
 
-  // MARK:
+  // MARK: 
 
   // width / height, e.g. 0.5 (w = 1/2 h), 2.0 (w = 2 h)
   @discardableResult
@@ -541,8 +542,8 @@ extension YGLayout {
 // MARK: - Pin layout -
 
 extension YGLayout {
-  public class func spacer() -> YGLayout {
-    return YGLayout().flexGrow(1).crossAxisSelf(align: .stretch)
+  public class func spacer(_ flexGrow: Float = 1) -> YGLayout {
+    return YGLayout().flexGrow(flexGrow).crossAxisSelf(align: .stretch)
   }
 
   public class func vTop(hAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
@@ -563,7 +564,8 @@ extension YGLayout {
       .crossAxis(align: hAlign)
   }
 
-  public class func vSpace(vAlign: YGJustify = .spaceBetween, hAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+  public class func vSpace(vAlign: YGJustify = .spaceBetween, hAlign: YGAlign = .stretch,
+                           _ sublayouts: Any...) -> YGLayout {
     return YGLayout().config(.column, sublayouts)
       .mainAxis(align: vAlign)
       .crossAxis(align: hAlign)
@@ -592,7 +594,8 @@ extension YGLayout {
       .crossAxis(align: vAlign)
   }
 
-  public class func hSpace(hAlign: YGJustify = .spaceBetween, vAlign: YGAlign = .stretch, _ sublayouts: Any...) -> YGLayout {
+  public class func hSpace(hAlign: YGJustify = .spaceBetween, vAlign: YGAlign = .stretch,
+                           _ sublayouts: Any...) -> YGLayout {
     return YGLayout().config(.row, sublayouts)
       .mainAxis(align: hAlign)
       .crossAxis(align: vAlign)
@@ -671,7 +674,8 @@ extension YGLayout {
       .crossAxisIfWrap(align: vAlign)
   }
 
-  // TODO: Swift generic: Don't know how to do e.g. center<Element>() where Element: UIView or Element: YGLayout
+  // TODO: Swift generic: Don't know how to do e.g. center<Element>()
+  // where Element: UIView or Element: YGLayout
   @discardableResult
   public func center(_ subview: UIView) -> Self {
     return _center(subview)
@@ -688,8 +692,10 @@ extension YGLayout {
       .crossAxis(align: .center)
   }
 
-  // These must be synced with view.insertSubview(subview, at: first) -> background, view.insertSubview(subview, at: last) -> overlay
-  // Use start, end instead of left, right
+  // These must be synced with
+  // view.insertSubview(subview, at: first) -> background
+  // view.insertSubview(subview, at: last) -> overlay
+  // Use start/end instead of left/right
   @discardableResult
   public func overlay(_ overlay: UIView, edges: [YGEdge: YGValueType] = [.all: Float(0)]) -> Self {
     return _filled(by: YGLayout(view: overlay), edges: edges)
@@ -713,7 +719,7 @@ extension YGLayout {
   fileprivate func _filled(by sublayout: YGLayout, edges: [YGEdge: YGValueType], atFirst: Bool = false) -> Self {
     sublayout.position(.absolute)
     var fullEdges: [YGEdge: YGValueType] = [
-      .top: 0, .bottom: 0, .start: 0, .end: 0,
+      .top: 0, .bottom: 0, .start: 0, .end: 0
     ]
 
     edges.forEach { edge, value in
@@ -735,7 +741,7 @@ extension YGLayout {
     }
 
     fullEdges.forEach { edge, value in
-      sublayout._setPosition(edge, value)
+      sublayout.setPosition(edge, value)
     }
 
     handleSublayout(sublayout: sublayout, atFirst: atFirst)

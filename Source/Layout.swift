@@ -214,8 +214,8 @@ extension YGLayout {
       case is YGValueType:
         if index == 0 {
           marginStart = subelement as? YGValueType
-        } else {
-          handleSublayout(marginEnd: subelement as! YGValueType)
+        } else if let marginEnd = subelement as? YGValueType {
+          handleSublayout(marginEnd: marginEnd)
         }
       default:
         print("Don't support \(index) - \(subelement) yet.")

@@ -10,7 +10,8 @@ import yoga
 
 // MARK: - YGNodeRef -
 
-fileprivate let YGNodeMeasureFunc: YGMeasureFunc = { (node: YGNodeRef?, width: Float, widthMode: YGMeasureMode, height: Float, heightMode: YGMeasureMode) -> YGSize in
+private let YGNodeMeasureFunc: YGMeasureFunc = {
+  (node: YGNodeRef?, width: Float, widthMode: YGMeasureMode, height: Float, heightMode: YGMeasureMode) -> YGSize in
   let constrainedWidth = (widthMode == .undefined) ? YGValueUndefined.value : width
   let constrainedHeight = (heightMode == .undefined) ? YGValueUndefined.value : height
   let constrainedSize = YGSize(width: constrainedWidth, height: constrainedHeight)
@@ -93,7 +94,8 @@ extension YGNodeRef {
     YGNodeSetMeasureFunc(self, nil)
   }
 
-  fileprivate func sanitizeMeasurement(_ constrainedSize: Float, _ measuredSize: Float, _ measureMode: YGMeasureMode) -> Float {
+  fileprivate func sanitizeMeasurement(_ constrainedSize: Float, _ measuredSize: Float,
+                                       _ measureMode: YGMeasureMode) -> Float {
     var result: Float
 
     switch measureMode {
@@ -123,7 +125,7 @@ extension YGNodeRef {
 
 // MARK: - Layout association -
 
-fileprivate var YGNodeViewContext = NSMapTable<NSNumber, UIView>.weakToWeakObjects()
+private var YGNodeViewContext = NSMapTable<NSNumber, UIView>.weakToWeakObjects()
 
 extension YGNodeRef {
   internal func attachView(_ view: UIView) {

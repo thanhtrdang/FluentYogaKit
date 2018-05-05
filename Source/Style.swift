@@ -139,7 +139,7 @@ extension YGLayout {
       return YGNodeStyleGetPosition(node, .left)
     }
     set {
-      _setPosition(.left, newValue)
+      setPosition(.left, newValue)
     }
   }
 
@@ -148,7 +148,7 @@ extension YGLayout {
       return YGNodeStyleGetPosition(node, .top)
     }
     set {
-      _setPosition(.top, newValue)
+      setPosition(.top, newValue)
     }
   }
 
@@ -157,7 +157,7 @@ extension YGLayout {
       return YGNodeStyleGetPosition(node, .right)
     }
     set {
-      _setPosition(.right, newValue)
+      setPosition(.right, newValue)
     }
   }
 
@@ -166,7 +166,7 @@ extension YGLayout {
       return YGNodeStyleGetPosition(node, .bottom)
     }
     set {
-      _setPosition(.bottom, newValue)
+      setPosition(.bottom, newValue)
     }
   }
 
@@ -175,7 +175,7 @@ extension YGLayout {
       return YGNodeStyleGetPosition(node, .start)
     }
     set {
-      _setPosition(.start, newValue)
+      setPosition(.start, newValue)
     }
   }
 
@@ -184,7 +184,7 @@ extension YGLayout {
       return YGNodeStyleGetPosition(node, .end)
     }
     set {
-      _setPosition(.end, newValue)
+      setPosition(.end, newValue)
     }
   }
 
@@ -193,7 +193,7 @@ extension YGLayout {
       return YGNodeStyleGetMargin(node, .left)
     }
     set {
-      _setMargin(.left, newValue)
+      setMargin(.left, newValue)
     }
   }
 
@@ -202,7 +202,7 @@ extension YGLayout {
       return YGNodeStyleGetMargin(node, .top)
     }
     set {
-      _setMargin(.top, newValue)
+      setMargin(.top, newValue)
     }
   }
 
@@ -211,7 +211,7 @@ extension YGLayout {
       return YGNodeStyleGetMargin(node, .right)
     }
     set {
-      _setMargin(.right, newValue)
+      setMargin(.right, newValue)
     }
   }
 
@@ -220,7 +220,7 @@ extension YGLayout {
       return YGNodeStyleGetMargin(node, .bottom)
     }
     set {
-      _setMargin(.bottom, newValue)
+      setMargin(.bottom, newValue)
     }
   }
 
@@ -229,7 +229,7 @@ extension YGLayout {
       return YGNodeStyleGetMargin(node, .start)
     }
     set {
-      _setMargin(.start, newValue)
+      setMargin(.start, newValue)
     }
   }
 
@@ -238,7 +238,7 @@ extension YGLayout {
       return YGNodeStyleGetMargin(node, .end)
     }
     set {
-      _setMargin(.end, newValue)
+      setMargin(.end, newValue)
     }
   }
 
@@ -247,7 +247,7 @@ extension YGLayout {
       return YGNodeStyleGetMargin(node, .horizontal)
     }
     set {
-      _setMargin(.horizontal, newValue)
+      setMargin(.horizontal, newValue)
     }
   }
 
@@ -256,7 +256,7 @@ extension YGLayout {
       return YGNodeStyleGetMargin(node, .vertical)
     }
     set {
-      _setMargin(.vertical, newValue)
+      setMargin(.vertical, newValue)
     }
   }
 
@@ -265,7 +265,7 @@ extension YGLayout {
       return YGNodeStyleGetMargin(node, .all)
     }
     set {
-      _setMargin(.all, newValue)
+      setMargin(.all, newValue)
     }
   }
 
@@ -274,7 +274,7 @@ extension YGLayout {
       return YGNodeStyleGetPadding(node, .left)
     }
     set {
-      _setPadding(.left, newValue)
+      setPadding(.left, newValue)
     }
   }
 
@@ -283,7 +283,7 @@ extension YGLayout {
       return YGNodeStyleGetPadding(node, .top)
     }
     set {
-      _setPadding(.top, newValue)
+      setPadding(.top, newValue)
     }
   }
 
@@ -292,7 +292,7 @@ extension YGLayout {
       return YGNodeStyleGetPadding(node, .right)
     }
     set {
-      _setPadding(.right, newValue)
+      setPadding(.right, newValue)
     }
   }
 
@@ -301,7 +301,7 @@ extension YGLayout {
       return YGNodeStyleGetPadding(node, .bottom)
     }
     set {
-      _setPadding(.bottom, newValue)
+      setPadding(.bottom, newValue)
     }
   }
 
@@ -310,7 +310,7 @@ extension YGLayout {
       return YGNodeStyleGetPadding(node, .start)
     }
     set {
-      _setPadding(.start, newValue)
+      setPadding(.start, newValue)
     }
   }
 
@@ -319,7 +319,7 @@ extension YGLayout {
       return YGNodeStyleGetPadding(node, .end)
     }
     set {
-      _setPadding(.end, newValue)
+      setPadding(.end, newValue)
     }
   }
 
@@ -328,7 +328,7 @@ extension YGLayout {
       return YGNodeStyleGetPadding(node, .horizontal)
     }
     set {
-      _setPadding(.horizontal, newValue)
+      setPadding(.horizontal, newValue)
     }
   }
 
@@ -337,7 +337,7 @@ extension YGLayout {
       return YGNodeStyleGetPadding(node, .vertical)
     }
     set {
-      _setPadding(.vertical, newValue)
+      setPadding(.vertical, newValue)
     }
   }
 
@@ -346,7 +346,7 @@ extension YGLayout {
       return YGNodeStyleGetPadding(node, .all)
     }
     set {
-      _setPadding(.all, newValue)
+      setPadding(.all, newValue)
     }
   }
 
@@ -540,7 +540,7 @@ extension YGLayout {
 }
 
 internal extension YGLayout {
-  func _setPosition(_ edge: YGEdge, _ value: YGValueType) {
+  func setPosition(_ edge: YGEdge, _ value: YGValueType) {
     switch value.unit {
     case .percent:
       YGNodeStyleSetPositionPercent(node, edge, value.value)
@@ -550,7 +550,7 @@ internal extension YGLayout {
     }
   }
 
-  func _setMargin(_ edge: YGEdge, _ value: YGValueType) {
+  func setMargin(_ edge: YGEdge, _ value: YGValueType) {
     switch value.unit {
     case .percent:
       YGNodeStyleSetMarginPercent(node, edge, value.value)
@@ -560,7 +560,7 @@ internal extension YGLayout {
     }
   }
 
-  func _setPadding(_ edge: YGEdge, _ value: YGValueType) {
+  func setPadding(_ edge: YGEdge, _ value: YGValueType) {
     switch value.unit {
     case .percent:
       YGNodeStyleSetPaddingPercent(node, edge, value.value)
