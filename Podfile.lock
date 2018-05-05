@@ -1,18 +1,21 @@
 PODS:
   - FluentSwift (1.0.0)
   - Hero (1.2.0)
+  - SwiftFormat/CLI (0.33.6)
   - YetAnotherAnimationLibrary (1.2.0)
   - Yoga (1.7.0)
 
 DEPENDENCIES:
   - FluentSwift (from `https://github.com/thanhtrdang/FluentSwift.git`)
   - Hero
+  - SwiftFormat/CLI
   - YetAnotherAnimationLibrary
   - Yoga (from `https://github.com/facebook/yoga.git`, tag `1.7.0`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Hero
+    - SwiftFormat
     - YetAnotherAnimationLibrary
 
 EXTERNAL SOURCES:
@@ -24,7 +27,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   FluentSwift:
-    :commit: aee74498beac18767e48613acd4b4183d1921e40
+    :commit: 5df51a6cb37a6c9523b3752044572d3d6d9f4f4b
     :git: https://github.com/thanhtrdang/FluentSwift.git
   Yoga:
     :git: https://github.com/facebook/yoga.git
@@ -33,9 +36,10 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   FluentSwift: cf00b12f3bdb1ce06cc6858651795adb3fbde7f9
   Hero: 33dadf2cd1c98af71e213dcbc2902e6e03622a4e
+  SwiftFormat: ed9b18669d13893cd79f437e23f2bca5bce6abf1
   YetAnotherAnimationLibrary: 3cb3e784cf1b4305095e0ef2c57965eb1b51b1c6
   Yoga: 983d0c15b9676d5beeea25103fd5673fd481b123
 
-PODFILE CHECKSUM: d06144e8640befd6d40fda102fbf772fac1bd540
+PODFILE CHECKSUM: d73abf0f41eb73f09d24c4a10f58a7857a0ea503
 
 COCOAPODS: 1.5.0

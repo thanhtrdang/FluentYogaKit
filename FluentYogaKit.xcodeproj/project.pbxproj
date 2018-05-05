@@ -17,6 +17,8 @@
 		6D36354B1EEE53E900ADF611 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D36354A1EEE53E900ADF611 /* CardViewController.swift */; };
 		6D5B9AA71EE89AAA007D8D26 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5B9AA61EE89AAA007D8D26 /* UIView.swift */; };
 		6D68998F209DFEFB008783E7 /* UIViewController+HotReloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D68998E209DFEFB008783E7 /* UIViewController+HotReloading.swift */; };
+		6D7A4CB6209E2DD70045428F /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 6D7A4CB4209E2DD70045428F /* Podfile */; };
+		6D7A4CB7209E2DD70045428F /* FluentYogaKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D7A4CB5209E2DD70045428F /* FluentYogaKit.podspec */; };
 		6D876C991EDC6486002663EA /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D876C981EDC6486002663EA /* Support.swift */; };
 		6D876C9B1EDC6E3F002663EA /* YGNodeRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D876C9A1EDC6E3F002663EA /* YGNodeRef.swift */; };
 		6D876C9D1EDC8158002663EA /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D876C9C1EDC8158002663EA /* Layout.swift */; };
@@ -39,6 +41,8 @@
 		6D36354A1EEE53E900ADF611 /* CardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		6D5B9AA61EE89AAA007D8D26 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		6D68998E209DFEFB008783E7 /* UIViewController+HotReloading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+HotReloading.swift"; sourceTree = "<group>"; };
+		6D7A4CB4209E2DD70045428F /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		6D7A4CB5209E2DD70045428F /* FluentYogaKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FluentYogaKit.podspec; sourceTree = "<group>"; };
 		6D876C981EDC6486002663EA /* Support.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		6D876C9A1EDC6E3F002663EA /* YGNodeRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YGNodeRef.swift; sourceTree = "<group>"; };
 		6D876C9C1EDC8158002663EA /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
@@ -68,6 +72,8 @@
 		6D883B981ED5D82A00608385 = {
 			isa = PBXGroup;
 			children = (
+				6D7A4CB5209E2DD70045428F /* FluentYogaKit.podspec */,
+				6D7A4CB4209E2DD70045428F /* Podfile */,
 				6D883BB61ED5D9D700608385 /* Source */,
 				6D883BA31ED5D82A00608385 /* FluentYogaKit */,
 				6D883BA21ED5D82A00608385 /* Products */,
@@ -142,6 +148,7 @@
 			buildConfigurationList = 6D883BB31ED5D82A00608385 /* Build configuration list for PBXNativeTarget "FluentYogaKit" */;
 			buildPhases = (
 				4F424579F260DDDEDCF4EB25 /* [CP] Check Pods Manifest.lock */,
+				6D7A4CB8209E2E8B0045428F /* Swift Format */,
 				6D883B9D1ED5D82A00608385 /* Sources */,
 				6D883B9E1ED5D82A00608385 /* Frameworks */,
 				6D883B9F1ED5D82A00608385 /* Resources */,
@@ -196,8 +203,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D7A4CB6209E2DD70045428F /* Podfile in Resources */,
 				6D883BAF1ED5D82A00608385 /* LaunchScreen.storyboard in Resources */,
 				6D883BAC1ED5D82A00608385 /* Assets.xcassets in Resources */,
+				6D7A4CB7209E2DD70045428F /* FluentYogaKit.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +254,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FluentYogaKit/Pods-FluentYogaKit-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		6D7A4CB8209E2E8B0045428F /* Swift Format */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Format";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat\" \"${SRCROOT}/Source\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
