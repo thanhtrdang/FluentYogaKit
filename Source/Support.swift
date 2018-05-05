@@ -6,7 +6,6 @@
 //  Copyright © 2017 Thanh Dang. All rights reserved.
 //
 
-import UIKit
 import yoga
 
 internal let scaleFactor = Float(UIScreen.main.scale)
