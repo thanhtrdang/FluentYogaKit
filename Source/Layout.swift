@@ -30,17 +30,17 @@ public class YGLayout {
     }
   }
 
-  var isLeaf: Bool {
+  public var isLeaf: Bool {
     return sublayouts.isEmpty
   }
 
-  var isRoot: Bool {
+  public var isRoot: Bool {
     return superlayout == nil
   }
 
   private(set) var frame: CGRect = .zero
 
-  var intrinsicSize: CGSize {
+  public var intrinsicSize: CGSize {
     _calculateNode(.undefined)
     return CGSize(width: node.layoutWidth, height: node.layoutHeight)
   }
@@ -62,19 +62,19 @@ public class YGLayout {
     YGNodeFree(node)
   }
 
-  func calculate(constrainedSize: CGSize? = nil, preserveOrigin: Bool = false) {
+  public func calculate(constrainedSize: CGSize? = nil, preserveOrigin: Bool = false) {
     _calculateNode(constrainedSize)
     _calculateFrame(preserveOrigin: preserveOrigin, offset: .zero)
   }
 
-  func apply() {
+  public func apply() {
     view?.frame = frame
     sublayouts.forEach {
       $0.apply()
     }
   }
 
-  func layout(preserveOrigin: Bool = false) {
+  public func layout(preserveOrigin: Bool = false) {
     calculate(preserveOrigin: preserveOrigin)
     apply()
   }
